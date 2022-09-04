@@ -12,7 +12,7 @@ import {
 } from '../../components/common'
 import { BuyProductForm } from '../../components/Forms/BuyProductForm'
 import { ContactEventForm } from '../../components/Forms/ContactEventForm'
-import { useDependant } from '../../hooks'
+import { useFetch } from '../../hooks'
 import { IProduct } from '../../types/interfaces'
 import { TImages } from '../../types/types'
 
@@ -20,9 +20,9 @@ function SingleProduct(): ReactElement {
   const { id = '' } = useParams<Record<'id', string>>()
   const {
     data: product
-  } = useDependant<IProduct>(getProductDetails(id), [`products${id}`], id)
+  } = useFetch<IProduct>(getProductDetails(id), [`products${id}`], id)
 
-  const { data: images } = useDependant<TImages>(getProductImages(id), [`images${id}`], id)
+  const { data: images } = useFetch<TImages>(getProductImages(id), [`images${id}`], id)
 
   const {
     title = '', price = 0, description = '', amount

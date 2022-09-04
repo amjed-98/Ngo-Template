@@ -6,7 +6,7 @@ import { Footer, Navbar } from '../../components'
 import { EventCard } from '../../components/SingleEvent/EventCard'
 import { SingleEventDetails } from '../../components/SingleEvent/SingleEventDetails'
 import Skeleton from '../../components/Skeleton'
-import { useDependant } from '../../hooks'
+import { useFetch } from '../../hooks'
 import { IEvent } from '../../types/interfaces'
 
 function SingleEvent(): ReactElement {
@@ -14,7 +14,7 @@ function SingleEvent(): ReactElement {
   const isEvent = pathname.startsWith('/events')
   const isCourse = pathname.startsWith('/courses')
   const { id } = useParams() as { id: string }
-  const { data: event, isLoading } = useDependant<IEvent>(getEventURL(id), [`event-details-${id}`], id) || {}
+  const { data: event, isLoading } = useFetch<IEvent>(getEventURL(id), [`event-details-${id}`], id) || {}
   return (
     <>
       <Navbar />

@@ -4,7 +4,7 @@ import {
 import { DefaultTheme, ThemeProvider } from 'styled-components'
 import { ToastContainer } from 'react-toastify'
 import { getOngByUrl, getOngConfig } from './api/getApiServices'
-import { useDependant, useAppDispatch } from './hooks'
+import { useFetch, useAppDispatch } from './hooks'
 import { setOngConfig, setOngId } from './redux/features'
 import AllRoute from './app/router'
 import { LoadingIndex } from './components'
@@ -27,7 +27,7 @@ function App() {
     data: config,
     isLoading: isLoadingPage,
     isError,
-  } = useDependant<TPlatformConfig>(getOngByUrl(ongUrl), ['ongConfigUrl'], ongUrl)
+  } = useFetch<TPlatformConfig>(getOngByUrl(ongUrl), ['ongConfigUrl'], ongUrl)
 
   const ongId = config?.ong_id || ''
 
@@ -35,7 +35,7 @@ function App() {
     data: ongData,
     isLoading,
     isError: isErrorPage,
-  } = useDependant<TOngConfig>(getOngConfig(ongId), ['ongConfig'], ongId)
+  } = useFetch<TOngConfig>(getOngConfig(ongId), ['ongConfig'], ongId)
 
   const primary = ongData?.brand.primary_color_hex || ''
   const secondary = ongData?.brand.secondary_color_hex || ''

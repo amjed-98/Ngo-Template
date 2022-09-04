@@ -2,7 +2,7 @@ import { useMemo, type ReactElement } from 'react'
 import styled, { useTheme } from 'styled-components'
 import chunk from 'lodash/chunk'
 import { Box, Carousel, Image } from '../common'
-import { useAppSelector, useDependant } from '../../hooks'
+import { useAppSelector, useFetch } from '../../hooks'
 import { getOngLogos } from '../../api/getApiServices'
 import Skeleton from '../Skeleton'
 import { ErrorInput } from '../common/ErrorInput'
@@ -16,7 +16,7 @@ export default function LogosCarousel(): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
   const {
     data: logos = [], isLoading, isError,
-  } = useDependant<ILogo[]>(getOngLogos(ongId), ['logos'], ongId)
+  } = useFetch<ILogo[]>(getOngLogos(ongId), ['logos'], ongId)
 
   const { primary } = useTheme()
 

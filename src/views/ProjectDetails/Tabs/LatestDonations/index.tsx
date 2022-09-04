@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import styled from 'styled-components'
 import { getProjectLatestDonationsURL } from '../../../../api/getApiServices'
 import { Text } from '../../../../components/common'
-import { useDependant } from '../../../../hooks'
+import { useFetch } from '../../../../hooks'
 import { type IDonation } from '../../../../types/interfaces'
 import Skeleton from '../../../../components/Skeleton'
 import DonationCard from './DonationCard'
@@ -15,7 +15,7 @@ interface IProps {
 function LatestDonations({ title, projectId }: IProps) {
   const {
     data: donations, isLoading
-  } = useDependant<IDonation[]>(getProjectLatestDonationsURL(projectId), [`donations${projectId}`], projectId)
+  } = useFetch<IDonation[]>(getProjectLatestDonationsURL(projectId), [`donations${projectId}`], projectId)
 
   const memoizedDonations = useMemo(
     () => donations?.map((donation) => (

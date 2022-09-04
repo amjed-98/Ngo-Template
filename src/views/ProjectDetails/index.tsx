@@ -6,7 +6,7 @@ import { Footer, Navbar } from '../../components'
 import ImageCarousel from './ImageCarousel'
 import Tabs from './Tabs'
 import Skeleton from '../../components/Skeleton'
-import { useDependant } from '../../hooks'
+import { useFetch } from '../../hooks'
 import { getProjectDetailsURL, getProjectImagesURL } from '../../api/getApiServices'
 import { IProject } from '../../types/interfaces'
 import { TImages } from '../../types/types'
@@ -16,12 +16,12 @@ function ProjectDetails(): ReactElement {
 
   const {
     data: images = [], isLoading: isImagesLoading
-  } = useDependant<TImages>(getProjectImagesURL(id), [`project-images-${id}`], id)
+  } = useFetch<TImages>(getProjectImagesURL(id), [`project-images-${id}`], id)
 
   const {
     data: projectDetails,
     isLoading: isProjectLoading
-  } = useDependant<IProject>(getProjectDetailsURL(id), [`project-details-${id}`], id)
+  } = useFetch<IProject>(getProjectDetailsURL(id), [`project-details-${id}`], id)
   return (
     <>
       <Navbar />

@@ -4,7 +4,7 @@ import moment from 'moment'
 import NearEvent from './NearEvent/NearEvent'
 import OtherEvent from './OtherEvents'
 import { Flex, SectionTitle } from '../common'
-import { useAppSelector, useDependant } from '../../hooks'
+import { useAppSelector, useFetch } from '../../hooks'
 import { getEventsURL } from '../../api/getApiServices'
 import Skeleton from '../Skeleton'
 import { IEvent } from '../../types/interfaces'
@@ -14,7 +14,7 @@ function Events(): ReactElement {
 
   const {
     data: events = [], isLoading, isError,
-  } = useDependant<IEvent[]>(getEventsURL(ongId), ['events'], ongId)
+  } = useFetch<IEvent[]>(getEventsURL(ongId), ['events'], ongId)
 
   // Get the nearest event
   const nearestEvent = useMemo(

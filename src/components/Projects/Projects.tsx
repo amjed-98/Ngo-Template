@@ -2,7 +2,7 @@ import chunk from 'lodash/chunk'
 import { useMemo, type ReactElement } from 'react'
 import styled from 'styled-components'
 import { getProjectsURL } from '../../api/getApiServices'
-import { useAppSelector, useDependant } from '../../hooks'
+import { useAppSelector, useFetch } from '../../hooks'
 import { IProject } from '../../types/interfaces'
 import { Box, Carousel } from '../common'
 import ProjectCardSkeleton from '../Skeleton'
@@ -13,7 +13,7 @@ export default function Projects(): ReactElement {
 
   const {
     data: projects = [], isLoading
-  } = useDependant<IProject[]>(getProjectsURL(ongId), ['projects'], ongId)
+  } = useFetch<IProject[]>(getProjectsURL(ongId), ['projects'], ongId)
 
   const memoizedProjects = useMemo(() => [
     ...chunk(projects, 3).map((ThreeProjects, i) => (

@@ -5,7 +5,7 @@ import {
   Flex, SectionTitle, Text
 } from '../../components/common'
 import { ProductCard } from '../../components/ProductCard/ProductCard'
-import { useAppSelector, useDependant } from '../../hooks'
+import { useAppSelector, useFetch } from '../../hooks'
 import Skeleton from '../../components/Skeleton'
 import { TProducts } from '../../types/types'
 
@@ -13,7 +13,7 @@ function Shop() {
   const ongId = useAppSelector((state) => state.ong?.ongId) || ''
   const {
     data: products, isLoading
-  } = useDependant<TProducts>(getProductsURL(ongId), ['products'], ongId)
+  } = useFetch<TProducts>(getProductsURL(ongId), ['products'], ongId)
 
   const memoizedProducts = useMemo(
     () => products?.map((product) => <ProductCard key={product.id} {...product} />),

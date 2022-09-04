@@ -6,7 +6,7 @@ import { useLocation } from 'react-router-dom'
 import { Card, Flex, Text } from '../common'
 import { EventCarousel } from '../EventCarousel/EventCarousel'
 import { BuyEventform } from '../Forms/BuyEventform'
-import { useDependant } from '../../hooks'
+import { useFetch } from '../../hooks'
 import { getEventImages } from '../../api/getApiServices'
 import { IImage } from '../../types/interfaces'
 import BuyModal from '../BuyModal'
@@ -33,7 +33,7 @@ export function EventCard(props: IProps): ReactElement {
   const endDate = moment(end_time).format('Do MMM YYYY')
   const {
     data: images = [], isLoading
-  } = useDependant<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
+  } = useFetch<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
 
   const Form = course ? <BuyCourseForm courseId={id} /> : <BuyEventform modal eventId={id} />
 

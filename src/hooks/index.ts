@@ -1,4 +1,4 @@
-export { default as useDependant } from './useDependant'
+export { default as useFetch } from './useFetch'
 export { default as useObserver } from './useObserver'
 export { default as usePostData } from './usePostData'
 export { default as useAppSelector } from './useAppSelector'

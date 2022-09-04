@@ -1,7 +1,7 @@
 import axios, { type AxiosError } from 'axios'
 import { type QueryKey, useQuery } from '@tanstack/react-query'
 
-function useDependant<TData>(url: string, queryKey: QueryKey, exist: string | boolean) {
+function useFetch<TData>(url: string, queryKey: QueryKey, exist: string | boolean) {
   const fetchData = async () => {
     const { data } = await axios.get(url)
 
@@ -21,4 +21,4 @@ function useDependant<TData>(url: string, queryKey: QueryKey, exist: string | bo
   }
 }
 
-export default useDependant
+export default useFetch

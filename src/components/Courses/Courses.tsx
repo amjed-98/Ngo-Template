@@ -4,7 +4,7 @@ import CourseCard from './CourseCard/CourseCard'
 import {
   Box, Carousel, Flex, SectionTitle
 } from '../common'
-import { useAppSelector, useDependant } from '../../hooks'
+import { useAppSelector, useFetch } from '../../hooks'
 import { getCoursesURL } from '../../api/getApiServices'
 import CourseCardSkeleton from '../Skeleton'
 import { ICourse } from '../../types/interfaces'
@@ -14,7 +14,7 @@ function Courses(): ReactElement {
 
   const {
     data: events = [], isLoading
-  } = useDependant<ICourse[]>(getCoursesURL(ongId), ['courses'], ongId)
+  } = useFetch<ICourse[]>(getCoursesURL(ongId), ['courses'], ongId)
 
   const memoizedCourses:JSX.Element[] = useMemo(
     () => [

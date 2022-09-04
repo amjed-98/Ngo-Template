@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import { getEventURL } from '../../api/getApiServices'
 import { getBuyEventTicketUrl } from '../../api/postApiServices'
 import {
-  useAppSelector, useDependant, useFormSubmit
+  useAppSelector, useFetch, useFormSubmit
 } from '../../hooks'
 import { IEventDetails, ITicket } from '../../types/interfaces'
 import { TModal } from '../../types/types'
@@ -36,7 +36,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
 
   const {
     data: eventDetails
-  } = useDependant<IEventDetails>(getEventURL(eventId), [`event_ticket${eventId}`], eventId)
+  } = useFetch<IEventDetails>(getEventURL(eventId), [`event_ticket${eventId}`], eventId)
   const { EventTickets = [], price } = eventDetails || {}
 
   const {

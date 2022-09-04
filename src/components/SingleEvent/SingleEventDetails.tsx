@@ -4,7 +4,7 @@ import { Tabs } from 'antd'
 import HtmlParser from 'html-react-parser'
 
 import styled from 'styled-components'
-import { useAppSelector, useDependant, useGeocoding } from '../../hooks'
+import { useAppSelector, useFetch, useGeocoding } from '../../hooks'
 import { getEventImages } from '../../api/getApiServices'
 import { BuyEventform } from '../Forms/BuyEventform'
 import { ContactEventForm } from '../Forms/ContactEventForm'
@@ -17,7 +17,7 @@ export function SingleEventDetails({ event, id, isLoadingEvent }
   : { event: IEvent | undefined, id: string, isLoadingEvent: boolean }): ReactElement {
   const {
     data: images = [], isLoading
-  } = useDependant<IImage[]>(getEventImages(id), ['event_images'], id)
+  } = useFetch<IImage[]>(getEventImages(id), ['event_images'], id)
   const address = useAppSelector(({ ong }) => ong.ongConfig?.contact.address) || ''
 
   const { lat, lng } = useGeocoding(address)

@@ -50,7 +50,4 @@ function CourseCard({
   )
 }
 
-CourseCard.defaultProps = {
-
-}
 export default CourseCard

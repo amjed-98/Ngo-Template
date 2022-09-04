@@ -5,6 +5,12 @@
   font-family: 'Inter';
 }
 
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
 html {
   overflow-x: hidden;
   scroll-behavior: smooth;

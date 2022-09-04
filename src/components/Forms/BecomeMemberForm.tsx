@@ -8,12 +8,11 @@ import moment from 'moment'
 import Footer from '../Footer/Footer'
 import Navbar from '../Navbar/Navbar'
 import {
-  Button, Center, Input
+  Button, Center, Input, ErrorMsg
 } from '../common'
-import HandleResponse from '../common/HandleResponse'
+import HandleResponse from '../common/ResponseMsg'
 import { useAppSelector, useFormSubmit } from '../../hooks'
 import { getBecomePartnerUrl } from '../../api/postApiServices'
-import { ErrorInput } from '../common/ErrorInput'
 import { CustomInputDiv } from '../common/CustomInput'
 import { memberSchema } from '../../validation/schemas'
 
@@ -35,7 +34,7 @@ export default function BecomeMemberForm(): ReactElement {
     register, handleSubmit, formState: { errors }, control,
   } = useForm<TMemberSubmitForm>({ resolver: yupResolver(memberSchema) })
   const {
-    submit, isError, isLoading, isSuccess
+    submit, ...states
   } = useFormSubmit<TMemberSubmitForm>(getBecomePartnerUrl())
 
   const onSubmit = (data: TMemberSubmitForm) => {
@@ -54,9 +53,7 @@ export default function BecomeMemberForm(): ReactElement {
 
         <Form onSubmit={handleSubmit(onSubmit)}>
           <HandleResponse
-            isLoading={isLoading}
-            isSuccess={isSuccess}
-            isError={isError}
+            {...states}
             successMsg="Please navigate to PayPal to complete the payment"
             errorMsg="Something went wrong, please try again later"
             successId="success-become-member"
@@ -71,27 +68,27 @@ export default function BecomeMemberForm(): ReactElement {
 
             <CustomInputDiv>
               <Input placeholder="Name" {...register('firstName')} />
-              <ErrorInput msg={errors.firstName?.message} mt={0.4} />
+              <ErrorMsg mt={0.4}>{errors.firstName?.message}</ErrorMsg>
             </CustomInputDiv>
             <CustomInputDiv>
               <Input placeholder="Surname" {...register('lastName')} />
-              <ErrorInput msg={errors.lastName?.message} mt={0.4} />
+              <ErrorMsg mt={0.4}>{errors.lastName?.message}</ErrorMsg>
             </CustomInputDiv>
           </FormRow>
           <FormRow>
             <CustomInputDiv>
               <Input type="number" placeholder="DNI/NIF/Passport" {...register('nif')} />
-              <ErrorInput msg={errors.nif?.message} mt={0.4} />
+              <ErrorMsg mt={0.4}>{errors.nif?.message}</ErrorMsg>
             </CustomInputDiv>
             <CustomInputDiv>
               <Input placeholder="Phone" {...register('phone')} />
-              <ErrorInput msg={errors.phone?.message} mt={0.4} />
+              <ErrorMsg mt={0.4}>{errors.phone?.message}</ErrorMsg>
             </CustomInputDiv>
           </FormRow>
           <FormRow>
             <CustomInputDiv>
               <Input placeholder="Email" {...register('user_email')} />
-              <ErrorInput msg={errors.user_email?.message} mt={0.4} />
+              <ErrorMsg mt={0.4}>{errors.user_email?.message}</ErrorMsg>
             </CustomInputDiv>
             <CustomInputDiv>
               <Controller
@@ -108,14 +105,14 @@ export default function BecomeMemberForm(): ReactElement {
                   />
                 )}
               />
-              <ErrorInput msg={errors.birthDate?.message} mt={0.4} />
+              <ErrorMsg mt={0.4}>{errors.birthDate?.message}</ErrorMsg>
             </CustomInputDiv>
           </FormRow>
           <Input
             placeholder="Address (street, city and postal code)"
             {...register('home_address')}
           />
-          <ErrorInput msg={errors.home_address?.message} mt={0.4} />
+          <ErrorMsg mt={0.4}>{errors.home_address?.message}</ErrorMsg>
 
           <RadioQuestion>I have read and accepted the NGOs privacy policy.</RadioQuestion>
           <Radio.Group {...register('terms')}>
@@ -126,7 +123,7 @@ export default function BecomeMemberForm(): ReactElement {
               I dont accept (in this case, we will not be able to process your membership)
             </CustomRadio>
           </Radio.Group>
-          <ErrorInput msg={errors.terms?.message} mt={0.4} />
+          <ErrorMsg mt={0.4}>{errors.terms?.message}</ErrorMsg>
 
           <RadioQuestion>
             Would you like us to process your registration as a member of the NGO?
@@ -135,7 +132,7 @@ export default function BecomeMemberForm(): ReactElement {
             <CustomRadio value>Yes</CustomRadio>
             <CustomRadio value={false}>No</CustomRadio>
           </Radio.Group>
-          <ErrorInput msg={errors.membership?.message} mt={0.4} />
+          <ErrorMsg mt={0.4}>{errors.membership?.message}</ErrorMsg>
 
           <Center>
             <Button type="submit">Submit</Button>

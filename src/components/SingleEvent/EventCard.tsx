@@ -8,22 +8,12 @@ import { EventCarousel } from '../EventCarousel/EventCarousel'
 import { BuyEventform } from '../Forms/BuyEventform'
 import { useFetch } from '../../hooks'
 import { getEventImages } from '../../api/getApiServices'
-import { IImage } from '../../types/interfaces'
+import { IEvent, IImage } from '../../types/interfaces'
 import BuyModal from '../BuyModal'
 import BuyCourseForm from '../Forms/BuyCourseForm'
 import { ShareModal } from '../ShareModal/ShareModal'
 
-interface IProps {
-  id: string;
-  title: string;
-  start_time: string;
-  end_time: string;
-  location: string;
-  stock: number;
-  course:boolean;
-}
-
-export function EventCard(props: IProps): ReactElement {
+export function EventCard(props: IEvent): ReactElement {
   const {
     id, title, start_time, end_time, location, stock, course
   } = props
@@ -35,7 +25,7 @@ export function EventCard(props: IProps): ReactElement {
     data: images = [], isLoading
   } = useFetch<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
 
-  const Form = course ? <BuyCourseForm courseId={id} /> : <BuyEventform modal eventId={id} />
+  const Form = course ? <BuyCourseForm courseId={id} /> : <BuyEventform modal event={props} />
 
   return (
     <Card mode="column" px={1.8} py={2.4} smMode="column">

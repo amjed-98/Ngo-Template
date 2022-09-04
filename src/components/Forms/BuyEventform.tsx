@@ -1,23 +1,22 @@
 import { yupResolver } from '@hookform/resolvers/yup'
-import { ReactElement, useMemo } from 'react'
+import { Fragment, type ReactElement, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
-import { getEventURL } from '../../api/getApiServices'
 import { getBuyEventTicketUrl } from '../../api/postApiServices'
 import {
-  useAppSelector, useFetch, useFormSubmit
+  useAppSelector, useFormSubmit
 } from '../../hooks'
-import { IEventDetails, ITicket } from '../../types/interfaces'
+import { IEvent } from '../../types/interfaces'
 import { TModal } from '../../types/types'
 import { buyTicketSchema } from '../../validation/schemas'
-import { Button, Center } from '../common'
-import { CustomInput, CustomInputDiv } from '../common/CustomInput'
-import { ErrorInput } from '../common/ErrorInput'
-import HandleResponse from '../common/HandleResponse'
+import {
+  Button, Center, ErrorMsg, Input, ResponseMsg
+} from '../common'
+import { CustomInputDiv } from '../common/CustomInput'
 
 interface Props {
   modal?: TModal;
-  eventId: string;
+  event: IEvent;
 }
 
 type TBuyTicketFormSubmit = {
@@ -26,29 +25,24 @@ type TBuyTicketFormSubmit = {
   user_email: string;
   mobilePhone: string;
   terms_and_conditions: boolean;
-  tickets: ITicket[];
+  tickets: IEvent['EventTickets'];
 };
 
-export function BuyEventform({ modal, eventId }: Props): ReactElement {
+export function BuyEventform({ modal, event: { id, EventTickets, price } }: Props): ReactElement {
   const {
     currency, ongId = ''
   } = useAppSelector(({ ong }) => ({ currency: ong.ongConfig?.platformConfig.currency_symbol, ongId: ong.ongId, }))
 
   const {
-    data: eventDetails
-  } = useFetch<IEventDetails>(getEventURL(eventId), [`event_ticket${eventId}`], eventId)
-  const { EventTickets = [], price } = eventDetails || {}
-
-  const {
     register, handleSubmit, formState: { errors }
   } = useForm<TBuyTicketFormSubmit>({ resolver: yupResolver(buyTicketSchema), })
 
-  const { submit, ...states } = useFormSubmit<TBuyTicketFormSubmit>(getBuyEventTicketUrl(eventId))
+  const { submit, ...states } = useFormSubmit<TBuyTicketFormSubmit>(getBuyEventTicketUrl(id))
 
   const onSubmit = (data: TBuyTicketFormSubmit) => {
     const formData = {
       ...data,
-      event_id: eventId,
+      event_id: id,
       ong_id: ongId,
     }
 
@@ -57,29 +51,29 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
 
   const ticketsInputs: JSX.Element[] = useMemo(
     () => EventTickets.map((ticket, i: number) => (
-      <>
-        <CustomLabel key={ticket.id}>
+      <Fragment key={ticket.id}>
+        <CustomLabel>
           {ticket.type} ({ticket.price}
           {currency})
         </CustomLabel>
-        <CustomInput type="hidden" {...register(`tickets.${i}.id`)} value={ticket.id} />
-        <CustomInput
+        <Input type="hidden" {...register(`tickets.${i}.id`)} value={ticket.id} />
+        <Input
           type="number"
           placeholder="Please enter the number of tickets"
           {...register(`tickets.${i}.amount`)}
         />
-      </>
+      </Fragment>
     )),
     [EventTickets, register, currency]
   )
   return (
     <BuyFrom modal={modal} onSubmit={handleSubmit(onSubmit)}>
-      <HandleResponse
+      <ResponseMsg
         {...states}
         successMsg="Please navigate to the payment page to complete your purchase"
         errorMsg="Something went wrong, please try again later"
-        successId={`${eventId}_success`}
-        errorId={`${eventId}_error`}
+        successId={`${id}_success`}
+        errorId={`${id}_error`}
       />
       {EventTickets && (
         <div>
@@ -95,25 +89,25 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
       <FormTitle>Personal Details</FormTitle>
       <FormRow modal={modal}>
         <CustomInputDiv>
-          <CustomInput placeholder="First Name" {...register('firstName')} />
-          <ErrorInput msg={errors.firstName?.message} />
+          <Input placeholder="First Name" {...register('firstName')} />
+          <ErrorMsg>{errors.firstName?.message}</ErrorMsg>
         </CustomInputDiv>
 
         <CustomInputDiv>
-          <CustomInput placeholder="SurName" {...register('lastName')} />
-          <ErrorInput msg={errors.lastName?.message} />
+          <Input placeholder="SurName" {...register('lastName')} />
+          <ErrorMsg>{errors.lastName?.message}</ErrorMsg>
         </CustomInputDiv>
       </FormRow>
 
       <FormRow modal={modal}>
         <CustomInputDiv>
-          <CustomInput placeholder="Email" {...register('user_email')} />
-          <ErrorInput msg={errors.user_email?.message} />
+          <Input type="email" placeholder="Email" {...register('user_email')} />
+          <ErrorMsg>{errors.user_email?.message}</ErrorMsg>
         </CustomInputDiv>
 
         <CustomInputDiv>
-          <CustomInput placeholder="Phone" {...register('mobilePhone')} />
-          <ErrorInput msg={errors.mobilePhone?.message} />
+          <Input type="tel" placeholder="Phone" {...register('mobilePhone')} />
+          <ErrorMsg>{errors.mobilePhone?.message}</ErrorMsg>
         </CustomInputDiv>
       </FormRow>
 
@@ -123,7 +117,7 @@ export function BuyEventform({ modal, eventId }: Props): ReactElement {
         I accept the <a href="#">privacy terms</a>
       </span>
 
-      <ErrorInput msg={errors.terms_and_conditions?.message} />
+      <ErrorMsg>{errors.terms_and_conditions?.message}</ErrorMsg>
       <Center>
         <Button px="2.8rem">Pay</Button>
       </Center>

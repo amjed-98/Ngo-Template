@@ -1,11 +1,12 @@
 import { useMemo, type ReactElement } from 'react'
 import styled, { useTheme } from 'styled-components'
 import chunk from 'lodash/chunk'
-import { Box, Carousel, Image } from '../common'
+import {
+  Box, Carousel, Image, ErrorMsg
+} from '../common'
 import { useAppSelector, useFetch } from '../../hooks'
 import { getOngLogos } from '../../api/getApiServices'
 import Skeleton from '../Skeleton'
-import { ErrorInput } from '../common/ErrorInput'
 
 interface ILogo {
   id: string
@@ -36,7 +37,7 @@ export default function LogosCarousel(): ReactElement {
   )
   return (
     <Box>
-      {isError && <ErrorInput msg="something went wrong" />}
+      {isError && <ErrorMsg>something went wrong!</ErrorMsg>}
       {isLoading && <Skeleton number={1} height={8} width={100} mt={0} px={0} />}
       <Carousel dots={false} bgColor={primary} mt={4.2}>
         {memoizedLogos}

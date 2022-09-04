@@ -2,6 +2,7 @@ import { lazy } from 'react'
 import { toast } from 'react-toastify'
 
 const LoadingSpinner = lazy(() => import('./LoadingSpinner'))
+
 interface IProps {
     isLoading: boolean
     isSuccess: boolean
@@ -11,7 +12,7 @@ interface IProps {
     successId: string
     errorId: string
 }
-function HandleResponse({
+function ResponseMsg({
   isLoading, isSuccess, isError, successMsg, errorMsg, successId, errorId,
 }: IProps) {
   if (isLoading) {
@@ -33,4 +34,4 @@ function HandleResponse({
   return null
 }
 
-export default HandleResponse
+export default ResponseMsg

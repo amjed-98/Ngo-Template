@@ -6,10 +6,8 @@ import { getStartProductPaymentUrl } from '../../api/postApiServices'
 import { useAppSelector, useFormSubmit } from '../../hooks'
 import { buyProductSchema } from '../../validation/schemas'
 import {
-  Button, Center, Input, Label, SectionTitle, TextArea
+  Button, Center, Input, Label, SectionTitle, TextArea, ErrorMsg, ResponseMsg
 } from '../common'
-import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
-import HandleResponse from '../common/HandleResponse'
 
 interface IProps {
   modal?: boolean;
@@ -59,7 +57,7 @@ export function BuyProductForm(props: IProps): ReactElement {
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <HandleResponse
+      <ResponseMsg
         {...states}
         successMsg="Payment done successfully"
         errorMsg="Payment failed"
@@ -77,7 +75,7 @@ export function BuyProductForm(props: IProps): ReactElement {
         defaultValue={1}
         {...register('productAmount')}
       />
-      <ErrorMsg msg={errors.productAmount?.message} />
+      <ErrorMsg>{errors.productAmount?.message}</ErrorMsg>
       <InputTitle>Personal Details</InputTitle>
       <InputRow>
         <Input placeholder="Name" {...register('firstName')} />
@@ -85,8 +83,8 @@ export function BuyProductForm(props: IProps): ReactElement {
       </InputRow>
 
       <InputRow>
-        <ErrorMsg msg={errors.lastName?.message} />
-        <ErrorMsg msg={errors.firstName?.message} />
+        <ErrorMsg>{errors.lastName?.message}</ErrorMsg>
+        <ErrorMsg>{errors.firstName?.message}</ErrorMsg>
       </InputRow>
 
       <InputRow>
@@ -95,8 +93,8 @@ export function BuyProductForm(props: IProps): ReactElement {
       </InputRow>
 
       <InputRow>
-        <ErrorMsg msg={errors.user_email?.message} />
-        <ErrorMsg msg={errors.mobile_phone?.message} />
+        <ErrorMsg>{errors.user_email?.message}</ErrorMsg>
+        <ErrorMsg>{errors.mobile_phone?.message}</ErrorMsg>
       </InputRow>
 
       <InputTitle>Delivery Details</InputTitle>
@@ -105,8 +103,8 @@ export function BuyProductForm(props: IProps): ReactElement {
         <Input placeholder="DNI" {...register('nif')} />
       </InputRow>
       <InputRow>
-        <ErrorMsg msg={errors.home_address?.message} />
-        <ErrorMsg msg={errors.nif?.message} />
+        <ErrorMsg>{errors.home_address?.message}</ErrorMsg>
+        <ErrorMsg>{errors.nif?.message}</ErrorMsg>
       </InputRow>
 
       <InputRow>
@@ -115,8 +113,8 @@ export function BuyProductForm(props: IProps): ReactElement {
       </InputRow>
 
       <InputRow>
-        <ErrorMsg msg={errors.birthDate?.message} />
-        <ErrorMsg msg={errors.cp?.message} />
+        <ErrorMsg>{errors.birthDate?.message}</ErrorMsg>
+        <ErrorMsg>{errors.cp?.message}</ErrorMsg>
       </InputRow>
 
       <InputRow>
@@ -125,8 +123,8 @@ export function BuyProductForm(props: IProps): ReactElement {
       </InputRow>
 
       <InputRow>
-        <ErrorMsg msg={errors.home_address?.message} />
-        <ErrorMsg msg={errors.nif?.message} />
+        <ErrorMsg>{errors.home_address?.message}</ErrorMsg>
+        <ErrorMsg>{errors.nif?.message}</ErrorMsg>
       </InputRow>
 
       <TextArea placeholder="Additional message" rows={4} />
@@ -134,7 +132,7 @@ export function BuyProductForm(props: IProps): ReactElement {
       <Label>
         <Input w="20px" mt={1.8} type="checkbox" {...register('privacy_policy')} />I accept the
         privacy policy
-        <ErrorMsg msg={errors.privacy_policy?.message} />
+        <ErrorMsg>{errors.privacy_policy?.message}</ErrorMsg>
       </Label>
       <br />
       <Center my={1.5}>

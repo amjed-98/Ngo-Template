@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction, Slice } from '@reduxjs/toolkit'
-import { IAppState } from '../types/interfaces'
+import { createSlice, type PayloadAction, type Slice } from '@reduxjs/toolkit'
+import type{ IAppState } from '../types/interfaces'
 
 const initialState: IAppState = {
   ongConfig: {},

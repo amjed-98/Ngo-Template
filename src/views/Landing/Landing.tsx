@@ -5,7 +5,7 @@ import {
   Events,
   AboutUs,
   LogosCarousel,
-  // PremiumEvent,
+  PremiumEvent,
   Projects,
   SocialImpact,
   SubscribeDivider,
@@ -38,7 +38,7 @@ export default function Landing(): ReactElement {
       <AboutUs />
       <LogosCarousel />
       {causes && <Projects />}
-      {/* {events && <PremiumEvent />} */}
+      {events && <PremiumEvent />}
       <SocialImpact />
       {events && <Events />}
       {partners && <SubscribeDivider />}

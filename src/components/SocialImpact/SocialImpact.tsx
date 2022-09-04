@@ -1,4 +1,4 @@
-import React, { ReactElement, useMemo } from 'react'
+import { type ReactElement, useMemo } from 'react'
 import { useTheme } from 'styled-components'
 import ImpactPart from './ImpactPart/ImpactPart'
 import { Flex, SectionTitle } from '../common'

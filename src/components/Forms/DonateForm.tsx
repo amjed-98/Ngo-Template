@@ -3,11 +3,10 @@ import { Link } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import {
-  Button, Center, Input, TextArea
+  Button, Center, Input, TextArea, ErrorMsg
 } from '../common'
 import Label from '../common/Label'
-import HandleResponse from '../common/HandleResponse'
-import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
+import HandleResponse from '../common/ResponseMsg'
 import { DonateSubmitForm } from '../../types/interfaces'
 import { donationSchema } from '../../validation/schemas'
 
@@ -44,7 +43,7 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
           placeholder="Please enter the amount of your donation"
           {...register('amount')}
         />
-        <ErrorMsg msg={errors.amount?.message} />
+        <ErrorMsg>{errors.amount?.message}</ErrorMsg>
       </FormControl>
 
       <FormControl mb={0}>
@@ -57,8 +56,8 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
       </FormControl>
 
       <FormControl mode="row" justify="space-between">
-        <ErrorMsg msg={errors.firstName?.message} />
-        <ErrorMsg msg={errors.lastName?.message} />
+        <ErrorMsg>{errors.firstName?.message}</ErrorMsg>
+        <ErrorMsg>{errors.lastName?.message}</ErrorMsg>
       </FormControl>
 
       <FormControl mode="row">
@@ -67,8 +66,8 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
       </FormControl>
 
       <FormControl mode="row" justify="space-between">
-        <ErrorMsg msg={errors.user_email?.message} />
-        <ErrorMsg msg={errors.home_address?.message} />
+        <ErrorMsg>{errors.user_email?.message}</ErrorMsg>
+        <ErrorMsg>{errors.home_address?.message}</ErrorMsg>
       </FormControl>
 
       <FormControl mode="row">
@@ -77,8 +76,8 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
       </FormControl>
 
       <FormControl mode="row" justify="space-between">
-        <ErrorMsg msg={errors.nif?.message} />
-        <ErrorMsg msg={errors.birthDate?.message} />
+        <ErrorMsg>{errors.nif?.message}</ErrorMsg>
+        <ErrorMsg>{errors.birthDate?.message}</ErrorMsg>
       </FormControl>
 
       <FormControl>
@@ -122,7 +121,7 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
           I agree to the <Link to="/terms_and_conditions">Privacy policy</Link>
         </Label>
 
-        <ErrorMsg msg={errors.terms?.message} />
+        <ErrorMsg>{errors.terms?.message}</ErrorMsg>
       </FormControl>
 
       <Center>

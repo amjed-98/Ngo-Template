@@ -58,27 +58,9 @@ export interface IAppState {
   ongId: string | undefined;
 }
 
-export interface IMember {
-  id: string;
-  name: string;
-  position: string;
-  linkedin: string;
-  img_url: string;
-}
-export interface ErrorInputProps {
-  msg?: string;
+export interface IErrorMsg {
   mt?: number;
   align?: TAlignSelf;
-}
-export interface ITicket {
-  amount: number;
-  id: string;
-  price: number;
-  type: string;
-}
-export interface IEventDetails {
-  EventTickets: ITicket[];
-  price: number;
 }
 
 export interface IImage {
@@ -106,4 +88,11 @@ export interface IEvent {
   location: string;
   end_time: string;
   stock: number;
+  price: number;
+  EventTickets: {
+    amount: number;
+    id: string;
+    price: number;
+    type: string;
+  }[];
 }

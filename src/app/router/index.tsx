@@ -1,6 +1,6 @@
 import { Suspense, useMemo } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import LoadingIndex from '../../components/LoadingIndex/LoadingIndex'
+import { Loader } from '../../components'
 import { useAppSelector } from '../../hooks'
 
 import getRoutes from './routes'
@@ -18,10 +18,8 @@ export default function AllRoute() {
   ), [ROUTES])
 
   return (
-    <Suspense fallback={<LoadingIndex />}>
-      <Routes>
-        {MEMOIZED_ROUTES}
-      </Routes>
+    <Suspense fallback={<Loader />}>
+      <Routes>{MEMOIZED_ROUTES}</Routes>
     </Suspense>
   )
 }

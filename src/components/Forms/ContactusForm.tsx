@@ -1,6 +1,6 @@
+import type { ReactElement } from 'react'
 import { MailFilled, MailOutlined, PhoneFilled } from '@ant-design/icons'
 import { yupResolver } from '@hookform/resolvers/yup'
-import type { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { getSendContactUrl } from '../../api/postApiServices'
@@ -9,10 +9,9 @@ import {
 } from '../../hooks'
 import { contactSchema } from '../../validation/schemas'
 import {
-  Button, Center, Flex, Input, Label, TextArea
+  Button, Center, Flex, Input, Label, TextArea, ErrorMsg
 } from '../common'
-import { ErrorInput } from '../common/ErrorInput'
-import HandleResponse from '../common/HandleResponse'
+import HandleResponse from '../common/ResponseMsg'
 import Footer from '../Footer/Footer'
 import Map from '../Map'
 import Navbar from '../Navbar/Navbar'
@@ -59,20 +58,20 @@ export default function ContactusForm(): ReactElement {
           <FormRow>
             <Flex>
               <Input placeholder="Name" {...register('name')} />
-              <ErrorInput msg={errors.name?.message} />
+              <ErrorMsg>{errors.name?.message}</ErrorMsg>
             </Flex>
 
             <Flex>
               <Input placeholder="Surname" {...register('lastName')} />
-              <ErrorInput msg={errors.lastName?.message} />
+              <ErrorMsg>{errors.lastName?.message}</ErrorMsg>
             </Flex>
           </FormRow>
           <Input placeholder="Email" {...register('email')} />
-          <ErrorInput msg={errors.email?.message} />
+          <ErrorMsg>{errors.email?.message}</ErrorMsg>
           <Input placeholder="Subject" {...register('subject')} />
-          <ErrorInput msg={errors.subject?.message} />
+          <ErrorMsg>{errors.subject?.message}</ErrorMsg>
           <TextArea placeholder="Message" rows={4} {...register('message')} />
-          <ErrorInput msg={errors.message?.message} />
+          <ErrorMsg>{errors.message?.message}</ErrorMsg>
           <Label>
             <Input
               w="15px"
@@ -81,7 +80,7 @@ export default function ContactusForm(): ReactElement {
               {...register('terms')}
             />
             <span>I agree to the privacy policy</span>
-            <ErrorInput msg={errors.terms?.message} />
+            <ErrorMsg>{errors.terms?.message}</ErrorMsg>
           </Label>
 
           <Center>

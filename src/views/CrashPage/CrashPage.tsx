@@ -1,10 +1,10 @@
 import { Result } from 'antd'
-import { useEffect, type ReactElement } from 'react'
+import { type FC } from 'react'
+import { useSetDocumentTitle } from '../../hooks'
 
-export default function CrashPage(): ReactElement {
-  useEffect(() => {
-    document.title = 'Error'
-  }, [])
+const CrashPage:FC = () => {
+  useSetDocumentTitle('Error')
+
   return (
     <Result
       status="500"
@@ -15,3 +15,5 @@ export default function CrashPage(): ReactElement {
 
   )
 }
+
+export default CrashPage

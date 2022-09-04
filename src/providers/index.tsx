@@ -1,21 +1,21 @@
-import React, { ReactNode } from 'react'
-import { Provider } from 'react-redux'
+import type { ReactNode } from 'react'
+import { Provider as StoreProvider } from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import ReactQueryProvider from '../queryclient'
 import { store } from '../redux/store'
 
-type TChildern = {
+type TChildren = {
     children: ReactNode
 }
-const Providers = ({ children }: TChildern) => (
+const Providers = ({ children }: TChildren) => (
   <BrowserRouter>
-    <Provider store={store}>
+    <StoreProvider store={store}>
       <ReactQueryProvider>
         {children}
         <ReactQueryDevtools />
       </ReactQueryProvider>
-    </Provider>
+    </StoreProvider>
   </BrowserRouter>
 )
 

@@ -4,11 +4,9 @@ import styled from 'styled-components'
 import { getAddVolunteerUrl } from '../../api/postApiServices'
 import { Footer, Navbar } from '../../components'
 import {
-  Button, Center, Flex, SectionTitle
+  Button, Center, Flex, SectionTitle, ErrorMsg, Input, ResponseMsg
 } from '../../components/common'
-import { CustomInput, CustomInputDiv } from '../../components/common/CustomInput'
-import { ErrorInput } from '../../components/common/ErrorInput'
-import HandleResponse from '../../components/common/HandleResponse'
+import { CustomInputDiv } from '../../components/common/CustomInput'
 import { useAppSelector, useFormSubmit } from '../../hooks'
 import { volunteerSchema } from '../../validation/schemas'
 
@@ -34,8 +32,8 @@ function BecomeVolunteerForm() {
   return (
     <>
       <Navbar />
-      <CustomForm onSubmit={handleSubmit(onSubmit)}>
-        <HandleResponse
+      <Form onSubmit={handleSubmit(onSubmit)}>
+        <ResponseMsg
           {...states}
           successMsg="Your request has been sent successfully"
           errorMsg="Something went wrong, please try again"
@@ -47,35 +45,37 @@ function BecomeVolunteerForm() {
         </SectionTitle>
         <Flex wrap="nowrap" justify="space-around" gap={2}>
           <CustomInputDiv>
-            <CustomInput placeholder="First Name" {...register('firstName')} />
-            <ErrorInput msg={errors.firstName?.message} />
+            <Input placeholder="First Name" {...register('firstName')} />
+            <ErrorMsg>{errors.firstName?.message}</ErrorMsg>
           </CustomInputDiv>
+
           <CustomInputDiv>
-            <CustomInput placeholder="Surname" {...register('lastName')} />
-            <ErrorInput msg={errors.lastName?.message} />
+            <Input placeholder="Surname" {...register('lastName')} />
+            <ErrorMsg>{errors.lastName?.message}</ErrorMsg>
           </CustomInputDiv>
         </Flex>
 
-        <CustomInput placeholder="Email" {...register('user_email')} />
-        <ErrorInput msg={errors.user_email?.message} />
-        <CustomInput placeholder="Address" {...register('home_address')} />
-        <ErrorInput msg={errors.home_address?.message} />
+        <Input placeholder="Email" {...register('user_email')} />
+        <ErrorMsg>{errors.user_email?.message}</ErrorMsg>
+        <Input placeholder="Address" {...register('home_address')} />
+        <ErrorMsg>{errors.home_address?.message}</ErrorMsg>
 
         <Center>
-          <Button px="2.8rem" type="submit">Send</Button>
+          <Button px="2.8rem" type="submit">
+            Send
+          </Button>
         </Center>
-      </CustomForm>
+      </Form>
       <Footer />
     </>
   )
 }
 
-const CustomForm = styled.form`
+const Form = styled.form`
   padding: 3.2rem;
   display: flex;
   flex-direction: column;
   width: 100%;
-  gap: 0.8rem;
   max-width: 900px;
   margin: 0 auto;
 `

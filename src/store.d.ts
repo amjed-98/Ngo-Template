@@ -8,6 +8,7 @@ declare global {
     market: boolean;
     partners: boolean;
     volunteers: boolean;
+    logos: boolean;
   }>;
 
   type TBrand = Readonly<{
@@ -43,19 +44,19 @@ declare global {
     text_color: string;
   }>;
 
-  type TImpactData = ReadonlyArray<{
-    readonly id: string;
-    readonly name: string;
-    readonly amount: string;
+  type TImpactData = Readonly<{
+    id: string;
+    name: string;
+    amount: string;
   }>;
 
   type TPlatformConfig = Readonly<{
     id: string;
     ong_id: string;
     active: boolean;
-    currency: string;
-    currency_symbol: string;
-    language: string;
+    currency: 'EUR' | 'USD';
+    currency_symbol: '€' | '$';
+    language: 'es' | 'en';
     powered_by_lazzaro: boolean;
     url: string;
     payment_method: 'paypal' | 'stripe';
@@ -70,14 +71,14 @@ declare global {
     web: string;
   }>;
 
-  type TTeam = ReadonlyArray<{
-    readonly id: string;
-    readonly img_url: string;
-    readonly linkedin: string;
-    readonly name: string;
-    readonly ongId: string;
-    readonly order: number;
-    readonly position: string;
+  type TTeam = Readonly<{
+     id: string;
+     img_url: string;
+     linkedin: string;
+     name: string;
+     ongId: string;
+     order: number;
+     position: string;
   }>;
 
   type TOngConfig = Readonly<{
@@ -85,11 +86,11 @@ declare global {
     contact: TContact;
     description: TDescription;
     features: TFeatures;
-    impactData: TImpactData;
+    impactData: Readonly<TImpactData[]>;
     platformConfig: TPlatformConfig;
     rrss: TRrss;
-    team: TTeam;
-  }>
+    team: Readonly<TTeam[]>;
+  }>;
 }
 
 export {}

@@ -6,10 +6,8 @@ import { getBuyCourseUrl } from '../../api/getApiServices'
 import { useAppSelector, useFormSubmit } from '../../hooks'
 import { buyCourseTicketSchema } from '../../validation/schemas'
 import {
-  Button, Input, Label, Link
+  Button, Input, Label, Link, ErrorMsg, ResponseMsg
 } from '../common'
-import { ErrorInput as ErrorMsg } from '../common/ErrorInput'
-import HandleResponse from '../common/HandleResponse'
 
 interface Props {
   courseId: string;
@@ -40,7 +38,7 @@ export default function BuyCourseForm({ courseId }: Props): ReactElement {
 
   return (
     <>
-      <HandleResponse
+      <ResponseMsg
         {...states}
         successMsg="Please navigate to the payment page to complete your purchase"
         errorMsg="Something went wrong, please try again later"
@@ -51,16 +49,16 @@ export default function BuyCourseForm({ courseId }: Props): ReactElement {
       <Form onSubmit={handleSubmit(onSubmit)}>
         <Label size={2}>Personal details</Label>
         <Input placeholder="Name" {...register('firstName')} />
-        <ErrorMsg msg={errors.firstName?.message} align="flex-start" />
+        <ErrorMsg align="flex-start">{errors.firstName?.message}</ErrorMsg>
 
         <Input placeholder="Surname" {...register('lastName')} />
-        <ErrorMsg msg={errors.lastName?.message} align="flex-start" />
+        <ErrorMsg align="flex-start">{errors.lastName?.message}</ErrorMsg>
 
         <Input type="email" placeholder="Email" {...register('user_email')} />
-        <ErrorMsg msg={errors.user_email?.message} align="flex-start" />
+        <ErrorMsg align="flex-start">{errors.user_email?.message}</ErrorMsg>
 
         <Input placeholder="Phone" {...register('mobilePhone')} />
-        <ErrorMsg msg={errors.mobilePhone?.message} align="flex-start" />
+        <ErrorMsg align="flex-start">{errors.mobilePhone?.message} </ErrorMsg>
 
         <Label>
           <Input w="25px" mt={1.8} type="checkbox" {...register('terms')} />I accept the{' '}
@@ -68,7 +66,7 @@ export default function BuyCourseForm({ courseId }: Props): ReactElement {
             privacy policy
           </Link>
         </Label>
-        <ErrorMsg msg={errors.terms?.message} align="flex-start" />
+        <ErrorMsg align="flex-start">{errors.terms?.message}</ErrorMsg>
 
         <Button mt={3} px={3}>Pay</Button>
       </Form>

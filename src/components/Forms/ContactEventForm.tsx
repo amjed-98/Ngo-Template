@@ -3,12 +3,10 @@ import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { yupResolver } from '@hookform/resolvers/yup'
 import {
-  Button, Center, Input, TextArea
+  Button, Center, Input, TextArea, ErrorMsg, ResponseMsg
 } from '../common'
-import { ErrorInput } from '../common/ErrorInput'
 import { useAppSelector, useFormSubmit } from '../../hooks'
 import { getSendContactEventUrl } from '../../api/postApiServices'
-import HandleResponse from '../common/HandleResponse'
 import { contactEventSchema } from '../../validation/schemas'
 
 interface IProps {
@@ -30,8 +28,8 @@ export function ContactEventForm({ id }: IProps): ReactElement {
   const { submit, ...states } = useFormSubmit<TContactEventForm>(getSendContactEventUrl(ongId, id))
 
   return (
-    <ContactForm onSubmit={handleSubmit(submit)}>
-      <HandleResponse
+    <Form onSubmit={handleSubmit(submit)}>
+      <ResponseMsg
         {...states}
         successMsg="Message sent successfully"
         errorMsg="Error sending message"
@@ -42,28 +40,28 @@ export function ContactEventForm({ id }: IProps): ReactElement {
         placeholder="Name"
         {...register('name')}
       />
-      <ErrorInput msg={errors?.name?.message} />
+      <ErrorMsg>{errors?.name?.message} </ErrorMsg>
       <Input
         mt={0}
         placeholder="Email"
         {...register('email')}
       />
-      <ErrorInput msg={errors?.email?.message} />
+      <ErrorMsg>{errors?.email?.message}</ErrorMsg>
       <TextArea
         placeholder="Message"
         rows={4}
         {...register('text')}
       />
-      <ErrorInput msg={errors?.text?.message} />
+      <ErrorMsg>{errors?.text?.message}</ErrorMsg>
 
       <Center>
         <Button px={2.4} type="submit">Send</Button>
       </Center>
-    </ContactForm>
+    </Form>
   )
 }
 
-const ContactForm = styled.form`
+const Form = styled.form`
     display: flex;
     flex-direction: column;
     gap: 1rem;

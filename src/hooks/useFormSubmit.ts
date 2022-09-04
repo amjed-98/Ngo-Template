@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import useAppSelector from './useAppSelector'
-import usePostData from './usePostData'
+import useMutate from './useMutate'
 
 type TClientSecret = { clientSecret: string };
 type TPayPalLink = { data: string };
@@ -11,7 +11,7 @@ const useFormSubmit = <TMutate>(url:string) => {
   const paymentMethod = useAppSelector(({ ong }) => ong.ongConfig?.platformConfig?.payment_method)
   const {
     isLoading, isSuccess, isError, mutateAsync
-  } = usePostData<TData, TMutate>(url)
+  } = useMutate<TData, TMutate>(url)
 
   const submit = async (formData: TMutate & {ongId?:string}) => {
     if (paymentMethod === 'stripe') {

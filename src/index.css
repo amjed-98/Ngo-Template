@@ -20,26 +20,17 @@ html {
   html {
     font-size: 65%;
   }
-  .ant-carousel .slick-slide img {
-    width: 150px;
-  }
 }
 
 @media screen and (max-width: 768px) {
   html {
     font-size: 62.5%;
   }
-  .ant-carousel .slick-slide img {
-    width: 80px;
-  }
 }
 
 @media screen and (max-width: 420px) {
   html {
     font-size: 48.5%;
-  }
-  .ant-carousel .slick-slide img {
-    width: 65px;
   }
 }
 

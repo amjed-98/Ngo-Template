@@ -6,13 +6,18 @@ import { Card } from '../../common'
 const VolunteerCard: FC<TTeam> = ({
   name, position, img_url: imgUrl, linkedin
 }: TTeam) => (
-  <CustomCard mode="column" smMode="column" pb={1.5} textAlign="center">
-    <VolunteerImage src={imgUrl} alt="Volunteer" />
-    <VolunteerName>{name}</VolunteerName>
-    <VolunteerPosition>{position}</VolunteerPosition>
-    <LinkedinIcon onClick={() => window.open(linkedin)} />
-  </CustomCard>
+
+  <VolunteerCards>
+    <CustomCard mode="column" smMode="column" pb={1.5} textAlign="center">
+      <VolunteerImage src={imgUrl} alt="Volunteer" />
+      <VolunteerName>{name}</VolunteerName>
+      <VolunteerPosition>{position}</VolunteerPosition>
+      <LinkedinIcon onClick={() => window.open(linkedin)} />
+    </CustomCard>
+  </VolunteerCards>
 )
+
+export default VolunteerCard
 
 const VolunteerImage = styled.img`
   height: 180px;
@@ -60,4 +65,16 @@ const LinkedinIcon = styled(LinkedinFilled)`
   }
 `
 
-export default VolunteerCard
+const VolunteerCards = styled.div`
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  height: 450px !important;
+  padding-bottom: 2.4rem;
+  gap: 4.8rem;
+  margin-top: 4.8rem;
+  @media screen and (max-width: 768px) {
+    margin-top: 1.2rem;
+    height: 250px !important;
+  }
+`

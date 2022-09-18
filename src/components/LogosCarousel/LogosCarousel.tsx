@@ -1,12 +1,12 @@
-import { useMemo, type ReactElement } from 'react'
-import styled, { useTheme } from 'styled-components'
-import chunk from 'lodash/chunk'
+import { type ReactElement } from 'react'
+import { useTheme } from 'styled-components'
 import {
-  Box, Carousel, Image, ErrorMsg
+  Box, Carousel, ErrorMsg
 } from '../common'
 import { useAppSelector, useFetch } from '../../hooks'
 import { getOngLogos } from '../../api/getApiServices'
 import Skeleton from '../Skeleton'
+import LogoContainer from './LogoContainer'
 
 interface ILogo {
   id: string
@@ -21,41 +21,15 @@ export default function LogosCarousel(): ReactElement {
 
   const { primary } = useTheme()
 
-  const memoizedLogos = useMemo(
-    () => [
-      ...chunk(logos, 4).map((fourLogos, i) => (
-        <ImageContainer key={i && `logo-${i}`}>
-          {fourLogos.map(({ id, logo }) => (
-            <Box key={id}>
-              <Image src={logo} alt="logo" maxHeight="8rem" key={logo} />
-            </Box>
-          ))}
-        </ImageContainer>
-      )),
-    ],
-    [logos]
-  )
+  if (isError) return <ErrorMsg>something went wrong!</ErrorMsg>
+
+  if (isLoading) return <Skeleton number={1} height={8} width={100} mt={0} px={0} />
+
   return (
     <Box>
-      {isError && <ErrorMsg>something went wrong!</ErrorMsg>}
-      {isLoading && <Skeleton number={1} height={8} width={100} mt={0} px={0} />}
-      <Carousel dots={false} bgColor={primary} mt={4.2}>
-        {memoizedLogos}
+      <Carousel Component={LogoContainer} bgColor={primary}>
+        {logos}
       </Carousel>
     </Box>
   )
 }
-
-const ImageContainer = styled.div`
-  display: flex !important;
-  justify-content: space-around;
-  height: 150px !important;
-  padding: 0 3.8rem;
-  align-items: center;
-  align-content: center;
-
-  @media (max-width: 768px) {
-    justify-content: space-around;
-    gap:0;
-  }
-`

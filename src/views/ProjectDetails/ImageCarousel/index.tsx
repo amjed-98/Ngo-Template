@@ -1,6 +1,6 @@
-import { useMemo } from 'react'
 import styled from 'styled-components'
-import { Carousel, Image } from '../../components/common'
+import { Carousel } from '../../../components/common'
+import ImageContainer from './ImageContainer'
 
 interface IProps {
   images: {
@@ -10,16 +10,10 @@ interface IProps {
 }
 
 function ImageCarousel({ images }: IProps) {
-  const memoizedImages = useMemo(() => images.map(({ id, img_url: imgUrl }) => (
-    <ImageWrapper key={id}>
-      <Image src={imgUrl} alt="project" />
-    </ImageWrapper>
-  )), [images])
-
   return (
     <Section>
-      <Carousel arrows>
-        {memoizedImages}
+      <Carousel Component={ImageContainer}>
+        {images}
       </Carousel>
 
       <Triangle />
@@ -33,10 +27,6 @@ const Section = styled.section`
   position: relative;
 `
 
-const ImageWrapper = styled.div`
-  width: 100%;
-  max-height: 40rem;
-`
 const Triangle = styled.div`
   position: absolute;
   left: 50%;

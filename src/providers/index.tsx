@@ -5,10 +5,10 @@ import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import ReactQueryProvider from '../queryclient'
 import { store } from '../redux/store'
 
-type TChildren = {
+type TProps = {
     children: ReactNode
 }
-const Providers = ({ children }: TChildren) => (
+const Providers = ({ children }: TProps) => (
   <BrowserRouter>
     <StoreProvider store={store}>
       <ReactQueryProvider>

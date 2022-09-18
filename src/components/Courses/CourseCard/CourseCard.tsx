@@ -20,8 +20,7 @@ interface IProps {
 
 function CourseCard({
   course: {
-    title, description,
-    imageURL, start_time: startTime, id,
+    title, description = '', imageURL, start_time: startTime, id,
   }
 }: IProps) {
   const date = Number(moment(startTime).format('D'))

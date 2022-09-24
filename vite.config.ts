@@ -1,17 +1,17 @@
-import { defineConfig, splitVendorChunkPlugin } from 'vite'
+import { defineConfig, UserConfigExport, } from 'vitest/config'
+import { splitVendorChunkPlugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import svgrPlugin from 'vite-plugin-svgr'
 import tsconfigPaths from 'vite-tsconfig-paths'
-// eslint-disable-next-line import/no-extraneous-dependencies
 import checker from 'vite-plugin-checker'
+import { resolve } from 'path'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     svgrPlugin(),
     tsconfigPaths(),
-    checker({
+    process.env.NODE_ENV !== 'test' && checker({
       typescript: true,
       eslint: {
         lintCommand: 'eslint "./src/**/*.{ts,tsx}"',
@@ -20,12 +20,18 @@ export default defineConfig({
       overlay: false,
     }),
   ],
+
   build: {
     sourcemap: false,
     rollupOptions: {
-      plugins: [
-        splitVendorChunkPlugin()
-      ]
-    }
-  }
-})
+      plugins: [splitVendorChunkPlugin() as any],
+    },
+  },
+
+  test: {
+    globals: true,
+    include: ['src/**/*.test.ts', 'src/**/*.test.tsx'],
+    environment: 'jsdom',
+    setupFiles: [resolve(__dirname, 'src/testSetup')],
+  },
+} as UserConfigExport)

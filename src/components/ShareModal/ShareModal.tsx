@@ -1,5 +1,5 @@
 import { type ReactElement } from 'react'
-import Modal from '../BuyModal'
+import Modal from '../Modal'
 import Share from './Share'
 
 interface IShareProps {

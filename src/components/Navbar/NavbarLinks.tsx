@@ -18,7 +18,7 @@ const NavbarLinks: FC = () => {
   const { t } = useTranslation()
   const { md } = useBreakpoint()
   const { logo, features = {} as TFeatures } = useAppSelector(({ ong }) => ({
-    logo: ong.ongConfig?.brand.logo,
+    logo: ong.ongConfig?.brand?.logo,
     features: ong.ongConfig?.features,
   }))
 
@@ -41,12 +41,12 @@ const NavbarLinks: FC = () => {
             && features[feature as keyof TFeatures]
       )
       .sort(),
-    [features]
+    [features.causes]
   ) as [keyof typeof navbarFeatures]
 
   const languageToggleLink = useMemo(
     () => (
-      <LanguageToggle onClick={handleChangeLanguage}>
+      <LanguageToggle onClick={handleChangeLanguage} role="alert">
         {langLinkText === 'en' ? 'English' : 'Español'}
       </LanguageToggle>
     ),
@@ -90,11 +90,11 @@ const NavbarLinks: FC = () => {
 
       {md && (
         <Links>
-          <li key="about-us">
+          <li>
             <a href="/#about">{t('About us')}</a>
           </li>
           {NAVBAR_LINKS}
-          <li key="contact">
+          <li>
             <Link to="/contact">{t('Contact')}</Link>
           </li>
 

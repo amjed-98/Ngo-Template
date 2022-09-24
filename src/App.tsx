@@ -8,7 +8,7 @@ import {
 import { setOngConfig, setOngId } from './redux/ongConfigSlice'
 import AllRoute from './app/router'
 import { Loader } from './components'
-import { CrashPage } from './views'
+import { CrashPage } from './Pages'
 
 const ongUrl = ['development', 'staging'].includes(import.meta.env.MODE)
   ? 'prehelloo.web.lazzaro.io'

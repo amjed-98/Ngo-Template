@@ -25,14 +25,14 @@ export default function Footer(): ReactElement {
     twitter = '',
     web = '',
   } = useAppSelector(({ ong }) => ({
-    logo: ong.ongConfig?.brand.logo,
-    phone: ong.ongConfig?.contact.phone,
+    logo: ong.ongConfig?.brand?.logo,
+    phone: ong.ongConfig?.contact?.phone,
     email: ong.ongConfig?.contact?.email,
-    facebook: ong.ongConfig?.rrss.facebook,
-    instagram: ong.ongConfig?.rrss.instagram,
-    linkedin: ong.ongConfig?.rrss.linkedin,
-    twitter: ong.ongConfig?.rrss.twitter,
-    web: ong.ongConfig?.rrss.web,
+    facebook: ong.ongConfig?.rrss?.facebook,
+    instagram: ong.ongConfig?.rrss?.instagram,
+    linkedin: ong.ongConfig?.rrss?.linkedin,
+    twitter: ong.ongConfig?.rrss?.twitter,
+    web: ong.ongConfig?.rrss?.web,
   }))
 
   const navigateTo = (path: string) => () => window.open(path, '_blank')
@@ -67,7 +67,7 @@ export default function Footer(): ReactElement {
           <Link hoverColor="white" to="/terms_and_conditions" underlined>Terms and conditions</Link>
         </div>
 
-        <Icons>
+        <Icons role="link">
           <FacebookFilled onClick={navigateTo(facebook)} />
           <LinkedinFilled onClick={navigateTo(linkedin)} />
           <TwitterOutlined onClick={navigateTo(twitter)} />

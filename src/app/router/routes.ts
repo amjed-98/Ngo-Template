@@ -20,7 +20,7 @@ import {
   ContactusForm,
   StripeContainer,
   SuccessfulStripePayment
-} from '../../views'
+} from '../../Pages'
 
 const COMMON_PATH = ':firstName/:lastName/:home_address/:user_email'
 

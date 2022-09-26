@@ -1,7 +1,7 @@
 import { Suspense, useMemo } from 'react'
 import { Routes, Route } from 'react-router-dom'
-import { Loader } from '../../components'
-import { useAppSelector } from '../../hooks'
+import { Loader } from 'components'
+import { useAppSelector } from 'hooks'
 
 import getRoutes from './routes'
 

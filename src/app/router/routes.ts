@@ -1,4 +1,4 @@
-import type { TRoutes } from '../../types/types'
+import type { TRoutes } from 'types/types'
 import {
   Aboutus,
   BecomeVolunteerForm,
@@ -19,17 +19,15 @@ import {
   BecomeMemberForm,
   ContactusForm,
   StripeContainer,
-  SuccessfulStripePayment
-} from '../../Pages'
-
-const COMMON_PATH = ':firstName/:lastName/:home_address/:user_email'
+} from 'Pages'
+import finalizePaymentRoutes from './finalizePaymentRoutes'
 
 type TParameters = {
   features: TFeatures,
   isStripe: boolean,
 }
 
-const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
+const getRoutes = ({ features, isStripe }: TParameters): TRoutes => {
   const {
     causes, courses, events, partners, donations, volunteers, market
   } = features
@@ -52,7 +50,7 @@ const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
       Element: SingleEvent,
     },
     {
-      path: `/events/buy-done/${COMMON_PATH}/:amount/:tickets/:event_id/:nif`,
+      path: finalizePaymentRoutes.events,
       render: events,
       Element: FinalizeEventPaymentPage,
     },
@@ -62,7 +60,7 @@ const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
       Element: SingleEvent,
     },
     {
-      path: `/courses/buy-done/${COMMON_PATH}/:amount/:ong_id/:course_id/:nif`,
+      path: finalizePaymentRoutes.courses,
       render: courses,
       Element: FinalizeCoursePaymentPage,
     },
@@ -72,7 +70,7 @@ const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
       Element: ProjectDetails,
     },
     {
-      path: `/causes/donation-done/${COMMON_PATH}/:certificate/:text/:anonymous/:amount/:project_id/:nif`,
+      path: finalizePaymentRoutes.causes,
       render: causes,
       Element: FinalizeProjectDonationPage,
     },
@@ -82,7 +80,7 @@ const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
       Element: BecomeMemberForm,
     },
     {
-      path: `/partners/donation-done/${COMMON_PATH}/:certificate/:amount/:ong_id/:nif`,
+      path: finalizePaymentRoutes.partners,
       render: partners,
       Element: FinalizeSubscriptionDonationPage,
     },
@@ -92,7 +90,7 @@ const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
       Element: Shop,
     },
     {
-      path: `/shop/buy-done/${COMMON_PATH}/:amount/:productAmount/:product_id/:cp/:city/:country/:address/:nif`,
+      path: finalizePaymentRoutes.shop,
       render: market,
       Element: FinalizeProductPaymentPage,
     },
@@ -107,7 +105,7 @@ const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
       Element: Donate,
     },
     {
-      path: `/donate/donation-done/${COMMON_PATH}/:certificate/:text/:anonymous/:amount/:nif`,
+      path: finalizePaymentRoutes.donate,
       render: donations,
       Element: FinalizeDonationPage,
     },
@@ -130,11 +128,6 @@ const getRoutes = ({ features, isStripe }:TParameters): TRoutes => {
       path: '/checkout/:secret',
       render: isStripe,
       Element: StripeContainer,
-    },
-    {
-      path: '/payment-success',
-      render: isStripe,
-      Element: SuccessfulStripePayment,
     },
     {
       path: '/*',

@@ -25,7 +25,9 @@ export function ContactEventForm({ id }: IProps): ReactElement {
     register, handleSubmit, formState: { errors }
   } = useForm<TContactEventForm>({ resolver: yupResolver(contactEventSchema), })
 
-  const { submit, ...states } = useFormSubmit<TContactEventForm>(getSendContactEventUrl(ongId, id))
+  const {
+    submit, ...states
+  } = useFormSubmit<TContactEventForm>(getSendContactEventUrl(ongId, id))
 
   return (
     <Form onSubmit={handleSubmit(submit)}>

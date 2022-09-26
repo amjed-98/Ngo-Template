@@ -1,12 +1,12 @@
 import { Progress } from 'antd'
 import styled, { useTheme } from 'styled-components'
 import { Modal, DonateForm } from 'components'
-import { getStartProjectDonationUrl } from '../../../api/postApiServices'
+import { getStartProjectDonationUrl } from 'api/postApiServices'
 import {
   Button, Card, Flex, Text
-} from '../../../components/common'
-import { useAppSelector, useFormSubmit } from '../../../hooks'
-import { DonateSubmitForm } from '../../../types/interfaces'
+} from 'components/common'
+import { useAppSelector, useFormSubmit } from 'hooks'
+import { DonateSubmitForm } from 'types/interfaces'
 
 interface IProps {
   project: {
@@ -23,7 +23,9 @@ export function ProjectCard({ project } : IProps) {
   } = project
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
 
-  const { submit, ...states } = useFormSubmit<DonateSubmitForm>(getStartProjectDonationUrl(ongId))
+  const {
+    submit, ...states
+  } = useFormSubmit<DonateSubmitForm, true>({ url: getStartProjectDonationUrl(ongId), redirectPath: 'causes' })
 
   const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = { ...values, project_id: id, ong_id: ongId }

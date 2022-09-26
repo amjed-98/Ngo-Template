@@ -7,7 +7,9 @@ import { DonateSubmitForm } from '../../types/interfaces'
 function Donate() {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
 
-  const { submit, ...states } = useFormSubmit<DonateSubmitForm>(getStartDonationUrl(ongId))
+  const {
+    submit, ...states
+  } = useFormSubmit<DonateSubmitForm, true>({ url: getStartDonationUrl(ongId), redirectPath: 'donate' })
 
   const handleSubmit = (values: DonateSubmitForm) => {
     const donationInfo = { ...values, ong_id: ongId, }

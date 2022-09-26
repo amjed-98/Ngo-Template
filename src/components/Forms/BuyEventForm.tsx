@@ -35,7 +35,9 @@ function BuyEventForm({ modal, event: { id, EventTickets, price } }: Props): Rea
     register, handleSubmit, formState: { errors }
   } = useForm<TBuyTicketFormSubmit>({ resolver: yupResolver(buyTicketSchema), })
 
-  const { submit, ...states } = useFormSubmit<TBuyTicketFormSubmit>(getBuyEventTicketUrl(id))
+  const {
+    submit, ...states
+  } = useFormSubmit<TBuyTicketFormSubmit, true>({ url: getBuyEventTicketUrl(id), redirectPath: 'events', })
 
   const onSubmit = (data: TBuyTicketFormSubmit) => {
     const formData = {

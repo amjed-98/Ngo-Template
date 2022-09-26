@@ -18,7 +18,8 @@ import {
 } from 'components'
 
 export default function Landing(): ReactElement {
-  const { hash } = useLocation()
+  const sectionHashId = useLocation().hash as `#${string}`
+
   const {
     causes = false,
     events = false,
@@ -30,13 +31,13 @@ export default function Landing(): ReactElement {
   } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
 
   useEffect(() => {
-    if (hash) {
-      const element = document.getElementById(hash.slice(1))
+    if (sectionHashId) {
+      const element = document.querySelector(sectionHashId)
       if (element) {
         element.scrollIntoView()
       }
     }
-  }, [hash])
+  }, [sectionHashId])
 
   return (
     <>

@@ -1,20 +1,36 @@
 import { type SyntheticEvent, useEffect, useState } from 'react'
 import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import { useNavigate } from 'react-router-dom'
+import { type Location, useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
 import { Button, Center } from 'components/common'
 import type { PaymentIntent } from '@stripe/stripe-js'
+import finalizePaymentRoutes from 'app/router/finalizePaymentRoutes'
+import { RenderIf } from 'components'
 
 type TProps = {
   clientSecret: string;
 };
 
+type TLocationWithState = Location & {
+  state: {
+    formData: { [key: string]: string | number | boolean };
+    redirectPath: keyof typeof finalizePaymentRoutes;
+  };
+};
+
 export default function CheckoutForm({ clientSecret }: TProps) {
   const stripe = useStripe()
+  const { state: { formData, redirectPath } } = useLocation() as TLocationWithState
   const elements = useElements()
   const navigate = useNavigate()
-  const [message, setMessage] = useState<string | undefined>(undefined)
+  const [message, setMessage] = useState<string>()
   const [isLoading, setIsLoading] = useState(false)
+
+  const finalizePaymentRoute = finalizePaymentRoutes[redirectPath]
+    .split('/:')
+    .map((param) => formData[param] ?? param)
+    .join('/')
+    .replaceAll(' ', '')
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault()
@@ -28,7 +44,7 @@ export default function CheckoutForm({ clientSecret }: TProps) {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/payment-success`,
+        return_url: `${window.location.origin}${finalizePaymentRoute}`,
       },
     })
 
@@ -48,7 +64,7 @@ export default function CheckoutForm({ clientSecret }: TProps) {
     return paymentIntent?.status || 'canceled'
   }
 
-  const setResponseMessage = async (status:PaymentIntent.Status) => {
+  const setResponseMessage = async (status: PaymentIntent.Status) => {
     switch (status) {
       case 'succeeded':
         setMessage('Payment succeeded!')
@@ -67,14 +83,14 @@ export default function CheckoutForm({ clientSecret }: TProps) {
   }
 
   useEffect(() => {
-    retrievePaymentIntentStatus()
-      .then(setResponseMessage)
+    retrievePaymentIntentStatus().then(setResponseMessage)
   }, [clientSecret])
 
   return (
     <CheckoutFormStripe>
-      <form id="payment-form" onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <PaymentElement id="payment-element" />
+
         <Center>
           <Button type="submit" disabled={isLoading || !stripe || !elements}>
             <span id="button-text">
@@ -83,8 +99,11 @@ export default function CheckoutForm({ clientSecret }: TProps) {
           </Button>
         </Center>
 
-        {message && <div id="payment-message">{message}</div>}
-      </form>
+        <RenderIf if={!!message}>
+          <PaymentMessage>{message}</PaymentMessage>
+        </RenderIf>
+
+      </Form>
     </CheckoutFormStripe>
   )
 }
@@ -101,26 +120,10 @@ const CheckoutFormStripe = styled.div`
   height: 100vh;
   width: 100vw;
 
-  #payment-message {
-    color: rgb(105, 115, 134);
-    font-size: 16px;
-    line-height: 20px;
-    padding-top: 12px;
-    text-align: center;
-  }
-
   #payment-element {
     margin-bottom: 24px;
   }
-  #payment-form {
-    width: 30vw;
-    min-width: 500px;
-    align-self: center;
-    box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1), 0px 2px 5px 0px rgba(50, 50, 93, 0.1),
-      0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
-    border-radius: 7px;
-    padding: 40px;
-  }
+
   /* Buttons and links */
   #submit {
     background: var(--primary-color);
@@ -217,4 +220,22 @@ const CheckoutFormStripe = styled.div`
       min-width: initial;
     }
   }
+`
+
+const Form = styled.form`
+  width: 30vw;
+  min-width: 500px;
+  align-self: center;
+  box-shadow: 0px 0px 0px 0.5px rgba(50, 50, 93, 0.1), 0px 2px 5px 0px rgba(50, 50, 93, 0.1),
+    0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
+  border-radius: 7px;
+  padding: 40px;
+`
+
+const PaymentMessage = styled.div`
+  color: rgb(105, 115, 134);
+  font-size: 16px;
+  line-height: 20px;
+  padding-top: 12px;
+  text-align: center;
 `

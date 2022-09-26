@@ -1,6 +1,6 @@
 import { Elements } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
-import { Params, useParams } from 'react-router-dom'
+import { type Params, useParams } from 'react-router-dom'
 import CheckoutForm from '..'
 
 const stripePromise = loadStripe('pk_test_b8602Fd2SVOySbs7AngcMs68')

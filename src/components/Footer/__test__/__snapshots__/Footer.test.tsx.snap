@@ -3,10 +3,10 @@
 exports[`Accordion test > should match footer snapshot 1`] = `
 <DocumentFragment>
   <footer
-    class="sc-crXcEl bDkRPi"
+    class="sc-ksZaOG cDsxzG"
   >
     <div
-      class="sc-evZas hvxXYI"
+      class="sc-hAZoDl gTdwkT"
     >
       <img
         alt=""
@@ -22,10 +22,10 @@ exports[`Accordion test > should match footer snapshot 1`] = `
       Contact us anytime
     </h2>
     <div
-      class="sc-breuTD iezqKN"
+      class="sc-fnykZs hJuCFO"
     >
       <div
-        class="sc-ksZaOG jFBuDt"
+        class="sc-fEOsli loDsJk"
       >
         <span
           aria-label="phone"
@@ -51,7 +51,7 @@ exports[`Accordion test > should match footer snapshot 1`] = `
         />
       </div>
       <div
-        class="sc-ksZaOG jFBuDt"
+        class="sc-fEOsli loDsJk"
       >
         <span
           aria-label="mail"
@@ -79,7 +79,7 @@ exports[`Accordion test > should match footer snapshot 1`] = `
     </div>
   </footer>
   <div
-    class="sc-iBkjds sc-hAZoDl kwMleC lmYzII"
+    class="sc-iBkjds sc-bjUoiL kwMleC gALZVD"
     direction="row"
     width="100%"
     wrap="wrap"
@@ -90,7 +90,7 @@ exports[`Accordion test > should match footer snapshot 1`] = `
       </p>
       <a
         align="center"
-        class="sc-papXJ ngfJ"
+        class="sc-papXJ expKJR"
         hovercolor="white"
         href="/terms_and_conditions"
         size="1"
@@ -99,7 +99,7 @@ exports[`Accordion test > should match footer snapshot 1`] = `
       </a>
     </div>
     <div
-      class="sc-fnykZs bJDjZx"
+      class="sc-idiyUo NCzfd"
       role="link"
     >
       <span

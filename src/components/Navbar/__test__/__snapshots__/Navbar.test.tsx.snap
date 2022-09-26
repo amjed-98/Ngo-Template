@@ -3,7 +3,7 @@
 exports[`Navbar > Should match navbar snapshot 1`] = `
 <DocumentFragment>
   <nav
-    class="sc-hAZoDl hTbsoJ"
+    class="sc-bjUoiL eiXrBS"
   >
     <div
       class="sc-kDDrLX gVKyJe"
@@ -12,12 +12,12 @@ exports[`Navbar > Should match navbar snapshot 1`] = `
     >
       <a
         align="center"
-        class="sc-papXJ bZtArx"
+        class="sc-papXJ hOrzul"
         href="/"
         size="1"
       >
         <div
-          class="sc-evZas csXZwW"
+          class="sc-hAZoDl jVwkNl"
         >
           <img
             alt="logo"

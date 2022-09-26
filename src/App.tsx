@@ -1,14 +1,14 @@
 import { useEffect } from 'react'
 import { type DefaultTheme, ThemeProvider } from 'styled-components'
 import { ToastContainer } from 'react-toastify'
-import { getOngByUrl, getOngConfig } from './api/getApiServices'
+import { Loader } from 'components'
+import AllRoute from 'app/router'
+import { CrashPage } from 'Pages'
+import { getOngByUrl, getOngConfig } from 'api/getApiServices'
 import {
   useFetch, useAppDispatch, useSetFavIcon, useSetDocumentTitle
-} from './hooks'
-import { setOngConfig, setOngId } from './redux/ongConfigSlice'
-import AllRoute from './app/router'
-import { Loader } from './components'
-import { CrashPage } from './Pages'
+} from 'hooks'
+import { setOngConfig, setOngId } from 'redux/ongConfigSlice'
 
 const ongUrl = ['development', 'staging'].includes(import.meta.env.MODE)
   ? 'prehelloo.web.lazzaro.io'
@@ -44,7 +44,7 @@ function App() {
   useEffect(() => {
     dispatch(setOngId(ongId))
     dispatch(setOngConfig(ongData))
-  }, [dispatch, ongData, ongId])
+  }, [ongData, ongId])
 
   const primary = ongData?.brand.primary_color_hex || ''
   const secondary = ongData?.brand.secondary_color_hex || ''
@@ -52,16 +52,17 @@ function App() {
 
   if (isError || isErrorPage || ongId === undefined) return <CrashPage />
 
+  if (isLoadingOngConfig || isLoadingPlatformConfig) {
+    return (
+      <ThemeProvider theme={theme}>
+        <Loader />
+      </ThemeProvider>
+    )
+  }
   return (
     <ThemeProvider theme={theme}>
-      {isLoadingOngConfig || isLoadingPlatformConfig ? (
-        <Loader />
-      ) : (
-        <>
-          <AllRoute />
-          <ToastContainer />
-        </>
-      )}
+      <AllRoute />
+      <ToastContainer />
     </ThemeProvider>
   )
 }

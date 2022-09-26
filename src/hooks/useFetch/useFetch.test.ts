@@ -22,5 +22,8 @@ describe('useFetch', () => {
     await waitForNextUpdate()
 
     expect(result.current.data).toEqual({ todo: 'foo', completed: false })
+    expect(result.current.isError).toBeDefined()
+    expect(result.current.isLoading).toBeDefined()
+    expect(result.current.error).toBeNull()
   })
 })

@@ -15,6 +15,7 @@ import {
   Navbar,
   Footer,
   RenderIf,
+  SubscribeDivider
 } from 'components'
 
 export default function Landing(): ReactElement {
@@ -44,14 +45,14 @@ export default function Landing(): ReactElement {
       <Navbar transparent position="fixed" />
       <Hero />
       <AboutUs />
-      <RenderIf if={logos} children={LogosCarousel} />
-      <RenderIf if={causes} children={Projects} />
-      <RenderIf if={events} children={PremiumEvent} />
-      <RenderIf if={impact} children={SocialImpact} />
-      <RenderIf if={events} children={Events} />
-      <RenderIf if={partners} children={Events} />
-      <RenderIf if={courses} children={Courses} />
-      <RenderIf if={volunteers} children={Volunteers} />
+      <RenderIf if={logos} children={<LogosCarousel />} />
+      <RenderIf if={causes} children={<Projects />} />
+      <RenderIf if={events} children={<PremiumEvent />} />
+      <RenderIf if={impact} children={<SocialImpact />} />
+      <RenderIf if={events} children={<Events />} />
+      <RenderIf if={partners} children={<SubscribeDivider />} />
+      <RenderIf if={courses} children={<Courses />} />
+      <RenderIf if={volunteers} children={<Volunteers />} />
       <Footer />
     </>
   )

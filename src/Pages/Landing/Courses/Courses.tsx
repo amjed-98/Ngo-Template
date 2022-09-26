@@ -23,7 +23,7 @@ function Courses(): ReactElement {
       </RenderIf>
 
       <Carousel Component={CourseCard} slidesPerView={2}>
-        {events}
+        {events.filter((event) => event.course)}
       </Carousel>
     </Box>
   )

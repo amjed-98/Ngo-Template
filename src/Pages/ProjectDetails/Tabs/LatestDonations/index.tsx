@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 import styled from 'styled-components'
-import { getProjectLatestDonationsURL } from '../../../../api/getApiServices'
-import { Text } from '../../../../components/common'
-import { useFetch } from '../../../../hooks'
-import { type IDonation } from '../../../../types/interfaces'
-import Skeleton from '../../../../components/Skeleton'
+import { getProjectLatestDonationsURL } from 'api/getApiServices'
+import { Text } from 'components/common'
+import { useFetch } from 'hooks'
+import { type ILatestDonation } from 'types/interfaces'
+import Skeleton from 'components/Skeleton'
 import DonationCard from './DonationCard'
 
 interface IProps {
@@ -15,19 +15,17 @@ interface IProps {
 function LatestDonations({ title, projectId }: IProps) {
   const {
     data: donations, isLoading
-  } = useFetch<IDonation[]>(getProjectLatestDonationsURL(projectId), [`donations${projectId}`], projectId)
+  } = useFetch<ILatestDonation[]>(getProjectLatestDonationsURL(projectId), [`donations${projectId}`], projectId)
 
   const memoizedDonations = useMemo(
-    () => donations?.map((donation) => (
-      <DonationCard donation={donation} />
-    )),
+    () => donations?.map((donation) => <DonationCard latestDonation={donation} />),
     [donations]
   )
 
   return (
     <Container>
       <Text weight="bold" fontSize={2} textAlign="left">
-        {title || 'Latest Donations'}
+        {title}
       </Text>
 
       {isLoading && <Skeleton width={32} height={11} number={3} px={3} />}

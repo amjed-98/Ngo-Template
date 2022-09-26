@@ -1,27 +1,31 @@
 import { Tabs as AntdTabs } from 'antd'
-import { getStartProjectDonationUrl } from '../../../api/postApiServices'
-import { DonateForm } from '../../../components'
-import { useAppSelector, useFormSubmit } from '../../../hooks'
-import { DonateSubmitForm } from '../../../types/interfaces'
+import { getStartProjectDonationUrl } from 'api/postApiServices'
+import { DonateForm } from 'components'
+import { useAppSelector, useFormSubmit } from 'hooks'
+import { donationSchema } from 'validation/schemas'
+import { type TypeOf } from 'yup'
 import Description from './Description'
 import LatestDonations from './LatestDonations'
 
 const { TabPane } = AntdTabs
+
+type TFormSubmitData = TypeOf<typeof donationSchema>;
+
 interface IProps {
-  projectDetails?: {
+  projectDetails: {
     id: string,
     description: string,
   };
 }
 
 function Tabs({ projectDetails }: IProps) {
-  const { id = '', description = '' } = projectDetails || {}
+  const { id = '', description = '' } = projectDetails
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const {
     submit, ...states
-  } = useFormSubmit<DonateSubmitForm, true>({ url: getStartProjectDonationUrl(ongId), redirectPath: 'donate' })
+  } = useFormSubmit<TFormSubmitData, true>({ url: getStartProjectDonationUrl(ongId), redirectPath: 'donate' })
 
-  const handleSubmit = (values: DonateSubmitForm) => {
+  const handleSubmit = (values: TFormSubmitData) => {
     const donationInfo = { ...values, project_id: id, ong_id: ongId }
     submit(donationInfo)
   }
@@ -42,10 +46,4 @@ function Tabs({ projectDetails }: IProps) {
   )
 }
 
-Tabs.defaultProps = {
-  projectDetails: {
-    id: '',
-    description: '',
-  }
-}
 export default Tabs

@@ -1,28 +1,28 @@
 import moment from 'moment'
 import { type FC } from 'react'
 import styled from 'styled-components'
-import { Text } from '../../../../components/common'
-import { type IDonation } from '../../../../types/interfaces'
+import { Text } from 'components/common'
+import { type ILatestDonation } from 'types/interfaces'
 
 interface IProps {
-  donation: IDonation
+  latestDonation: ILatestDonation;
 }
 const formatDate = (date: string) => moment(date).format('MM Do YYYY')
 
-const DonationCard:FC<IProps> = ({ donation }) => (
-  <Section key={donation.id}>
+const DonationCard:FC<IProps> = ({ latestDonation }) => (
+  <Section key={latestDonation.id}>
     <Flex>
       <Text fontSize={1.2}>
-        {donation.anonymous ? 'anonymous' : `${donation.User.firstName} ${donation.User.lastName}`}
+        {latestDonation.anonymous ? 'anonymous' : `${latestDonation.User.firstName} ${latestDonation.User.lastName}`}
       </Text>
-      <Text textAlign="right">${donation.amount}</Text>
+      <Text textAlign="right">${latestDonation.amount}</Text>
     </Flex>
 
     <Text fontSize={0.7} lineHeight={0} textAlign="left" color="#777777" mt={-1.5}>
-      {formatDate(donation.createdAt)}
+      {formatDate(latestDonation.createdAt)}
     </Text>
 
-    <Text mt={1}>{donation.text}</Text>
+    <Text mt={1}>{latestDonation.text}</Text>
   </Section>
 )
 

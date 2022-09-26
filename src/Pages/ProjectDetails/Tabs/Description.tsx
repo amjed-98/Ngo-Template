@@ -1,6 +1,6 @@
 import HtmlParser from 'html-react-parser'
 
-import { Box } from '../../../components/common'
+import { Box } from 'components/common'
 
 function Description({ description }: { description: string }) {
   return (

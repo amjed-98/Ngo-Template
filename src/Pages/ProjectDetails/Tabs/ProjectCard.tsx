@@ -1,4 +1,5 @@
 import { Progress } from 'antd'
+import { type TypeOf } from 'yup'
 import styled, { useTheme } from 'styled-components'
 import { Modal, DonateForm } from 'components'
 import { getStartProjectDonationUrl } from 'api/postApiServices'
@@ -6,7 +7,10 @@ import {
   Button, Card, Flex, Text
 } from 'components/common'
 import { useAppSelector, useFormSubmit } from 'hooks'
-import { DonateSubmitForm } from 'types/interfaces'
+
+import { donationSchema } from 'validation/schemas'
+
+type TFormSubmitData = TypeOf<typeof donationSchema>;
 
 interface IProps {
   project: {
@@ -19,15 +23,15 @@ interface IProps {
 
 export function ProjectCard({ project } : IProps) {
   const {
-    id, title, donated, amount
+    id, title, donated = 0, amount = 1
   } = project
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
 
   const {
     submit, ...states
-  } = useFormSubmit<DonateSubmitForm, true>({ url: getStartProjectDonationUrl(ongId), redirectPath: 'causes' })
+  } = useFormSubmit<TFormSubmitData, true>({ url: getStartProjectDonationUrl(ongId), redirectPath: 'causes' })
 
-  const handleSubmit = (values: DonateSubmitForm) => {
+  const handleSubmit = (values: TFormSubmitData) => {
     const donationInfo = { ...values, project_id: id, ong_id: ongId }
 
     submit(donationInfo)
@@ -35,15 +39,15 @@ export function ProjectCard({ project } : IProps) {
 
   const { primary } = useTheme()
 
-  const donationProgress = ((donated / amount) * 100).toFixed()
-  const donateBtnText = +donationProgress >= 100 ? 'Filled!' : 'Donate'
+  const donationProgress = +((donated / amount) * 100).toFixed()
+  const donateBtnText = donationProgress >= 100 ? 'Filled!' : 'Donate'
 
   return (
     <Card mode="column" p={2.5} maxWidth="400px" smMode="column" m="1rem">
       <Title title={title}>{title.slice(0, 15)}</Title>
       <ProgressBar>
-        <Progress percent={+donationProgress} strokeColor={primary} />
-        <ProgressPercents percent={+donationProgress}>
+        <Progress percent={donationProgress} strokeColor={primary} />
+        <ProgressPercents percent={donationProgress}>
           %{donationProgress}
         </ProgressPercents>
       </ProgressBar>

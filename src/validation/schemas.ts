@@ -5,16 +5,16 @@ const personalDetailsSchema = {
   lastName: yup.string().required('Last name is required'),
   user_email: yup.string().required('Email is required'),
 }
-export const memberSchema = yup.object().shape({
+export const memberSchema = yup.object({
   ...personalDetailsSchema,
   home_address: yup.string().required('Address is required'),
-  birthDate: yup.date().required('Birth of Date is required')
+  birthDate: yup.string().required('Birth of Date is required')
     .typeError('Birth of Date is required'),
   nif: yup.string().required('ID is required').typeError('ID must be a number'),
   terms: yup.boolean().typeError('You must accept the terms and conditions'),
   membership: yup.boolean().typeError('You must accept the membership'),
   phone: yup.string().required('Phone is required')
-}).required()
+})
 
 export const buyCourseTicketSchema = yup.object({
   ...personalDetailsSchema,
@@ -46,11 +46,11 @@ export const buyProductSchema = yup.object({
   privacy_policy: yup.boolean().isTrue('You must accept the privacy policy').required(),
 })
 
-export const contactEventSchema = yup.object().shape({
+export const contactEventSchema = yup.object({
   name: yup.string().required('Name is required'),
   email: yup.string().required('Email is required'),
   text: yup.string().required('Message is required'),
-}).required()
+})
 
 export const contactSchema = yup.object({
   name: yup.string().required('Name is required'),
@@ -67,10 +67,13 @@ export const donationSchema = yup.object({
   nif: yup.string().required('ID is required').typeError('ID must be a number'),
   terms: yup.boolean().required('You must accept the terms and conditions'),
   amount: yup.number().required('Amount is required').typeError('Amount must be a number'),
-  text: yup.string()
+  birthDate: yup.string().required('Birth of Date is required'),
+  anonymous: yup.boolean().oneOf([true, false]).required(),
+  certificate: yup.boolean().oneOf([true, false]).required(),
+  text: yup.string(),
 })
 
-export const volunteerSchema = yup.object().shape({
+export const volunteerSchema = yup.object({
   ...personalDetailsSchema,
   home_address: yup.string().required('Address is required'),
-}).required()
+})

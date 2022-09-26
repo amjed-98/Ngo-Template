@@ -1,42 +1,48 @@
 import { type ReactElement } from 'react'
 import styled from 'styled-components'
-import { useParams } from 'react-router-dom'
-import { ProjectCard } from './Tabs/ProjectCard'
-import { Footer, Navbar } from '../../components'
-import ImageCarousel from './ImageCarousel'
+import { type Params, useParams } from 'react-router-dom'
+import { useFetch } from 'hooks'
+import { getProjectDetailsURL, getProjectImagesURL } from 'api/getApiServices'
+import { IProject } from 'types/interfaces'
+import {
+  Footer, Navbar, RenderIf, Skeleton
+} from 'components'
+import { TImages } from 'types/types'
 import Tabs from './Tabs'
-import Skeleton from '../../components/Skeleton'
-import { useFetch } from '../../hooks'
-import { getProjectDetailsURL, getProjectImagesURL } from '../../api/getApiServices'
-import { IProject } from '../../types/interfaces'
-import { TImages } from '../../types/types'
+import ImageCarousel from './ImageCarousel'
+import { ProjectCard } from './Tabs/ProjectCard'
 
 function ProjectDetails(): ReactElement {
-  const id = useParams().id as string
+  const { id = '' } = useParams<Params<'id'>>()
 
   const {
     data: images = [], isLoading: isImagesLoading
   } = useFetch<TImages>(getProjectImagesURL(id), [`project-images-${id}`], id)
 
   const {
-    data: projectDetails,
-    isLoading: isProjectLoading
+    data: projectDetails = {} as IProject, isLoading: isProjectLoading
   } = useFetch<IProject>(getProjectDetailsURL(id), [`project-details-${id}`], id)
+
   return (
     <>
       <Navbar />
-      {isImagesLoading && <Skeleton number={1} width={100} height={40} px={0} mt={0} />}
+
+      <RenderIf if={isImagesLoading}>
+        <Skeleton number={1} width={100} height={40} px={0} mt={0} />
+      </RenderIf>
+
       <ImageCarousel images={images} />
       <Flex>
         <Tabs projectDetails={projectDetails} />
-        <OtherProjects>
-          {isProjectLoading && (
-            <Skeleton width={25} height={29} number={1} justify="flex-end" px={1} />
-          )}
 
-          {
-           projectDetails && <ProjectCard project={projectDetails} key={projectDetails.id} />
-          }
+        <OtherProjects>
+          <RenderIf if={isProjectLoading}>
+            <Skeleton width={25} height={29} number={1} justify="flex-end" px={1} />
+          </RenderIf>
+
+          <RenderIf if={!isProjectLoading}>
+            <ProjectCard project={projectDetails} />
+          </RenderIf>
         </OtherProjects>
       </Flex>
       <Footer />

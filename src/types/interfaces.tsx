@@ -13,22 +13,8 @@ export interface IProductCard {
   default_img: string;
   discount: number;
 }
-export interface DonateSubmitForm {
-  firstName: string;
-  lastName: string;
-  user_email: string;
-  home_address: string;
-  birthDate: Date;
-  nif: number;
-  amount: number;
-  anonymous: boolean;
-  message?: string;
-  certificate: boolean;
-  terms: boolean;
-  text: string;
-}
 
-export interface IDonation {
+export interface ILatestDonation {
   id: string;
   text: string;
   anonymous: boolean;

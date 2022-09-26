@@ -2,61 +2,58 @@ import type { ReactElement } from 'react'
 import { MailFilled, MailOutlined, PhoneFilled } from '@ant-design/icons'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
+import { type TypeOf } from 'yup'
 import styled from 'styled-components'
-import { getSendContactUrl } from '../../api/postApiServices'
+import { getSendContactUrl } from 'api/postApiServices'
 import {
   useAppSelector, useGeocoding, useFormSubmit
-} from '../../hooks'
-import { contactSchema } from '../../validation/schemas'
+} from 'hooks'
+import { contactSchema } from 'validation/schemas'
 import {
-  Button, Center, Flex, Input, Label, TextArea, ErrorMsg
-} from '../common'
-import HandleResponse from '../common/ResponseMsg'
-import Footer from '../Footer/Footer'
-import Map from '../Map'
-import Navbar from '../Navbar/Navbar'
+  RenderIf, Footer, Map, Navbar
+} from 'components'
+import {
+  Button, Center, Flex, Input, Label, TextArea, ErrorMsg, ResponseMsg
+} from 'components/common'
 
-type ContactSubmitForm = {
-  name: string
-  lastName: string
-  email: string
-  subject: string
-  message: string
-  terms: boolean
-}
+type TFormSubmitData = TypeOf<typeof contactSchema>;
 
-export default function ContactusForm(): ReactElement {
+function ContactUsForm(): ReactElement {
   const { phone, email = '', address = '' } = useAppSelector((state) => state.ong.ongConfig?.contact) || {}
+  const { lat, lng } = useGeocoding(address)
 
   const {
     register, handleSubmit, formState: { errors }
-  } = useForm<ContactSubmitForm>({ resolver: yupResolver(contactSchema), })
+  } = useForm<TFormSubmitData>({ resolver: yupResolver(contactSchema), })
 
   const {
     submit, ...states
-  } = useFormSubmit<ContactSubmitForm & { ongEmail:string }>(getSendContactUrl())
+  } = useFormSubmit<TFormSubmitData>(getSendContactUrl())
 
-  const onSubmit = (data: ContactSubmitForm) => {
-    submit({ ...data, ongEmail: email })
+  const onSubmit = (data: TFormSubmitData) => {
+    const formData = { ...data, ongEmail: email }
+    submit(formData)
   }
-
-  const { lat, lng } = useGeocoding(address)
 
   return (
     <>
+      <ResponseMsg
+        {...states}
+        successMsg="Your message has been sent successfully"
+        errorMsg="Something went wrong, please try again"
+        successId="contact-success"
+        errorId="contact-error"
+      />
       <Navbar />
-      {!!lat && !!lng && <Map lat={lat} lng={lng} height={28} />}
-      <Container>
 
-        <ContactusFormBox onSubmit={handleSubmit(onSubmit)}>
-          <HandleResponse
-            {...states}
-            successMsg="Your message has been sent successfully"
-            errorMsg="Something went wrong, please try again"
-            successId="contact-success"
-            errorId="contact-error"
-          />
+      <RenderIf if={!!(lat && lng)}>
+        <Map lat={lat} lng={lng} height={28} />
+      </RenderIf>
+
+      <Container>
+        <Form onSubmit={handleSubmit(onSubmit)}>
           <FormTitle>Contact us</FormTitle>
+
           <FormRow>
             <Flex>
               <Input placeholder="Name" {...register('name')} />
@@ -68,19 +65,19 @@ export default function ContactusForm(): ReactElement {
               <ErrorMsg>{errors.lastName?.message}</ErrorMsg>
             </Flex>
           </FormRow>
+
           <Input placeholder="Email" {...register('email')} />
           <ErrorMsg>{errors.email?.message}</ErrorMsg>
+
           <Input placeholder="Subject" {...register('subject')} />
           <ErrorMsg>{errors.subject?.message}</ErrorMsg>
+
           <TextArea placeholder="Message" rows={4} {...register('message')} />
+
           <ErrorMsg>{errors.message?.message}</ErrorMsg>
+
           <Label>
-            <Input
-              w="15px"
-              mr={0.625}
-              type="checkbox"
-              {...register('terms')}
-            />
+            <Input w="15px" mr={0.625} type="checkbox" {...register('terms')} />
             <span>I agree to the privacy policy</span>
             <ErrorMsg>{errors.terms?.message}</ErrorMsg>
           </Label>
@@ -88,10 +85,11 @@ export default function ContactusForm(): ReactElement {
           <Center>
             <Button type="submit">Send Message</Button>
           </Center>
-        </ContactusFormBox>
+        </Form>
 
         <ContactDetailsBox>
           <BoxTitle>Contact info</BoxTitle>
+
           <InfoBox>
             <MailOutlined />
             <InfoText>
@@ -99,6 +97,7 @@ export default function ContactusForm(): ReactElement {
               <TextHolder>{address}</TextHolder>
             </InfoText>
           </InfoBox>
+
           <InfoBox>
             <PhoneFilled />
             <InfoText>
@@ -106,6 +105,7 @@ export default function ContactusForm(): ReactElement {
               <TextHolder>{phone}</TextHolder>
             </InfoText>
           </InfoBox>
+
           <InfoBox>
             <MailFilled />
             <InfoText>
@@ -113,13 +113,17 @@ export default function ContactusForm(): ReactElement {
               <TextHolder>{email}</TextHolder>
             </InfoText>
           </InfoBox>
+
         </ContactDetailsBox>
+
       </Container>
 
       <Footer />
     </>
   )
 }
+
+export default ContactUsForm
 
 const Container = styled.div`
 display: flex;
@@ -129,7 +133,7 @@ margin-top: -12.4rem;
 z-index: 1;
 `
 
-const ContactusFormBox = styled.form`
+const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 0.8rem;

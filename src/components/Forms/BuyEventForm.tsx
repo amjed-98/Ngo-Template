@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { Fragment, type ReactElement, useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
+import { type TypeOf } from 'yup'
 import type { IEvent } from 'types/interfaces'
 import { TModal } from 'types/types'
 import { buyTicketSchema } from 'validation/schemas'
@@ -10,21 +11,14 @@ import { useAppSelector, useFormSubmit } from 'hooks'
 import { getBuyEventTicketUrl } from 'api/postApiServices'
 import {
   Button, Center, ErrorMsg, Input, ResponseMsg
-} from '../common'
+} from 'components/common'
 
 interface Props {
   modal?: TModal;
   event: IEvent;
 }
 
-type TBuyTicketFormSubmit = {
-  firstName: string;
-  lastName: string;
-  user_email: string;
-  mobilePhone: string;
-  terms_and_conditions: boolean;
-  tickets: IEvent['EventTickets'];
-};
+type TFormSubmitData = TypeOf<typeof buyTicketSchema>
 
 function BuyEventForm({ modal, event: { id, EventTickets, price } }: Props): ReactElement {
   const {
@@ -33,13 +27,13 @@ function BuyEventForm({ modal, event: { id, EventTickets, price } }: Props): Rea
 
   const {
     register, handleSubmit, formState: { errors }
-  } = useForm<TBuyTicketFormSubmit>({ resolver: yupResolver(buyTicketSchema), })
+  } = useForm<TFormSubmitData>({ resolver: yupResolver(buyTicketSchema), })
 
   const {
     submit, ...states
-  } = useFormSubmit<TBuyTicketFormSubmit, true>({ url: getBuyEventTicketUrl(id), redirectPath: 'events', })
+  } = useFormSubmit<TFormSubmitData, true>({ url: getBuyEventTicketUrl(id), redirectPath: 'events', })
 
-  const onSubmit = (data: TBuyTicketFormSubmit) => {
+  const onSubmit = (data: TFormSubmitData) => {
     const formData = {
       ...data,
       event_id: id,

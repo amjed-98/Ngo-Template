@@ -8,7 +8,7 @@ export const Donate = lazy(() => import('./Donate' /* webpackChunkName: "Donate"
 export const Shop = lazy(() => import('./Shop' /* webpackChunkName: "Shop" */))
 export const BecomeVolunteerForm = lazy(() => import('./BecomeVolunteerForm' /* webpackChunkName: "BecomeVolunteerForm" */))
 export const DonateForm = lazy(() => import('../components/Forms/DonateForm' /* webpackChunkName: "DonateForm" */))
-export const ContactusForm = lazy(() => import('../components/Forms/ContactusForm' /* webpackChunkName: "Contactus" */))
+export const ContactUsForm = lazy(() => import('../components/Forms/ContactUsForm' /* webpackChunkName: "Contactus" */))
 export const SingleEvent = lazy(() => import('./EventDetails' /* webpackChunkName: "SingleEvent" */))
 export const SingleProduct = lazy(() => import('./ProductDetails' /* webpackChunkName: "SingleProduct" */))
 export const TermsAndConditions = lazy(() => import('./TermsAndConditions' /* webpackChunkName: "TermsAndConditions" */))

@@ -1,31 +1,33 @@
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useForm } from 'react-hook-form'
+import { type TypeOf } from 'yup'
 import styled from 'styled-components'
-import { getAddVolunteerUrl } from '../../api/postApiServices'
-import { Footer, Navbar } from '../../components'
+import { getAddVolunteerUrl } from 'api/postApiServices'
+import { Footer, Navbar } from 'components'
 import {
-  Button, Center, Flex, SectionTitle, ErrorMsg, Input, ResponseMsg
-} from '../../components/common'
-import { CustomInputDiv } from '../../components/common/CustomInput'
-import { useAppSelector, useFormSubmit } from '../../hooks'
-import { volunteerSchema } from '../../validation/schemas'
+  Button,
+  Center,
+  Flex,
+  SectionTitle,
+  ErrorMsg,
+  Input,
+  ResponseMsg,
+  CustomInputDiv,
+} from 'components/common'
+import { useAppSelector, useFormSubmit } from 'hooks'
+import { volunteerSchema } from 'validation/schemas'
 
-type TVolunteerSubmitForm = {
-  firstName: string
-  lastName: string
-  user_email: string
-  home_address: string
-}
+type TFormSubmitData = TypeOf<typeof volunteerSchema>
 
 function BecomeVolunteerForm() {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const {
     handleSubmit, register, formState: { errors }
-  } = useForm<TVolunteerSubmitForm>({ resolver: yupResolver(volunteerSchema) })
+  } = useForm<TFormSubmitData>({ resolver: yupResolver(volunteerSchema) })
 
-  const { submit, ...states } = useFormSubmit<TVolunteerSubmitForm>(getAddVolunteerUrl())
+  const { submit, ...states } = useFormSubmit<TFormSubmitData>(getAddVolunteerUrl())
 
-  const onSubmit = (data: TVolunteerSubmitForm) => {
+  const onSubmit = (data: TFormSubmitData) => {
     const formData = { ...data, ong_id: ongId }
     submit(formData)
   }

@@ -1,33 +1,32 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { SubmitHandler, useForm } from 'react-hook-form'
+import { type TypeOf } from 'yup'
+import { type SubmitHandler, useForm } from 'react-hook-form'
+import { donationSchema } from 'validation/schemas'
 import {
-  Button, Center, Input, TextArea, ErrorMsg
-} from '../common'
-import Label from '../common/Label'
-import HandleResponse from '../common/ResponseMsg'
-import { DonateSubmitForm } from '../../types/interfaces'
-import { donationSchema } from '../../validation/schemas'
+  Button, Center, Input, TextArea, ErrorMsg, ResponseMsg, Label
+} from 'components/common'
 
-interface IProps {
-  submitHandler: SubmitHandler<DonateSubmitForm>;
+type TFormSubmitData = TypeOf<typeof donationSchema>;
+type TProps = {
+  submitHandler: SubmitHandler<TFormSubmitData>;
   projectId?: string;
-  states:{
+  states: {
     isLoading: boolean;
     isError: boolean;
     isSuccess: boolean;
-  }
-}
+  };
+};
 
-function DonateForm({ projectId, submitHandler, states }: IProps) {
+function DonateForm({ projectId, submitHandler, states }: TProps) {
   const {
     register, handleSubmit, formState: { errors },
-  } = useForm<DonateSubmitForm>({ resolver: yupResolver(donationSchema) })
+  } = useForm<TFormSubmitData>({ resolver: yupResolver(donationSchema) })
 
   return (
     <CustomForm onSubmit={handleSubmit(submitHandler)}>
-      <HandleResponse
+      <ResponseMsg
         {...states}
         successMsg="Your request has been sent successfully"
         errorMsg="Something went wrong, please try again"
@@ -125,7 +124,6 @@ function DonateForm({ projectId, submitHandler, states }: IProps) {
       </FormControl>
 
       <Center>
-
         <Button type="submit" aria-label="submit">
           Donate
         </Button>

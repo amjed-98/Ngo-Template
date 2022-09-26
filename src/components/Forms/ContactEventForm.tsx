@@ -2,32 +2,30 @@ import type { ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { type TypeOf } from 'yup'
 import {
   Button, Center, Input, TextArea, ErrorMsg, ResponseMsg
-} from '../common'
-import { useAppSelector, useFormSubmit } from '../../hooks'
-import { getSendContactEventUrl } from '../../api/postApiServices'
-import { contactEventSchema } from '../../validation/schemas'
+} from 'components/common'
+import { useAppSelector, useFormSubmit } from 'hooks'
+import { getSendContactEventUrl } from 'api/postApiServices'
+import { contactEventSchema } from 'validation/schemas'
 
 interface IProps {
   id: string
 }
 
-type TContactEventForm = {
-  name: string
-  email: string
-  text: string
-}
+type TFormSubmitData = TypeOf<typeof contactEventSchema>;
+
 export function ContactEventForm({ id }: IProps): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
 
   const {
     register, handleSubmit, formState: { errors }
-  } = useForm<TContactEventForm>({ resolver: yupResolver(contactEventSchema), })
+  } = useForm<TFormSubmitData>({ resolver: yupResolver(contactEventSchema), })
 
   const {
     submit, ...states
-  } = useFormSubmit<TContactEventForm>(getSendContactEventUrl(ongId, id))
+  } = useFormSubmit<TFormSubmitData>(getSendContactEventUrl(ongId, id))
 
   return (
     <Form onSubmit={handleSubmit(submit)}>

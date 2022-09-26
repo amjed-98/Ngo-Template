@@ -19,5 +19,5 @@ export const Modal = lazy(() => import('./Modal' /* webpackChunkName: "BuyModal"
 export const FinalizePaymentResult = lazy(() => import('./FinalizePaymentResult' /* webpackChunkName: "FinalizePaymentResult" */))
 export const Map = lazy(() => import('./Map' /* webpackChunkName: "Map" */))
 export const RenderIf = lazy(() => import('./RenderIf' /* webpackChunkName: "RenderIf" */))
-
+export const Skeleton = lazy(() => import('./Skeleton' /* webpackChunkName: "Skeleton" */))
 export { default as Loader } from './Loader/Loader'

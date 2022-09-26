@@ -7,7 +7,10 @@ import DonateForm from 'components/Forms/DonateForm'
 import { Modal } from 'components'
 import { useAppSelector, useFormSubmit } from 'hooks'
 import { getStartProjectDonationUrl } from 'api/postApiServices'
-import { DonateSubmitForm } from 'types/interfaces'
+import { donationSchema } from 'validation/schemas'
+import { type TypeOf } from 'yup'
+
+type TFormSubmitData = TypeOf<typeof donationSchema>;
 
 interface ProjectProps {
   imageURL: string;
@@ -19,10 +22,10 @@ function Project({ imageURL, title, id }: ProjectProps): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
   const {
     submit, ...states
-  } = useFormSubmit<DonateSubmitForm, true>({ url: getStartProjectDonationUrl(ongId), redirectPath: 'causes' })
+  } = useFormSubmit<TFormSubmitData, true>({ url: getStartProjectDonationUrl(ongId), redirectPath: 'causes' })
 
-  const handleSubmit = (values: DonateSubmitForm) => {
-    const donationInfo = { ...values, ong_id: ongId }
+  const handleSubmit = (data: TFormSubmitData) => {
+    const donationInfo = { ...data, ong_id: ongId }
 
     submit(donationInfo)
   }

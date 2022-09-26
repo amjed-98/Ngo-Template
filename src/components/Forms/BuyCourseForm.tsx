@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { type ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import styled, { useTheme } from 'styled-components'
+import { type TypeOf } from 'yup'
 import { getBuyCourseUrl } from '../../api/getApiServices'
 import { useAppSelector, useFormSubmit } from '../../hooks'
 import { buyCourseTicketSchema } from '../../validation/schemas'
@@ -9,28 +10,24 @@ import {
   Button, Input, Label, Link, ErrorMsg, ResponseMsg
 } from '../common'
 
-interface Props {
+type TFormSubmitData = TypeOf<typeof buyCourseTicketSchema>
+
+type TProps ={
   courseId: string;
 }
 
-type TBuyCourseFormSubmit = {
-  firstName: string;
-  lastName: string;
-  user_email: string;
-  mobilePhone: string;
-  terms: boolean;
-};
-
-export default function BuyCourseForm({ courseId }: Props): ReactElement {
+export default function BuyCourseForm({ courseId }: TProps): ReactElement {
   const ongId = useAppSelector(({ ong }) => ong.ongId)
   const { secondary } = useTheme()
 
   const {
     register, handleSubmit, formState: { errors }
-  } = useForm<TBuyCourseFormSubmit>({ resolver: yupResolver(buyCourseTicketSchema), })
-  const { submit, ...states } = useFormSubmit<TBuyCourseFormSubmit>(getBuyCourseUrl(courseId))
+  } = useForm<TFormSubmitData>({ resolver: yupResolver(buyCourseTicketSchema), })
+  const {
+    submit, ...states
+  } = useFormSubmit<TFormSubmitData, true>({ url: getBuyCourseUrl(courseId), redirectPath: 'shop' })
 
-  const onSubmit = (data: TBuyCourseFormSubmit) => {
+  const onSubmit = (data: TFormSubmitData) => {
     const formData = { ...data, course_id: courseId, ong_id: ongId }
 
     submit(formData)

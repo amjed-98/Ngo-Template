@@ -5,39 +5,29 @@ import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import DatePicker from 'react-datepicker'
 import moment from 'moment'
-import Footer from '../Footer/Footer'
-import Navbar from '../Navbar/Navbar'
+import { type TypeOf } from 'yup'
+import { Footer, Navbar } from 'components'
 import {
   Button, Center, Input, ErrorMsg
-} from '../common'
-import HandleResponse from '../common/ResponseMsg'
-import { useAppSelector, useFormSubmit } from '../../hooks'
-import { getBecomePartnerUrl } from '../../api/postApiServices'
-import { CustomInputDiv } from '../common/CustomInput'
-import { memberSchema } from '../../validation/schemas'
+} from 'components/common'
+import HandleResponse from 'components/common/ResponseMsg'
+import { useAppSelector, useFormSubmit } from 'hooks'
+import { getBecomePartnerUrl } from 'api/postApiServices'
+import { CustomInputDiv } from 'components/common/CustomInput'
+import { memberSchema } from 'validation/schemas'
 
-type TMemberSubmitForm = {
-  firstName: string;
-  lastName: string;
-  user_email: string;
-  home_address: string;
-  birthDate: string;
-  nif: number;
-  terms: boolean;
-  membership: boolean;
-  phone: string;
-};
+type TFormSubmitData = TypeOf<typeof memberSchema>
 
 export default function BecomeMemberForm(): ReactElement {
   const ongId = useAppSelector((state) => state.ong.ongId) || ''
   const {
     register, handleSubmit, formState: { errors }, control,
-  } = useForm<TMemberSubmitForm>({ resolver: yupResolver(memberSchema) })
+  } = useForm<TFormSubmitData>({ resolver: yupResolver(memberSchema) })
   const {
     submit, ...states
-  } = useFormSubmit<TMemberSubmitForm, true>({ url: getBecomePartnerUrl(), redirectPath: 'partners' })
+  } = useFormSubmit<TFormSubmitData, true>({ url: getBecomePartnerUrl(), redirectPath: 'partners' })
 
-  const onSubmit = (data: TMemberSubmitForm) => {
+  const onSubmit = (data: TFormSubmitData) => {
     const formData = {
       ...data,
       birthDate: moment(data.birthDate).format('YYYY-MM-DD'),

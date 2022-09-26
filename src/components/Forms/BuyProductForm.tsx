@@ -2,6 +2,7 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { type ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
+import { type TypeOf } from 'yup'
 import { getStartProductPaymentUrl } from '../../api/postApiServices'
 import { useAppSelector, useFormSubmit } from '../../hooks'
 import { buyProductSchema } from '../../validation/schemas'
@@ -16,21 +17,7 @@ interface IProps {
   title: string;
 }
 
-interface IFormSubmit {
-  amount: number;
-  firstName: string;
-  lastName: string;
-  user_email: string;
-  home_address: string;
-  productAmount: number;
-  city: string;
-  country: string;
-  nif: string;
-  cp: number;
-  mobile_phone: string;
-  privacy_policy: boolean;
-  birthDate: string;
-}
+type TFormSubmitData = TypeOf<typeof buyProductSchema>
 
 export function BuyProductForm(props: IProps): ReactElement {
   const {
@@ -41,13 +28,13 @@ export function BuyProductForm(props: IProps): ReactElement {
 
   const {
     handleSubmit, register, formState: { errors },
-  } = useForm<IFormSubmit>({ resolver: yupResolver(buyProductSchema) })
+  } = useForm<TFormSubmitData>({ resolver: yupResolver(buyProductSchema) })
 
   const {
     submit, ...states
-  } = useFormSubmit<IFormSubmit, true>({ url: getStartProductPaymentUrl(), redirectPath: 'shop' })
+  } = useFormSubmit<TFormSubmitData, true>({ url: getStartProductPaymentUrl(), redirectPath: 'shop' })
 
-  const onSubmit = (data: IFormSubmit) => {
+  const onSubmit = (data: TFormSubmitData) => {
     const donationInfo = {
       ...data,
       ong_id: ongId,

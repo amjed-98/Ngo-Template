@@ -17,7 +17,7 @@ import {
   FinalizeProductPaymentPage,
   FinalizeSubscriptionDonationPage,
   BecomeMemberForm,
-  ContactusForm,
+  ContactUsForm,
   StripeContainer,
 } from 'Pages'
 import finalizePaymentRoutes from './finalizePaymentRoutes'
@@ -117,7 +117,7 @@ const getRoutes = ({ features, isStripe }: TParameters): TRoutes => {
     {
       path: '/contact',
       render: true,
-      Element: ContactusForm,
+      Element: ContactUsForm,
     },
     {
       path: '/terms_and_conditions',

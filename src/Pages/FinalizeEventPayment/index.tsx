@@ -1,7 +1,7 @@
 import { type Params, useParams, useSearchParams } from 'react-router-dom'
 import { getFinalizeEventPaymentUrl } from '../../api/postApiServices'
 import FinalizePayment from '../../components/FinalizePaymentResult'
-import { useAppSelector, useFinalizePayment } from '../../hooks'
+import { useFinalizePayment, useNgoConfig } from '../../hooks'
 import { TFinalizePaymentParams } from '../../types/types'
 
 type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'amount' | 'certificate'> & {
@@ -14,9 +14,9 @@ type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'amount' | 'certificat
 };
 
 function FinalizeEventPayment() {
-  const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
+  const { ngoId } = useNgoConfig()
   const token = useSearchParams()[0].get('token') || ''
-  const url = getFinalizeEventPaymentUrl(ongId, token)
+  const url = getFinalizeEventPaymentUrl(ngoId, token)
 
   const {
     firstName = '',
@@ -41,7 +41,7 @@ function FinalizeEventPayment() {
     nif,
     home_address,
     text,
-    ong_id: ongId,
+    ong_id: ngoId,
     mobilePhone,
     terms_and_conditions: terms_and_conditions === 'true',
     image_rights: image_rights === 'true',

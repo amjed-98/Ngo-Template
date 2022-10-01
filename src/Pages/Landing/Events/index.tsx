@@ -1,21 +1,15 @@
-import { useMemo, type ReactElement } from 'react'
+import { useMemo, type FC } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import { Flex, SectionTitle } from 'components/common'
-import { useAppSelector, useFetch } from 'hooks'
-import { getEventsURL } from 'api/getApiServices'
+import { useEvents } from 'hooks'
 import Skeleton from 'components/Skeleton'
-import { IEvent } from 'types/interfaces'
 import { RenderIf } from 'components'
 import NearEvent from './NearEvent'
 import OtherEvent from './OtherEvents'
 
-function Events(): ReactElement {
-  const ongId = useAppSelector((state) => state.ong.ongId) || ''
-
-  const {
-    data: events = [], isLoading, isError,
-  } = useFetch<IEvent[]>(getEventsURL(ongId), ['events'], ongId)
+const Events:FC = () => {
+  const { events, isLoading, isError } = useEvents()
 
   // Get the nearest event
   const nearestEvent = useMemo(
@@ -72,7 +66,7 @@ const EventsSection = styled(Flex)`
 
 const OtherEvents = styled(Flex)`
   overflow-y: auto;
-  height: 750px;
+  max-height: 750px;
   align-items: flex-start;
   flex: 0.5;
   @media screen and (max-width: 576px) {

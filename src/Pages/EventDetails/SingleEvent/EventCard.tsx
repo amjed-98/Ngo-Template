@@ -7,27 +7,27 @@ import { useFetch } from 'hooks'
 import { Card, Flex, Text } from 'components/common'
 import BuyEventForm from 'components/Forms/BuyEventForm'
 import { getEventImages } from 'api/getApiServices'
-import { IEvent, IImage } from 'types/interfaces'
+import { IImage } from 'types/interfaces'
 import BuyModal from 'components/Modal'
 import BuyCourseForm from 'components/Forms/BuyCourseForm'
 import { ShareModal } from 'components/ShareModal/ShareModal'
 import { EventCarousel } from './EventCarousel'
 
-export function EventCard(props: IEvent): ReactElement {
+export function EventCard(props: TEventCamelCased): ReactElement {
   const {
-    id, title, start_time, end_time, location, stock, course
+    id, title, startTime, endTime, location, stock, course
   } = props
 
   const { pathname } = useLocation()
-  const startDate = moment(start_time).format('Do MMM YYYY')
-  const endDate = moment(end_time).format('Do MMM YYYY')
-  const {
-    data: images = [], isLoading
-  } = useFetch<IImage[]>(getEventImages(id), [`event_images_form_${id}`], id)
+  const startDate = moment(startTime).format('Do MMM YYYY')
+  const endDate = moment(endTime).format('Do MMM YYYY')
+  const { data: images = [], isLoading } = useFetch<IImage[]>(
+    getEventImages(id),
+    [`event_images_form_${id}`],
+    id
+  )
 
-  const Form = course
-    ? <BuyCourseForm courseId={id} />
-    : <BuyEventForm modal event={props} />
+  const Form = course ? <BuyCourseForm courseId={id} /> : <BuyEventForm modal event={props} />
 
   return (
     <Card mode="column" px={1.8} py={2.4} smMode="column">

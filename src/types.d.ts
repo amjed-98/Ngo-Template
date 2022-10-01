@@ -72,13 +72,13 @@ declare global {
   }>;
 
   type TTeam = Readonly<{
-     id: string;
-     img_url: string;
-     linkedin: string;
-     name: string;
-     ongId: string;
-     order: number;
-     position: string;
+    id: string;
+    img_url: string;
+    linkedin: string;
+    name: string;
+    ongId: string;
+    order: number;
+    position: string;
   }>;
 
   type TAllPlatformConfig = Readonly<{
@@ -91,6 +91,33 @@ declare global {
     rrss: TRrss;
     team: Readonly<TTeam[]>;
   }>;
+
+  type TEvent = {
+    course: boolean;
+    id: string;
+    title: string;
+    description: string;
+    imageURL: string;
+    start_time: string;
+    location: string;
+    end_time: string;
+    stock: number;
+    price: number;
+    EventTickets: {
+      amount: number;
+      id: string;
+      price: number;
+      type: string;
+    }[];
+  };
+
+  type SnakeToCamelCase<Str extends string> = Str extends `${infer T}_${infer U}`
+    ? `${T}${Capitalize<SnakeToCamelCase<U>>}`
+    : Str;
+
+    type TEventCamelCased = {
+      [key in keyof TEvent as SnakeToCamelCase<key>]: TEvent[key];
+    };
 }
 
 export {}

@@ -1,7 +1,7 @@
+import { useNgoConfig } from 'hooks'
 import { useNavigate } from 'react-router-dom'
 import finalizePaymentRoutes from 'app/router/finalizePaymentRoutes'
-import useAppSelector from './useAppSelector'
-import useMutate from './useMutate'
+import useMutate from '../useMutate'
 
 type TClientSecret = { clientSecret: string };
 type TPayPalLink = { data: string };
@@ -11,9 +11,11 @@ type TParameter<IsPayment> = IsPayment extends true
   ? { url: string; redirectPath: keyof typeof finalizePaymentRoutes }
   : string;
 
-const useFormSubmit = <TMutate = never, IsPayment extends boolean = false>(parameters: TParameter<IsPayment>) => {
+const useFormSubmit = <TMutate = never, IsPayment extends boolean = false>(
+  parameters: TParameter<IsPayment>
+) => {
   const navigate = useNavigate()
-  const paymentMethod = useAppSelector(({ ong }) => ong.ongConfig?.platformConfig?.payment_method)
+  const { paymentMethod } = useNgoConfig()
 
   const url = typeof parameters === 'string' ? parameters : parameters.url
   const redirectPath = typeof parameters === 'object' && parameters.redirectPath

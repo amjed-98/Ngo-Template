@@ -29,7 +29,7 @@ function Modal(props:IProps) {
       <Button px="2.8rem" onClick={showModal}>{btnText}</Button>
 
       <AntdModal
-        visible={visible}
+        open={visible}
         title={title}
         footer={null}
         width={width}

@@ -1,15 +1,16 @@
-import { ReactElement, SyntheticEvent } from 'react'
+import type { ReactElement, SyntheticEvent } from 'react'
 import styled from 'styled-components'
 import { useNavigate } from 'react-router-dom'
 import { BookmarkIcon } from 'components/Icons'
 import { Flex, Image, Text } from 'components/common'
-import { useAppSelector } from 'hooks'
+import { useNgoConfig } from 'hooks'
 import { IProductCard } from 'types/interfaces'
+import { RenderIf } from 'components'
 
 export function ProductCard({
   id, title, price, default_img: img, discount
 }: IProductCard): ReactElement {
-  const currency = useAppSelector((state) => state.ong?.ongConfig?.platformConfig?.currency_symbol)
+  const { currency } = useNgoConfig()
   const navigate = useNavigate()
   const navigateTo = (path: `/products/${string}`) => () => navigate(path)
 
@@ -30,7 +31,11 @@ export function ProductCard({
           {price.toFixed(2)} {currency}
         </P>
       </Flex>
-      {!!discount && <BookmarkIcon position="absolute" top={0} right={0} text={`${discount}`} />}
+
+      <RenderIf if={!!discount}>
+        <BookmarkIcon position="absolute" top={0} right={0} text={`${discount}`} />
+      </RenderIf>
+
     </SingleProductCard>
   )
 }

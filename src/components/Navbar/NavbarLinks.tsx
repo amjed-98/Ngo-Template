@@ -6,8 +6,8 @@ import {
 import styled from 'styled-components'
 import { useTranslation } from 'react-i18next'
 import i18next from 'i18next'
-import { useAppSelector } from '../../hooks'
-import { Box, Image, Link } from '../common'
+import { useAllPlatformConfig } from 'hooks'
+import { Box, Image, Link } from 'components/common'
 import navbarFeatures from './navbarFeatures'
 import navbarReducer, { initialState } from './navbarReducer'
 
@@ -17,10 +17,8 @@ const NavbarLinks: FC = () => {
   const [{ isDrawerVisible, langLinkText }, dispatch] = useReducer(navbarReducer, initialState)
   const { t } = useTranslation()
   const { md } = useBreakpoint()
-  const { logo, features = {} as TFeatures } = useAppSelector(({ ong }) => ({
-    logo: ong.ongConfig?.brand?.logo,
-    features: ong.ongConfig?.features,
-  }))
+
+  const { brand: { logo = '' } = {}, features = {} as TFeatures } = useAllPlatformConfig()
 
   const handleChangeLanguage = (): void => {
     const chosenLanguage = langLinkText === 'es' ? 'en' : 'es'

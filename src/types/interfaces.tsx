@@ -64,21 +64,3 @@ export interface ICourse {
   id: string;
   course: boolean;
 }
-export interface IEvent {
-  course: boolean;
-  id: string;
-  title: string;
-  description: string;
-  imageURL: string;
-  start_time: string;
-  location: string;
-  end_time: string;
-  stock: number;
-  price: number;
-  EventTickets: {
-    amount: number;
-    id: string;
-    price: number;
-    type: string;
-  }[];
-}

@@ -3,19 +3,19 @@ import { donationSchema } from 'validation/schemas'
 import { getStartDonationUrl } from 'api/postApiServices'
 import { Footer, DonateForm, Navbar } from 'components'
 import { Flex, SectionTitle } from 'components/common'
-import { useAppSelector, useFormSubmit } from 'hooks'
+import { useFormSubmit, useNgoConfig } from 'hooks'
 
 type TFormSubmitData = TypeOf<typeof donationSchema>;
 
 function Donate() {
-  const ongId = useAppSelector((state) => state.ong.ongId) || ''
+  const { ngoId } = useNgoConfig()
 
   const {
     submit, ...states
-  } = useFormSubmit<TFormSubmitData, true>({ url: getStartDonationUrl(ongId), redirectPath: 'donate' })
+  } = useFormSubmit<TFormSubmitData, true>({ url: getStartDonationUrl(ngoId), redirectPath: 'donate' })
 
   const handleSubmit = (values: TFormSubmitData) => {
-    const donationInfo = { ...values, ong_id: ongId, }
+    const donationInfo = { ...values, ong_id: ngoId, }
 
     submit(donationInfo)
   }

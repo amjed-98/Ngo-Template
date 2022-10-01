@@ -9,31 +9,19 @@ import {
 } from '@ant-design/icons'
 import { type ReactElement } from 'react'
 import styled from 'styled-components'
-import { useAppSelector } from '../../hooks'
 import {
   Flex, Image, Link, SectionTitle
-} from '../common'
+} from 'components/common'
+import { useAllPlatformConfig } from 'hooks'
 
 export default function Footer(): ReactElement {
   const {
-    logo,
-    phone = '',
-    email = '',
-    facebook = '',
-    instagram = '',
-    linkedin = '',
-    twitter = '',
-    web = '',
-  } = useAppSelector(({ ong }) => ({
-    logo: ong.ongConfig?.brand?.logo,
-    phone: ong.ongConfig?.contact?.phone,
-    email: ong.ongConfig?.contact?.email,
-    facebook: ong.ongConfig?.rrss?.facebook,
-    instagram: ong.ongConfig?.rrss?.instagram,
-    linkedin: ong.ongConfig?.rrss?.linkedin,
-    twitter: ong.ongConfig?.rrss?.twitter,
-    web: ong.ongConfig?.rrss?.web,
-  }))
+    brand: { logo = '' } = {},
+    contact: { phone = '', email = '' } = {},
+    rrss: {
+      facebook = '', instagram = '', linkedin = '', twitter = '', web = ''
+    } = {}
+  } = useAllPlatformConfig()
 
   const navigateTo = (path: string) => () => window.open(path, '_blank')
 

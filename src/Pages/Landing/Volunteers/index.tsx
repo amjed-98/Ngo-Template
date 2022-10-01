@@ -1,11 +1,11 @@
 import { type ReactElement } from 'react'
 import styled from 'styled-components'
 import { Carousel } from 'components/common'
-import { useAppSelector } from 'hooks'
+import { useAllPlatformConfig } from 'hooks'
 import VolunteerCard from './VolunteerCard'
 
 export default function Volunteers(): ReactElement {
-  const members = useAppSelector((state) => state.ong.ongConfig?.team)
+  const { team: volunteers = [] } = useAllPlatformConfig()
 
   return (
     <VolunteersSection id="volunteers">
@@ -13,7 +13,7 @@ export default function Volunteers(): ReactElement {
         Our Team
       </SectionTitle>
       <Carousel Component={VolunteerCard}>
-        {members as any[]}
+        {volunteers as any[]}
       </Carousel>
     </VolunteersSection>
   )

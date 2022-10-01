@@ -5,7 +5,7 @@ import {
 } from 'components/common'
 import DonateForm from 'components/Forms/DonateForm'
 import { Modal } from 'components'
-import { useAppSelector, useFormSubmit } from 'hooks'
+import { useFormSubmit, useNgoConfig } from 'hooks'
 import { getStartProjectDonationUrl } from 'api/postApiServices'
 import { donationSchema } from 'validation/schemas'
 import { type TypeOf } from 'yup'
@@ -19,13 +19,13 @@ interface ProjectProps {
 }
 
 function Project({ imageURL, title, id }: ProjectProps): ReactElement {
-  const ongId = useAppSelector(({ ong }) => ong?.ongId) || ''
+  const { ngoId } = useNgoConfig()
   const {
     submit, ...states
-  } = useFormSubmit<TFormSubmitData, true>({ url: getStartProjectDonationUrl(ongId), redirectPath: 'causes' })
+  } = useFormSubmit<TFormSubmitData, true>({ url: getStartProjectDonationUrl(ngoId), redirectPath: 'causes' })
 
   const handleSubmit = (data: TFormSubmitData) => {
-    const donationInfo = { ...data, ong_id: ongId }
+    const donationInfo = { ...data, ong_id: ngoId }
 
     submit(donationInfo)
   }

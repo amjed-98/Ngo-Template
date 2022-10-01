@@ -1,8 +1,8 @@
-import type { FC, ReactElement } from 'react'
+import type { FC, ReactNode } from 'react'
 
 type TProps = {
   if: boolean;
-  children: ReactElement | FC;
+  children: ReactNode | FC | string;
 };
 
 const Render: FC<TProps> = ({ if: condition, children }) => {
@@ -10,7 +10,7 @@ const Render: FC<TProps> = ({ if: condition, children }) => {
 
   if (typeof children === 'function') return children({})
 
-  return children
+  return <>{children}</>
 }
 
 export default Render

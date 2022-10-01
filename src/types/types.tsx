@@ -18,17 +18,6 @@ export type TProducts = {
   default_img: string;
   discount: number;
 }[]
-export type TEvents = {
-    course: boolean;
-    id: string;
-    title: string;
-    description: string;
-    imageURL: string;
-    start_time: string;
-    end_time: string;
-    location: string;
-    stock: number;
-  }[];
 
 export type TFinalizePaymentParams = {
     firstName: string;

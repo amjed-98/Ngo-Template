@@ -1,18 +1,18 @@
 import { type ReactElement } from 'react'
 import { RenderIf } from 'components'
 import { Box, Carousel, SectionTitle } from 'components/common'
-import { useAppSelector, useFetch } from 'hooks'
+import { useFetch, useNgoConfig } from 'hooks'
 import { getCoursesURL } from 'api/getApiServices'
 import CourseCardSkeleton from 'components/Skeleton'
 import { ICourse } from 'types/interfaces'
 import CourseCard from './CourseCard'
 
 function Courses(): ReactElement {
-  const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
+  const { ngoId } = useNgoConfig()
 
   const {
     data: events = [], isLoading
-  } = useFetch<ICourse[]>(getCoursesURL(ongId), ['courses'], ongId)
+  } = useFetch<ICourse[]>(getCoursesURL(ngoId), ['courses'], ngoId)
 
   return (
     <Box id="courses" px={4.1} mt={4}>

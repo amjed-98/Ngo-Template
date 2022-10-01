@@ -14,13 +14,14 @@ import {
   ResponseMsg,
   CustomInputDiv,
 } from 'components/common'
-import { useAppSelector, useFormSubmit } from 'hooks'
+import { useFormSubmit, useNgoConfig } from 'hooks'
 import { volunteerSchema } from 'validation/schemas'
 
 type TFormSubmitData = TypeOf<typeof volunteerSchema>
 
 function BecomeVolunteerForm() {
-  const ongId = useAppSelector((state) => state.ong.ongId) || ''
+  const { ngoId } = useNgoConfig()
+
   const {
     handleSubmit, register, formState: { errors }
   } = useForm<TFormSubmitData>({ resolver: yupResolver(volunteerSchema) })
@@ -28,7 +29,7 @@ function BecomeVolunteerForm() {
   const { submit, ...states } = useFormSubmit<TFormSubmitData>(getAddVolunteerUrl())
 
   const onSubmit = (data: TFormSubmitData) => {
-    const formData = { ...data, ong_id: ongId }
+    const formData = { ...data, ong_id: ngoId }
     submit(formData)
   }
   return (
@@ -62,7 +63,7 @@ function BecomeVolunteerForm() {
         <Input placeholder="Address" {...register('home_address')} />
         <ErrorMsg>{errors.home_address?.message}</ErrorMsg>
 
-        <Center>
+        <Center mt={2}>
           <Button px="2.8rem" type="submit">
             Send
           </Button>

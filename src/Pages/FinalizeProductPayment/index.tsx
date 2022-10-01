@@ -1,7 +1,7 @@
 import { type Params, useParams } from 'react-router-dom'
 import { getFinalizeProductPaymentUrl } from '../../api/postApiServices'
 import FinalizePayment from '../../components/FinalizePaymentResult'
-import { useAppSelector, useFinalizePayment } from '../../hooks'
+import { useFinalizePayment, useNgoConfig } from '../../hooks'
 import { TFinalizePaymentParams } from '../../types/types'
 
 type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'certificate' | 'text'> & {
@@ -15,7 +15,7 @@ type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'certificate' | 'text'
 };
 
 function FinalizeProductPayment() {
-  const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
+  const { ngoId } = useNgoConfig()
   const url = getFinalizeProductPaymentUrl()
 
   const {
@@ -41,7 +41,7 @@ function FinalizeProductPayment() {
     product_id,
     nif,
     home_address,
-    ong_id: ongId,
+    ong_id: ngoId,
     mobilePhone,
     address,
     city,

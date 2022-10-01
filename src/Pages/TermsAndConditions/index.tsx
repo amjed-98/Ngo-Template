@@ -4,10 +4,12 @@ import HtmlParser from 'html-react-parser'
 
 import { Footer, Navbar } from '../../components'
 import { Box, Flex, SectionTitle } from '../../components/common'
-import { useAppSelector } from '../../hooks'
+import { useAllPlatformConfig } from '../../hooks'
 
 const TermsAndConditions:FC = () => {
-  const termsAndConditions = useAppSelector(({ ong }) => ong.ongConfig?.brand.terms_and_conditions) || ''
+  const { brand } = useAllPlatformConfig()
+
+  const termsAndConditions = brand?.terms_and_conditions || ''
 
   return (
     <>

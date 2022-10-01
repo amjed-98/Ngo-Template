@@ -6,7 +6,7 @@ import { type TypeOf } from 'yup'
 import {
   Button, Center, Input, TextArea, ErrorMsg, ResponseMsg
 } from 'components/common'
-import { useAppSelector, useFormSubmit } from 'hooks'
+import { useFormSubmit, useNgoConfig } from 'hooks'
 import { getSendContactEventUrl } from 'api/postApiServices'
 import { contactEventSchema } from 'validation/schemas'
 
@@ -17,7 +17,7 @@ interface IProps {
 type TFormSubmitData = TypeOf<typeof contactEventSchema>;
 
 export function ContactEventForm({ id }: IProps): ReactElement {
-  const ongId = useAppSelector((state) => state.ong.ongId) || ''
+  const { ngoId = '' } = useNgoConfig()
 
   const {
     register, handleSubmit, formState: { errors }
@@ -25,7 +25,7 @@ export function ContactEventForm({ id }: IProps): ReactElement {
 
   const {
     submit, ...states
-  } = useFormSubmit<TFormSubmitData>(getSendContactEventUrl(ongId, id))
+  } = useFormSubmit<TFormSubmitData>(getSendContactEventUrl(ngoId, id))
 
   return (
     <Form onSubmit={handleSubmit(submit)}>

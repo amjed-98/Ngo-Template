@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-const useSetFavIcon = (url: string):void => {
+const useSetFavIcon = (url: string): void => {
   useEffect(() => {
     const favIcon: HTMLLinkElement = document.querySelector("link[rel*='icon']") || document.createElement('link')
 

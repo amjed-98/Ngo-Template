@@ -1,11 +1,10 @@
 import { type ReactElement } from 'react'
 import { Params, useLocation, useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import { getEventURL } from 'api/getApiServices'
 import Skeleton from 'components/Skeleton'
-import { useFetch } from 'hooks'
-import { IEvent } from 'types/interfaces'
-import { Footer, Navbar, RenderIf } from '../../components'
+import useEventDetails from 'hooks/Api/useEventDetails'
+import { Footer, Navbar, RenderIf } from 'components'
+import { ErrorMsg } from 'components/common'
 import { EventCard } from './SingleEvent/EventCard'
 import SingleEventDetails from './SingleEvent/SingleEventDetails'
 
@@ -14,7 +13,11 @@ function SingleEvent(): ReactElement {
   const isEvent = pathname.startsWith('/events')
   const isCourse = pathname.startsWith('/courses')
   const { id = '' } = useParams<Params<'id'>>()
-  const { data: event = {} as IEvent, isLoading } = useFetch<IEvent>(getEventURL(id), [`event-details-${id}`], id)
+  const {
+    isLoading, isError, error, ...event
+  } = useEventDetails(id)
+
+  if (isError) return <ErrorMsg>{error?.message}</ErrorMsg>
   return (
     <>
       <Navbar />

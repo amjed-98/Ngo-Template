@@ -1,15 +1,13 @@
 import { Suspense, useMemo } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Loader } from 'components'
-import { useAppSelector } from 'hooks'
+import { useAllPlatformConfig } from 'hooks'
 
 import getRoutes from './routes'
 
 export default function AllRoute() {
-  const { features, isStripe } = useAppSelector(({ ong }) => ({
-    features: ong.ongConfig?.features || {} as TFeatures,
-    isStripe: ong.ongConfig?.platformConfig.payment_method === 'stripe',
-  }))
+  const { features = {} as TFeatures, platformConfig } = useAllPlatformConfig()
+  const isStripe = platformConfig?.payment_method === 'stripe'
 
   const ROUTES = useMemo(() => getRoutes({ features, isStripe }), [features, isStripe])
 

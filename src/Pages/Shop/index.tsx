@@ -1,19 +1,20 @@
 import { useMemo } from 'react'
-import { ProductCard } from './ProductCard'
-import { getProductsURL } from '../../api/getApiServices'
-import { Footer, Navbar } from '../../components'
+import { getProductsURL } from 'api/getApiServices'
+import {
+  Footer, Navbar, Skeleton, RenderIf
+} from 'components'
 import {
   Flex, SectionTitle, Text
-} from '../../components/common'
-import { useAppSelector, useFetch } from '../../hooks'
-import Skeleton from '../../components/Skeleton'
-import { TProducts } from '../../types/types'
+} from 'components/common'
+import { useNgoConfig, useFetch } from 'hooks'
+import { TProducts } from 'types/types'
+import { ProductCard } from './ProductCard'
 
 function Shop() {
-  const ongId = useAppSelector((state) => state.ong?.ongId) || ''
+  const { ngoId } = useNgoConfig()
   const {
     data: products, isLoading
-  } = useFetch<TProducts>(getProductsURL(ongId), ['products'], ongId)
+  } = useFetch<TProducts>(getProductsURL(ngoId), ['products'], ngoId)
 
   const memoizedProducts = useMemo(
     () => products?.map((product) => <ProductCard key={product.id} {...product} />),
@@ -25,11 +26,14 @@ function Shop() {
 
       <SectionTitle textAlign="center">Shop</SectionTitle>
       <Text fontSize={1.5} textAlign="center">
-        lorem ipusm its simply an text with placeholder ant
+        Buy our products and help us to continue our work
       </Text>
 
       <Flex gap={3} px={9} py={4}>
-        {isLoading && <Skeleton width={14} height={15} number={8} />}
+
+        <RenderIf if={isLoading}>
+          <Skeleton width={14} height={15} number={8} />
+        </RenderIf>
 
         {memoizedProducts}
       </Flex>

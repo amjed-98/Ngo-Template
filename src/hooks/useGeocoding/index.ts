@@ -1,8 +1,8 @@
-import useFetch from './useFetch'
+import useFetch from 'hooks/useFetch'
 
 type TGeocode = {
-  features: [{ center: [lng:number, lat:number] }]
-}
+  features: [{ center: [lng: number, lat: number] }];
+};
 
 const token = import.meta.env.VITE_MAPBOX_TOKEN
 
@@ -13,14 +13,18 @@ const useGeocoding = (address: string) => {
 
   if (!features?.length) {
     return {
-      lng: 0, lat: 0, ...rest
+      lng: 0,
+      lat: 0,
+      ...rest,
     }
   }
 
   const [lng, lat] = features[0].center
 
   return {
-    lng, lat, ...rest
+    lng,
+    lat,
+    ...rest,
   }
 }
 

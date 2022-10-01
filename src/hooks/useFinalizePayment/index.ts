@@ -1,19 +1,19 @@
 import { useEffect } from 'react'
-import useMutate from './useMutate'
+import useMutate from 'hooks/useMutate'
 
-type ReturnType = { transactionId:string; isLoading:boolean; isError:boolean }
+type ReturnType = { transactionId: string; isLoading: boolean; isError: boolean };
 
 interface IParameters<TParams> {
   params: TParams;
   url: string;
 }
 
-const useFinalizePayment = <TParams>({ params, url }:IParameters<TParams>):ReturnType => {
+const useFinalizePayment = <TParams>({ params, url }: IParameters<TParams>): ReturnType => {
   const {
     mutateAsync, isError, isLoading, data
-  } = useMutate<{ data:string }, TParams>(url)
+  } = useMutate<{ data: string }, TParams>(url)
 
-  const getTransactionId = async ():Promise<void> => {
+  const getTransactionId = async (): Promise<void> => {
     await mutateAsync(params)
   }
 

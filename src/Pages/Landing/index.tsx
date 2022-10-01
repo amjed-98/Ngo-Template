@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 import { useEffect, type ReactElement } from 'react'
 import { useLocation } from 'react-router-dom'
-import { useAppSelector } from 'hooks'
+import { useAllPlatformConfig } from 'hooks'
 import {
   Hero,
   Events,
@@ -21,15 +21,16 @@ import {
 export default function Landing(): ReactElement {
   const sectionHashId = useLocation().hash as `#${string}`
 
+  const { features } = useAllPlatformConfig()
   const {
     causes = false,
-    events = false,
-    partners = false,
-    volunteers = false,
     courses = false,
+    events = false,
     impact = false,
     logos = false,
-  } = useAppSelector(({ ong }) => ong.ongConfig?.features) || {}
+    partners = false,
+    volunteers = false,
+  } = features || {}
 
   useEffect(() => {
     if (sectionHashId) {

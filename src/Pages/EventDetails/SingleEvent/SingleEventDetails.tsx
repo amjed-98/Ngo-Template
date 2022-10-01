@@ -3,17 +3,18 @@ import { Tabs } from 'antd'
 import HtmlParser from 'html-react-parser'
 import styled from 'styled-components'
 import { getEventImages } from 'api/getApiServices'
-import { IEvent, IImage } from 'types/interfaces'
-import Map from 'components/Map'
+import { IImage } from 'types/interfaces'
 import BuyEventForm from 'components/Forms/BuyEventForm'
 import { ContactEventForm } from 'components/Forms/ContactEventForm'
-import { useAppSelector, useFetch, useGeocoding } from 'hooks'
+import {
+  useAllPlatformConfig, useFetch, useGeocoding
+} from 'hooks'
 import Skeleton from 'components/Skeleton'
-import { RenderIf } from 'components'
+import { RenderIf, Map } from 'components'
 import { EventCarousel } from './EventCarousel'
 
 type TProps = {
-  event: IEvent;
+  event: TEventCamelCased;
   isEventLoading: boolean;
 };
 const SingleEventDetails:FC<TProps> = ({ event, isEventLoading }) => {
@@ -21,7 +22,7 @@ const SingleEventDetails:FC<TProps> = ({ event, isEventLoading }) => {
     data: images = [], isLoading: isImagesLoading
   } = useFetch<IImage[]>(getEventImages(event.id), ['event_images'], event.id)
 
-  const address = useAppSelector(({ ong }) => ong.ongConfig?.contact.address) || ''
+  const { contact: { address = '' } = {} } = useAllPlatformConfig()
   const { lat, lng } = useGeocoding(address)
 
   if (isEventLoading) return <Skeleton number={1} height={40} width={60} />

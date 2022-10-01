@@ -6,7 +6,7 @@ import { type TypeOf } from 'yup'
 import styled from 'styled-components'
 import { getSendContactUrl } from 'api/postApiServices'
 import {
-  useAppSelector, useGeocoding, useFormSubmit
+  useGeocoding, useFormSubmit, useAllPlatformConfig
 } from 'hooks'
 import { contactSchema } from 'validation/schemas'
 import {
@@ -19,7 +19,8 @@ import {
 type TFormSubmitData = TypeOf<typeof contactSchema>;
 
 function ContactUsForm(): ReactElement {
-  const { phone, email = '', address = '' } = useAppSelector((state) => state.ong.ongConfig?.contact) || {}
+  const { contact: { phone = '', email = '', address = '' } = {} } = useAllPlatformConfig()
+
   const { lat, lng } = useGeocoding(address)
 
   const {

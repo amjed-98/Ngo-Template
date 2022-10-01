@@ -1,14 +1,15 @@
 import { type Params, useParams } from 'react-router-dom'
 import { getFinalizeDonationUrl } from '../../api/postApiServices'
 import FinalizePayment from '../../components/FinalizePaymentResult'
-import { useAppSelector, useFinalizePayment } from '../../hooks'
+import { useFinalizePayment, useNgoConfig } from '../../hooks'
 import { TFinalizePaymentParams } from '../../types/types'
 
 type TParams = Omit<TFinalizePaymentParams, 'home_address'>
 
 function FinalizeDonation() {
-  const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
-  const url = getFinalizeDonationUrl(ongId)
+  const { ngoId } = useNgoConfig()
+
+  const url = getFinalizeDonationUrl(ngoId)
 
   const {
     firstName = '',
@@ -30,7 +31,7 @@ function FinalizeDonation() {
     certificate: certificate === 'true',
     nif,
     text,
-    ong_id: ongId,
+    ong_id: ngoId,
   }
 
   const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url })
@@ -41,7 +42,7 @@ function FinalizeDonation() {
       isLoading={isLoading}
       isError={isError}
       redirectPath="donate"
-      sectionId={ongId}
+      sectionId={ngoId}
     />
   )
 }

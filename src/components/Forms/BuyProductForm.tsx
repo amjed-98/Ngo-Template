@@ -3,12 +3,12 @@ import { type ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { type TypeOf } from 'yup'
-import { getStartProductPaymentUrl } from '../../api/postApiServices'
-import { useAppSelector, useFormSubmit } from '../../hooks'
-import { buyProductSchema } from '../../validation/schemas'
+import { getStartProductPaymentUrl } from 'api/postApiServices'
+import { useFormSubmit, useNgoConfig } from 'hooks'
+import { buyProductSchema } from 'validation/schemas'
 import {
   Button, Center, Input, Label, SectionTitle, TextArea, ErrorMsg, ResponseMsg
-} from '../common'
+} from 'components/common'
 
 interface IProps {
   modal?: boolean;
@@ -24,7 +24,7 @@ export function BuyProductForm(props: IProps): ReactElement {
     modal, id, price, title
   } = props
 
-  const ongId = useAppSelector(({ ong }) => ong?.ongId)
+  const { ngoId = '' } = useNgoConfig()
 
   const {
     handleSubmit, register, formState: { errors },
@@ -37,7 +37,7 @@ export function BuyProductForm(props: IProps): ReactElement {
   const onSubmit = (data: TFormSubmitData) => {
     const donationInfo = {
       ...data,
-      ong_id: ongId,
+      ong_id: ngoId,
       product_id: id,
       amount: price,
     }

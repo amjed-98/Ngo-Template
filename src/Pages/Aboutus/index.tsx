@@ -1,18 +1,18 @@
-import { type ReactElement } from 'react'
+import { type FC } from 'react'
 import styled from 'styled-components'
-
 import HtmlParser from 'html-react-parser'
+import { Footer, Navbar } from 'components'
+import { useAllPlatformConfig } from 'hooks'
+import { Box, Image } from 'components/common'
 
-import { Footer, Navbar } from '../../components'
-import { useAppSelector } from '../../hooks'
-import { Box, Image } from '../../components/common'
-
-export default function Aboutus(): ReactElement {
+const Aboutus:FC = () => {
   const {
-    description = '',
-    title_description: titleDesc,
-    img_url: imgUrl
-  } = useAppSelector((state) => state.ong.ongConfig?.description) || {}
+    description: {
+      description = '',
+      title_description: titleDesc,
+      img_url: imgUrl
+    } = {}
+  } = useAllPlatformConfig()
 
   return (
     <>
@@ -29,6 +29,8 @@ export default function Aboutus(): ReactElement {
     </>
   )
 }
+
+export default Aboutus
 
 const Container = styled.div`
     display: flex;

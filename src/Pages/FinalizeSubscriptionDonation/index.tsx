@@ -1,15 +1,15 @@
 import { type Params, useParams } from 'react-router-dom'
-import { getFinalizeBecomeAPartnerUrl } from '../../api/postApiServices'
-import FinalizePayment from '../../components/FinalizePaymentResult'
-import { useAppSelector, useFinalizePayment } from '../../hooks'
-import { TFinalizePaymentParams } from '../../types/types'
+import { getFinalizeBecomeAPartnerUrl } from 'api/postApiServices'
+import FinalizePayment from 'components/FinalizePaymentResult'
+import { useFinalizePayment, useNgoConfig } from 'hooks'
+import { TFinalizePaymentParams } from 'types/types'
 
 type TParams = Omit<TFinalizePaymentParams, 'anonymous'> & {
   comunications: boolean;
 };
 
 function FinalizeSubscriptionDonation() {
-  const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
+  const { ngoId } = useNgoConfig()
   const url = getFinalizeBecomeAPartnerUrl()
 
   const {
@@ -31,11 +31,10 @@ function FinalizeSubscriptionDonation() {
     nif,
     home_address,
     text,
-    ong_id: ongId,
+    ong_id: ngoId,
     comunications: comunications === 'true',
     certificate: certificate === 'true',
     amount: +amount,
-
   }
 
   const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url })
@@ -46,7 +45,7 @@ function FinalizeSubscriptionDonation() {
       isLoading={isLoading}
       isError={isError}
       redirectPath="partners"
-      sectionId={ongId}
+      sectionId={ngoId}
     />
   )
 }

@@ -2,7 +2,7 @@ import { useMemo, type ReactElement } from 'react'
 import styled from 'styled-components'
 import moment from 'moment'
 import { Flex, SectionTitle } from 'components/common'
-import { useAppSelector, useFetch } from 'hooks'
+import { useFetch, useNgoConfig } from 'hooks'
 import { getEventsURL } from 'api/getApiServices'
 import Skeleton from 'components/Skeleton'
 import { IEvent } from 'types/interfaces'
@@ -11,11 +11,11 @@ import NearEvent from './NearEvent'
 import OtherEvent from './OtherEvents'
 
 function Events(): ReactElement {
-  const ongId = useAppSelector((state) => state.ong.ongId) || ''
+  const { ngoId } = useNgoConfig()
 
   const {
     data: events = [], isLoading, isError,
-  } = useFetch<IEvent[]>(getEventsURL(ongId), ['events'], ongId)
+  } = useFetch<IEvent[]>(getEventsURL(ngoId), ['events'], ngoId)
 
   // Get the nearest event
   const nearestEvent = useMemo(

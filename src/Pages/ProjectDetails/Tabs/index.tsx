@@ -1,7 +1,7 @@
 import { Tabs as AntdTabs } from 'antd'
 import { getStartProjectDonationUrl } from 'api/postApiServices'
 import { DonateForm } from 'components'
-import { useAppSelector, useFormSubmit } from 'hooks'
+import { useNgoConfig, useFormSubmit } from 'hooks'
 import { donationSchema } from 'validation/schemas'
 import { type TypeOf } from 'yup'
 import Description from './Description'
@@ -20,13 +20,14 @@ interface IProps {
 
 function Tabs({ projectDetails }: IProps) {
   const { id = '', description = '' } = projectDetails
-  const ongId = useAppSelector((state) => state.ong.ongId) || ''
+  const { ngoId } = useNgoConfig()
+
   const {
     submit, ...states
-  } = useFormSubmit<TFormSubmitData, true>({ url: getStartProjectDonationUrl(ongId), redirectPath: 'donate' })
+  } = useFormSubmit<TFormSubmitData, true>({ url: getStartProjectDonationUrl(ngoId), redirectPath: 'donate' })
 
   const handleSubmit = (values: TFormSubmitData) => {
-    const donationInfo = { ...values, project_id: id, ong_id: ongId }
+    const donationInfo = { ...values, project_id: id, ong_id: ngoId }
     submit(donationInfo)
   }
   return (

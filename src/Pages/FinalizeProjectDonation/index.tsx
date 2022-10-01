@@ -1,7 +1,7 @@
 import { type Params, useParams, useSearchParams } from 'react-router-dom'
 import { getFinalizeProjectDonationUrl } from '../../api/postApiServices'
 import { FinalizePaymentResult } from '../../components'
-import { useAppSelector, useFinalizePayment } from '../../hooks'
+import { useFinalizePayment, useNgoConfig } from '../../hooks'
 import { TFinalizePaymentParams } from '../../types/types'
 
 type TParams = TFinalizePaymentParams & {
@@ -9,9 +9,9 @@ type TParams = TFinalizePaymentParams & {
 };
 
 function FinalizeProjectDonation() {
-  const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
+  const { ngoId } = useNgoConfig()
   const token = useSearchParams()[0].get('token') || ''
-  const url = getFinalizeProjectDonationUrl(ongId, token)
+  const url = getFinalizeProjectDonationUrl(ngoId, token)
 
   const {
     firstName = '',
@@ -37,7 +37,7 @@ function FinalizeProjectDonation() {
     nif,
     home_address,
     text,
-    ong_id: ongId,
+    ong_id: ngoId,
   }
 
   const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url })

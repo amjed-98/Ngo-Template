@@ -4,8 +4,14 @@ import { AxiosError } from 'axios'
 import queryCacheKeys from '../query-cache-keys'
 
 type ReturnType = {
-  ngoConfig: TNgoConfig | undefined;
-  ngoId: string | undefined;
+  ngoId: string;
+  active: boolean;
+  currency: TNgoConfig['currency'];
+  currencySymbol: TNgoConfig['currency_symbol'];
+  language: TNgoConfig['language'];
+  poweredByLazzaro: boolean;
+  url: string;
+  paymentMethod: TNgoConfig['payment_method'];
   isLoading: boolean;
   isError: boolean;
   error: AxiosError<unknown, any> | null;
@@ -20,8 +26,14 @@ const useNgoConfig = (): ReturnType => {
   } = useFetch<TNgoConfig>(getNgoConfigUrl(), queryCacheKeys.ngoConfig)
 
   return {
-    ngoConfig,
-    ngoId: ngoConfig?.ong_id,
+    ngoId: ngoConfig?.ong_id || '',
+    active: ngoConfig?.active ?? false,
+    currency: ngoConfig?.currency ?? 'EUR',
+    currencySymbol: ngoConfig?.currency_symbol ?? '€',
+    language: ngoConfig?.language ?? 'es',
+    poweredByLazzaro: ngoConfig?.powered_by_lazzaro ?? false,
+    url: ngoConfig?.url ?? '',
+    paymentMethod: ngoConfig?.payment_method ?? 'paypal',
     isLoading,
     isError,
     error,

@@ -6,7 +6,7 @@ import { getStartProjectDonationUrl } from 'api/postApiServices'
 import {
   Button, Card, Flex, Text
 } from 'components/common'
-import { useAppSelector, useFormSubmit } from 'hooks'
+import { useNgoConfig, useFormSubmit } from 'hooks'
 
 import { donationSchema } from 'validation/schemas'
 
@@ -25,19 +25,18 @@ export function ProjectCard({ project } : IProps) {
   const {
     id, title, donated = 0, amount = 1
   } = project
-  const ongId = useAppSelector((state) => state.ong.ongId) || ''
+  const { ngoId } = useNgoConfig()
+  const { primary } = useTheme()
 
   const {
     submit, ...states
-  } = useFormSubmit<TFormSubmitData, true>({ url: getStartProjectDonationUrl(ongId), redirectPath: 'causes' })
+  } = useFormSubmit<TFormSubmitData, true>({ url: getStartProjectDonationUrl(ngoId), redirectPath: 'causes' })
 
   const handleSubmit = (values: TFormSubmitData) => {
-    const donationInfo = { ...values, project_id: id, ong_id: ongId }
+    const donationInfo = { ...values, project_id: id, ong_id: ngoId }
 
     submit(donationInfo)
   }
-
-  const { primary } = useTheme()
 
   const donationProgress = +((donated / amount) * 100).toFixed()
   const donateBtnText = donationProgress >= 100 ? 'Filled!' : 'Donate'

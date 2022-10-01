@@ -11,7 +11,7 @@ import {
   Button, Center, Input, ErrorMsg
 } from 'components/common'
 import HandleResponse from 'components/common/ResponseMsg'
-import { useAppSelector, useFormSubmit } from 'hooks'
+import { useFormSubmit, useNgoConfig } from 'hooks'
 import { getBecomePartnerUrl } from 'api/postApiServices'
 import { CustomInputDiv } from 'components/common/CustomInput'
 import { memberSchema } from 'validation/schemas'
@@ -19,7 +19,7 @@ import { memberSchema } from 'validation/schemas'
 type TFormSubmitData = TypeOf<typeof memberSchema>
 
 export default function BecomeMemberForm(): ReactElement {
-  const ongId = useAppSelector((state) => state.ong.ongId) || ''
+  const { ngoId = '' } = useNgoConfig()
   const {
     register, handleSubmit, formState: { errors }, control,
   } = useForm<TFormSubmitData>({ resolver: yupResolver(memberSchema) })
@@ -32,7 +32,7 @@ export default function BecomeMemberForm(): ReactElement {
       ...data,
       birthDate: moment(data.birthDate).format('YYYY-MM-DD'),
       amount: 1,
-      ong_id: ongId,
+      ong_id: ngoId,
     }
     submit(formData)
   }

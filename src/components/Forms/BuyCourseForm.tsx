@@ -3,12 +3,12 @@ import { type ReactElement } from 'react'
 import { useForm } from 'react-hook-form'
 import styled, { useTheme } from 'styled-components'
 import { type TypeOf } from 'yup'
-import { getBuyCourseUrl } from '../../api/getApiServices'
-import { useAppSelector, useFormSubmit } from '../../hooks'
-import { buyCourseTicketSchema } from '../../validation/schemas'
+import { getBuyCourseUrl } from 'api/getApiServices'
+import { useFormSubmit, useNgoConfig } from 'hooks'
+import { buyCourseTicketSchema } from 'validation/schemas'
 import {
   Button, Input, Label, Link, ErrorMsg, ResponseMsg
-} from '../common'
+} from 'components/common'
 
 type TFormSubmitData = TypeOf<typeof buyCourseTicketSchema>
 
@@ -17,7 +17,8 @@ type TProps ={
 }
 
 export default function BuyCourseForm({ courseId }: TProps): ReactElement {
-  const ongId = useAppSelector(({ ong }) => ong.ongId)
+  const { ngoId = '' } = useNgoConfig()
+
   const { secondary } = useTheme()
 
   const {
@@ -28,7 +29,7 @@ export default function BuyCourseForm({ courseId }: TProps): ReactElement {
   } = useFormSubmit<TFormSubmitData, true>({ url: getBuyCourseUrl(courseId), redirectPath: 'shop' })
 
   const onSubmit = (data: TFormSubmitData) => {
-    const formData = { ...data, course_id: courseId, ong_id: ongId }
+    const formData = { ...data, course_id: courseId, ong_id: ngoId }
 
     submit(formData)
   }

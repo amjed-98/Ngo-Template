@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react'
 import { useTheme } from 'styled-components'
 import { Box, Carousel, ErrorMsg } from 'components/common'
-import { useAppSelector, useFetch } from 'hooks'
+import { useFetch, useNgoConfig } from 'hooks'
 import { getOngLogos } from 'api/getApiServices'
 import Skeleton from 'components/Skeleton'
 import LogoContainer from './LogoContainer'
@@ -12,10 +12,10 @@ interface ILogo {
 }
 
 export default function LogosCarousel(): ReactElement {
-  const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
+  const { ngoId } = useNgoConfig()
   const {
     data: logos = [], isLoading, isError,
-  } = useFetch<ILogo[]>(getOngLogos(ongId), ['logos'], ongId)
+  } = useFetch<ILogo[]>(getOngLogos(ngoId), ['logos'], ngoId)
 
   const { primary } = useTheme()
 

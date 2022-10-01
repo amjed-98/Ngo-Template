@@ -7,7 +7,7 @@ import type { IEvent } from 'types/interfaces'
 import { TModal } from 'types/types'
 import { buyTicketSchema } from 'validation/schemas'
 import { CustomInputDiv } from 'components/common/CustomInput'
-import { useAppSelector, useFormSubmit } from 'hooks'
+import { useFormSubmit, useNgoConfig } from 'hooks'
 import { getBuyEventTicketUrl } from 'api/postApiServices'
 import {
   Button, Center, ErrorMsg, Input, ResponseMsg
@@ -21,9 +21,7 @@ interface Props {
 type TFormSubmitData = TypeOf<typeof buyTicketSchema>
 
 function BuyEventForm({ modal, event: { id, EventTickets, price } }: Props): ReactElement {
-  const {
-    currency, ongId = ''
-  } = useAppSelector(({ ong }) => ({ currency: ong.ongConfig?.platformConfig.currency_symbol, ongId: ong.ongId, }))
+  const { ngoId, currency } = useNgoConfig()
 
   const {
     register, handleSubmit, formState: { errors }
@@ -37,7 +35,7 @@ function BuyEventForm({ modal, event: { id, EventTickets, price } }: Props): Rea
     const formData = {
       ...data,
       event_id: id,
-      ong_id: ongId,
+      ong_id: ngoId,
     }
 
     submit(formData)

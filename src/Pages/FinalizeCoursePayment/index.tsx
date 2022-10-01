@@ -1,7 +1,7 @@
 import { type Params, useParams } from 'react-router-dom'
 import { getFinalizeCoursePaymentUrl } from '../../api/postApiServices'
 import FinalizePayment from '../../components/FinalizePaymentResult'
-import { useAppSelector, useFinalizePayment } from '../../hooks'
+import { useFinalizePayment, useNgoConfig } from '../../hooks'
 import { TFinalizePaymentParams } from '../../types/types'
 
 type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'amount' | 'certificate'> & {
@@ -10,8 +10,9 @@ type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'amount' | 'certificat
 };
 
 function FinalizeCoursePayment() {
-  const ongId = useAppSelector(({ ong }) => ong.ongId) || ''
-  const url = getFinalizeCoursePaymentUrl(ongId)
+  const { ngoId } = useNgoConfig()
+
+  const url = getFinalizeCoursePaymentUrl(ngoId)
 
   const {
     firstName = '',
@@ -32,7 +33,7 @@ function FinalizeCoursePayment() {
     nif,
     home_address,
     text,
-    ong_id: ongId,
+    ong_id: ngoId,
     mobilePhone
   }
 

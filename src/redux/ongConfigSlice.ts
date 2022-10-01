@@ -10,7 +10,7 @@ export const ongConfigSlice: Slice<IAppState> = createSlice({
   name: 'ongConfig',
   initialState,
   reducers: {
-    setOngConfig: (state: IAppState, action: PayloadAction<TOngConfig>) => {
+    setOngConfig: (state: IAppState, action: PayloadAction<TAllPlatformConfig>) => {
       state.ongConfig = action.payload
     },
     setOngId: (state: IAppState, action: PayloadAction<string>) => {

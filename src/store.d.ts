@@ -50,7 +50,7 @@ declare global {
     amount: string;
   }>;
 
-  type TPlatformConfig = Readonly<{
+  type TNgoConfig = Readonly<{
     id: string;
     ong_id: string;
     active: boolean;
@@ -81,13 +81,13 @@ declare global {
      position: string;
   }>;
 
-  type TOngConfig = Readonly<{
+  type TAllPlatformConfig = Readonly<{
     brand: TBrand;
     contact: TContact;
     description: TDescription;
     features: TFeatures;
     impactData: Readonly<TImpactData[]>;
-    platformConfig: TPlatformConfig;
+    platformConfig: TNgoConfig;
     rrss: TRrss;
     team: Readonly<TTeam[]>;
   }>;

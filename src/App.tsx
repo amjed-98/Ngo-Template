@@ -4,55 +4,37 @@ import { ToastContainer } from 'react-toastify'
 import { Loader } from 'components'
 import AllRoute from 'app/router'
 import { CrashPage } from 'Pages'
-import { getOngByUrl, getOngConfig } from 'api/getApiServices'
-import {
-  useFetch, useAppDispatch, useSetFavIcon, useSetDocumentTitle
-} from 'hooks'
-import { setOngConfig, setOngId } from 'redux/ongConfigSlice'
-
-const ongUrl = ['development', 'staging'].includes(import.meta.env.MODE)
-  ? 'prehelloo.web.lazzaro.io'
-  : window.location.host
+import { useSetFavIcon, useSetDocumentTitle, useAllPlatformConfig, } from 'hooks'
 
 function App() {
-  const dispatch = useAppDispatch()
-
   const {
-    data: { ong_id: ongId = '' } = {},
-    isLoading: isLoadingPlatformConfig,
+    brand: {
+      logo, name,
+      primary_color_hex: primary = '',
+      secondary_color_hex: secondary = ''
+    } = {},
+
+    platformConfig: { language: ngoLanguage } = {},
+    isLoading,
     isError,
-  } = useFetch<TPlatformConfig>(getOngByUrl(ongUrl), ['ongConfigUrl'], ongUrl)
+  } = useAllPlatformConfig()
 
-  const {
-    data: ongData,
-    isLoading: isLoadingOngConfig,
-    isError: isErrorPage,
-  } = useFetch<TOngConfig>(getOngConfig(ongId), ['ongConfig'], ongId)
-
-  useSetFavIcon(ongData?.brand.logo || '')
-  useSetDocumentTitle(ongData?.brand.name)
+  useSetFavIcon(logo || '')
+  useSetDocumentTitle(name || 'Loading...')
 
   useEffect(() => {
     const storedLanguage = localStorage.getItem('lang')
 
     if (!storedLanguage) {
-      const ngoLanguage:TPlatformConfig['language'] = ongData?.platformConfig.language || 'es'
-      localStorage.setItem('lang', ngoLanguage)
+      localStorage.setItem('lang', ngoLanguage || 'en')
     }
-  }, [ongData?.platformConfig.language])
+  }, [ngoLanguage])
 
-  useEffect(() => {
-    dispatch(setOngId(ongId))
-    dispatch(setOngConfig(ongData))
-  }, [ongData, ongId])
-
-  const primary = ongData?.brand.primary_color_hex || ''
-  const secondary = ongData?.brand.secondary_color_hex || ''
   const theme: DefaultTheme = { primary, secondary }
 
-  if (isError || isErrorPage || ongId === undefined) return <CrashPage />
+  if (isError) return <CrashPage />
 
-  if (isLoadingOngConfig || isLoadingPlatformConfig) {
+  if (isLoading) {
     return (
       <ThemeProvider theme={theme}>
         <Loader />

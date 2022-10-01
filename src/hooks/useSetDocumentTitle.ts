@@ -1,6 +1,6 @@
 import { useLayoutEffect } from 'react'
 
-const useSetDocumentTitle = (title = 'Loading...') => {
+const useSetDocumentTitle = (title:string) => {
   useLayoutEffect(() => {
     document.title = title
   }, [title])

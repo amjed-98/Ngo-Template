@@ -40,7 +40,7 @@ export interface IProjects {
   title: string;
 }
 export interface IAppState {
-  ongConfig: TOngConfig | Record<string, never> | undefined;
+  ongConfig: TAllPlatformConfig | Record<string, never> | undefined;
   ongId: string | undefined;
 }
 

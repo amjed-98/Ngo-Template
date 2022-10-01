@@ -1,5 +1,9 @@
 import BASE_URL from './baseUrl'
 
+const ngoUrl = ['development', 'staging'].includes(import.meta.env.MODE)
+  ? 'prehelloo.web.lazzaro.io'
+  : window.location.hostname
+
 export const getProjectsURL = (ongId: string) => `${BASE_URL}/api/private/projects/ong/${ongId}`
 export const getProjectDetailsURL = (id: string) => `${BASE_URL}/api/private/projects/${id}`
 export const getProjectImagesURL = (projectId: string) => `${BASE_URL}/api/private/projectimages/${projectId}`
@@ -8,8 +12,8 @@ export const getEventsURL = (ongId: string) => `${BASE_URL}/api/private/events/o
 export const getCauseDetailsURL = (id: string) => `${BASE_URL}/api/private/projects/${id}`
 export const getCauseImagesURL = (id: string) => `${BASE_URL}/api/private/projectimages/${id}`
 export const getCauseDonationsHistoryUrl = (causeId: string) => `${BASE_URL}/api/private/comments/${causeId}`
-export const getOngConfig = (ngoId: string) => `${BASE_URL}/api/private/ongs/${ngoId}/all-platform-config`
-export const getOngByUrl = (url: string) => `${BASE_URL}/api/private/ongs/${url}/id`
+export const getPlatformConfigUrl = (ngoId: string) => `${BASE_URL}/api/private/ongs/${ngoId}/all-platform-config`
+export const getNgoConfigUrl = () => `${BASE_URL}/api/private/ongs/${ngoUrl}/id`
 export const getEventURL = (eventId: string) => `${BASE_URL}/api/private/events/${eventId}`
 export const getCoursesImages = (id: string) => `${BASE_URL}/api/private/eventimages/${id}`
 export const getProductsURL = (id: string) => `${BASE_URL}/api/private/products/ong/${id}`

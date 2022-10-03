@@ -6,8 +6,6 @@ type TEventCamelCased = {
 };
 
 type ReturnType = TEventCamelCased & {
-  startTime: string;
-  endTime: string;
   isLoading: boolean;
   isError: boolean;
   error: AxiosError<unknown, any> | null;

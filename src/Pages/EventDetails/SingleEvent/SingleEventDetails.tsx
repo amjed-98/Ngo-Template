@@ -2,34 +2,24 @@ import type { FC } from 'react'
 import { Tabs } from 'antd'
 import HtmlParser from 'html-react-parser'
 import styled from 'styled-components'
-import { getEventImages } from 'api/getApiServices'
-import { IImage } from 'types/interfaces'
 import BuyEventForm from 'components/Forms/BuyEventForm'
 import { ContactEventForm } from 'components/Forms/ContactEventForm'
 import {
-  useAllPlatformConfig, useFetch, useGeocoding
+  useAllPlatformConfig, useGeocoding
 } from 'hooks'
-import Skeleton from 'components/Skeleton'
 import { RenderIf, Map } from 'components'
-import { EventCarousel } from './EventCarousel'
+import ImageCarousel from './ImageCarousel'
 
 type TProps = {
   event: TEventCamelCased;
-  isEventLoading: boolean;
 };
-const SingleEventDetails:FC<TProps> = ({ event, isEventLoading }) => {
-  const {
-    data: images = [], isLoading: isImagesLoading
-  } = useFetch<IImage[]>(getEventImages(event.id), ['event_images'], event.id)
-
+const SingleEventDetails:FC<TProps> = ({ event }) => {
   const { contact: { address = '' } = {} } = useAllPlatformConfig()
   const { lat, lng } = useGeocoding(address)
 
-  if (isEventLoading) return <Skeleton number={1} height={40} width={60} />
-
   return (
     <Event>
-      <EventCarousel images={images} isLoading={isImagesLoading} />
+      <ImageCarousel eventId={event.id} />
       <EventTitle>{event?.title}</EventTitle>
       {HtmlParser(event?.description || '')}
 

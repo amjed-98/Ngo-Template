@@ -3,15 +3,12 @@ import styled from 'styled-components'
 import { ClockCircleFilled, HeatMapOutlined } from '@ant-design/icons'
 import moment from 'moment'
 import { useLocation } from 'react-router-dom'
-import { useFetch } from 'hooks'
 import { Card, Flex, Text } from 'components/common'
 import BuyEventForm from 'components/Forms/BuyEventForm'
-import { getEventImages } from 'api/getApiServices'
-import { IImage } from 'types/interfaces'
 import BuyModal from 'components/Modal'
 import BuyCourseForm from 'components/Forms/BuyCourseForm'
 import { ShareModal } from 'components/ShareModal/ShareModal'
-import { EventCarousel } from './EventCarousel'
+import ImageCarousel from './ImageCarousel'
 
 export function EventCard(props: TEventCamelCased): ReactElement {
   const {
@@ -21,11 +18,6 @@ export function EventCard(props: TEventCamelCased): ReactElement {
   const { pathname } = useLocation()
   const startDate = moment(startTime).format('Do MMM YYYY')
   const endDate = moment(endTime).format('Do MMM YYYY')
-  const { data: images = [], isLoading } = useFetch<IImage[]>(
-    getEventImages(id),
-    [`event_images_form_${id}`],
-    id
-  )
 
   const Form = course ? <BuyCourseForm courseId={id} /> : <BuyEventForm modal event={props} />
 
@@ -50,7 +42,7 @@ export function EventCard(props: TEventCamelCased): ReactElement {
         <ShareModal section={pathname.includes('events') ? 'events' : 'courses'} sectionId={id} />
 
         <BuyModal title={`Buy ${course ? 'course' : 'ticket'}`} btnText="Buy">
-          <EventCarousel images={images} isLoading={isLoading} />
+          <ImageCarousel eventId={id} />
           {Form}
         </BuyModal>
       </Flex>

@@ -119,6 +119,13 @@ declare global {
     }[];
   };
 
+  type TEventImage = {
+    id: string;
+    event_id: string;
+    img_url: string;
+    default: boolean;
+  };
+
   type TCourse = TEvent
 
   type SnakeToCamelCase<Str extends string> = Str extends `${infer T}_${infer U}`

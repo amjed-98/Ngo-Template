@@ -1,9 +1,10 @@
 import { type ReactElement } from 'react'
-import { Params, useLocation, useParams } from 'react-router-dom'
+import { type Params, useLocation, useParams } from 'react-router-dom'
 import styled from 'styled-components'
-import Skeleton from 'components/Skeleton'
 import useEventDetails from 'hooks/Api/useEventDetails'
-import { Footer, Navbar, RenderIf } from 'components'
+import {
+  Footer, Navbar, RenderIf, Skeleton
+} from 'components'
 import { ErrorMsg } from 'components/common'
 import { EventCard } from './SingleEvent/EventCard'
 import SingleEventDetails from './SingleEvent/SingleEventDetails'
@@ -18,11 +19,13 @@ function SingleEvent(): ReactElement {
   } = useEventDetails(id)
 
   if (isError) return <ErrorMsg>{error?.message}</ErrorMsg>
+  if (isLoading) return <Skeleton number={1} height={40} width={60} />
+
   return (
     <>
       <Navbar />
       <Container>
-        <SingleEventDetails event={event} isEventLoading={isLoading} />
+        <SingleEventDetails event={event} />
         <OtherEvents>
 
           <RenderIf if={isLoading}>

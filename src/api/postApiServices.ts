@@ -8,7 +8,7 @@ export const getFinalizeProjectDonationUrl = (ongId: string,
   token:string) => `${BASE_URL}/api/private/ong/${ongId}/finalice-donation-cause?token=${token}`
 export const getStartCoursePaymentUrl = (courseId: string) => `${BASE_URL}/api/private/buycourse/${courseId}/start`
 export const getFinalizeCoursePaymentUrl = (courseId:
-    string) => `${BASE_URL}/api/private/buycourse/${courseId}/finalice`
+    string) => `${BASE_URL}/api/private/buycourse/${courseId}/finablice`
 export const getSendContactUrl = () => `${BASE_URL}/api/private/mail/contact`
 export const getSendContactEventUrl = (ongId: string,
   eventId: string) => `${BASE_URL}/api/private/ongs/${ongId}/events/${eventId}/contact`

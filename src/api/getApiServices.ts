@@ -19,7 +19,7 @@ export const getCoursesImages = (id: string) => `${BASE_URL}/api/private/eventim
 export const getProductsURL = (id: string) => `${BASE_URL}/api/private/products/ong/${id}`
 export const getProductDetails = (id: string) => `${BASE_URL}/api/private/products/${id}`
 export const getProductImages = (id: string) => `${BASE_URL}/api/private/productImages/${id}`
-export const getEventImages = (id: string) => `${BASE_URL}/api/private/eventimages/${id}`
+export const getEventImagesUrl = (eventId: string) => `${BASE_URL}/api/private/eventimages/${eventId}`
 export const getTransparencyURL = (ongId: string) => `${BASE_URL}/api/private/ongs/${ongId}/transparency`
 export const getCoursesURL = (ongId:string) => `${BASE_URL}/api/private/courses/ong/${ongId}`
 export const getBuyCourseUrl = (courseId: string) => `${BASE_URL}/api/private/buycourse/${courseId}/start`

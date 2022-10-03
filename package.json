@@ -57,7 +57,8 @@
     "build:staging": "tsc && vite build --mode staging",
     "preview": "vite preview",
     "test": "vitest",
-    "ui": "vitest --ui"
+    "ui": "vitest --ui",
+    "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc"
   },
   "eslintConfig": {
     "extends": [
@@ -93,7 +94,12 @@
     "@vitest/ui": "^0.23.4",
     "babel-plugin-named-exports-order": "^0.0.2",
     "eslint": "^7.32.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-import-resolver-typescript": "^3.5.1",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
     "jsdom": "^20.0.0",
+    "prettier": "^2.7.1",
     "prop-types": "^15.8.1"
   }
 }

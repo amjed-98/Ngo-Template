@@ -13,7 +13,7 @@ export default function Volunteers(): ReactElement {
         Our Team
       </SectionTitle>
       <Carousel Component={VolunteerCard}>
-        {volunteers as any[]}
+        {[...volunteers]}
       </Carousel>
     </VolunteersSection>
   )

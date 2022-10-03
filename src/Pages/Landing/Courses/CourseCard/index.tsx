@@ -25,7 +25,7 @@ function CourseCard({
   const date = Number(moment(startTime).format('D'))
 
   return (
-    <Card mode="row" smMode="column" my={2} p={1} maxWidth="45rem">
+    <Card mode="row" smMode="column" my={0.5} p={1} maxWidth="45rem">
       <Box height={14.5}>
         <CalendarIcon
           date={date}

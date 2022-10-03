@@ -1,10 +1,10 @@
 import type { JSXElementConstructor, ReactElement } from 'react'
 import { Swiper, SwiperSlide } from 'swiper/react'
-
 import { Navigation, Autoplay } from 'swiper'
+import styled from 'styled-components'
 
-type TProps = {
-  children: any[];
+type TProps<TChild extends { id: string }> = {
+  children: TChild[] | [child:TChild, child?:TChild][];
   spaceBetween?: number;
   slidesPerView?: number;
   loop?: boolean;
@@ -13,10 +13,28 @@ type TProps = {
   Component: JSXElementConstructor<any>;
 };
 
-function Carousel(props: TProps): ReactElement {
+function Carousel<TChild extends { id: string }>(props: TProps<TChild>): ReactElement {
   const {
-    children, spaceBetween, slidesPerView, loop, autoplay, Component, bgColor,
+    children, spaceBetween, slidesPerView, loop, autoplay, Component, bgColor
   } = props
+
+  const Slides = children.map((child, i) => {
+    if (Array.isArray(child)) {
+      return (
+        <VerticalSlider key={child[i]?.id || i}>
+          {child.map(
+            (nestedChild) => nestedChild && <Component key={nestedChild.id} {...nestedChild} />
+          )}
+        </VerticalSlider>
+      )
+    }
+
+    return (
+      <SwiperSlide key={child.id}>
+        <Component {...child} />
+      </SwiperSlide>
+    )
+  })
 
   return (
     <Swiper
@@ -29,11 +47,7 @@ function Carousel(props: TProps): ReactElement {
       style={{ backgroundColor: bgColor }}
       className="mySwiper"
     >
-      {children?.map((child) => (
-        <SwiperSlide key={child.id}>
-          <Component {...child} />
-        </SwiperSlide>
-      ))}
+      {Slides}
     </Swiper>
   )
 }
@@ -46,3 +60,10 @@ Carousel.defaultProps = {
   autoplay: true,
   bgColor: 'initial',
 }
+
+const VerticalSlider = styled(SwiperSlide)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`

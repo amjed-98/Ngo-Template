@@ -1,12 +1,12 @@
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { yupResolver } from '@hookform/resolvers/yup'
 import { type TypeOf } from 'yup'
-import { type SubmitHandler, useForm } from 'react-hook-form'
+import { type SubmitHandler } from 'react-hook-form'
 import { donationSchema } from 'validation/schemas'
 import {
   Button, Center, Input, TextArea, ErrorMsg, ResponseMsg, Label
 } from 'components/common'
+import { useManageForm } from 'hooks'
 
 type TFormSubmitData = TypeOf<typeof donationSchema>;
 type TProps = {
@@ -21,11 +21,16 @@ type TProps = {
 
 function DonateForm({ projectId, submitHandler, states }: TProps) {
   const {
-    register, handleSubmit, formState: { errors },
-  } = useForm<TFormSubmitData>({ resolver: yupResolver(donationSchema) })
+    register, handleSubmit, errors, reset
+  } = useManageForm<TFormSubmitData>(donationSchema)
+
+  const submit = (data: TFormSubmitData) => {
+    submitHandler(data)
+    reset()
+  }
 
   return (
-    <CustomForm onSubmit={handleSubmit(submitHandler)}>
+    <CustomForm onSubmit={handleSubmit(submit)}>
       <ResponseMsg
         {...states}
         successMsg="Your request has been sent successfully"

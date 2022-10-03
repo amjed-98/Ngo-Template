@@ -1,12 +1,10 @@
 import type { ReactElement } from 'react'
 import { MailFilled, MailOutlined, PhoneFilled } from '@ant-design/icons'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
 import { type TypeOf } from 'yup'
 import styled from 'styled-components'
 import { getSendContactUrl } from 'api/postApiServices'
 import {
-  useGeocoding, useFormSubmit, useAllPlatformConfig
+  useGeocoding, useFormSubmit, useAllPlatformConfig, useManageForm
 } from 'hooks'
 import { contactSchema } from 'validation/schemas'
 import {
@@ -19,13 +17,15 @@ import {
 type TFormSubmitData = TypeOf<typeof contactSchema>;
 
 function ContactUsForm(): ReactElement {
-  const { contact: { phone = '', email = '', address = '' } = {} } = useAllPlatformConfig()
+  const {
+    contact: { phone = '', email = '', address = '' } = {}
+  } = useAllPlatformConfig()
 
   const { lat, lng } = useGeocoding(address)
 
   const {
-    register, handleSubmit, formState: { errors }
-  } = useForm<TFormSubmitData>({ resolver: yupResolver(contactSchema), })
+    register, handleSubmit, errors, reset
+  } = useManageForm<TFormSubmitData>(contactSchema)
 
   const {
     submit, ...states
@@ -34,6 +34,7 @@ function ContactUsForm(): ReactElement {
   const onSubmit = (data: TFormSubmitData) => {
     const formData = { ...data, ongEmail: email }
     submit(formData)
+    reset()
   }
 
   return (

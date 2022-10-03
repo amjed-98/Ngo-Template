@@ -1,11 +1,9 @@
-import { yupResolver } from '@hookform/resolvers/yup'
 import { Fragment, type ReactElement, useMemo } from 'react'
-import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { type TypeOf } from 'yup'
 import { TModal } from 'types/types'
 import { buyTicketSchema } from 'validation/schemas'
-import { useFormSubmit, useNgoConfig } from 'hooks'
+import { useFormSubmit, useManageForm, useNgoConfig } from 'hooks'
 import { getBuyEventTicketUrl } from 'api/postApiServices'
 import {
   Button, Center, ErrorMsg, Input, ResponseMsg, CustomInputDiv
@@ -22,8 +20,8 @@ function BuyEventForm({ modal, event: { id, EventTickets, price } }: Props): Rea
   const { ngoId, currency } = useNgoConfig()
 
   const {
-    register, handleSubmit, formState: { errors }
-  } = useForm<TFormSubmitData>({ resolver: yupResolver(buyTicketSchema), })
+    register, handleSubmit, errors, reset
+  } = useManageForm<TFormSubmitData>(buyTicketSchema)
 
   const {
     submit, ...states
@@ -37,6 +35,7 @@ function BuyEventForm({ modal, event: { id, EventTickets, price } }: Props): Rea
     }
 
     submit(formData)
+    reset()
   }
 
   const ticketsInputs: JSX.Element[] = useMemo(

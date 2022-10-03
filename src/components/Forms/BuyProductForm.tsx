@@ -1,10 +1,8 @@
-import { yupResolver } from '@hookform/resolvers/yup'
 import { type ReactElement } from 'react'
-import { useForm } from 'react-hook-form'
 import styled from 'styled-components'
 import { type TypeOf } from 'yup'
 import { getStartProductPaymentUrl } from 'api/postApiServices'
-import { useFormSubmit, useNgoConfig } from 'hooks'
+import { useFormSubmit, useManageForm, useNgoConfig } from 'hooks'
 import { buyProductSchema } from 'validation/schemas'
 import {
   Button, Center, Input, Label, SectionTitle, TextArea, ErrorMsg, ResponseMsg
@@ -27,8 +25,8 @@ export function BuyProductForm(props: IProps): ReactElement {
   const { ngoId = '' } = useNgoConfig()
 
   const {
-    handleSubmit, register, formState: { errors },
-  } = useForm<TFormSubmitData>({ resolver: yupResolver(buyProductSchema) })
+    register, handleSubmit, errors, reset
+  } = useManageForm<TFormSubmitData>(buyProductSchema)
 
   const {
     submit, ...states
@@ -43,6 +41,7 @@ export function BuyProductForm(props: IProps): ReactElement {
     }
 
     submit(donationInfo)
+    reset()
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

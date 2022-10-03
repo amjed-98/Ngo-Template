@@ -1,28 +1,27 @@
 import { Radio } from 'antd'
 import type { ReactElement } from 'react'
 import styled from 'styled-components'
-import { useForm, Controller } from 'react-hook-form'
-import { yupResolver } from '@hookform/resolvers/yup'
 import DatePicker from 'react-datepicker'
+import { Controller } from 'react-hook-form'
 import moment from 'moment'
 import { type TypeOf } from 'yup'
 import { Footer, Navbar } from 'components'
 import {
-  Button, Center, Input, ErrorMsg
+  Button, Center, Input, ErrorMsg, ResponseMsg, CustomInputDiv
 } from 'components/common'
-import HandleResponse from 'components/common/ResponseMsg'
-import { useFormSubmit, useNgoConfig } from 'hooks'
+import { useFormSubmit, useManageForm, useNgoConfig } from 'hooks'
 import { getBecomePartnerUrl } from 'api/postApiServices'
-import { CustomInputDiv } from 'components/common/CustomInput'
 import { memberSchema } from 'validation/schemas'
 
 type TFormSubmitData = TypeOf<typeof memberSchema>
 
 export default function BecomeMemberForm(): ReactElement {
   const { ngoId = '' } = useNgoConfig()
+
   const {
-    register, handleSubmit, formState: { errors }, control,
-  } = useForm<TFormSubmitData>({ resolver: yupResolver(memberSchema) })
+    register, handleSubmit, errors, reset, control
+  } = useManageForm<TFormSubmitData>(memberSchema)
+
   const {
     submit, ...states
   } = useFormSubmit<TFormSubmitData, true>({ url: getBecomePartnerUrl(), redirectPath: 'partners' })
@@ -35,14 +34,14 @@ export default function BecomeMemberForm(): ReactElement {
       ong_id: ngoId,
     }
     submit(formData)
+    reset()
   }
   return (
     <>
       <Navbar />
       <Container>
-
         <Form onSubmit={handleSubmit(onSubmit)}>
-          <HandleResponse
+          <ResponseMsg
             {...states}
             successMsg="Please navigate to PayPal to complete the payment"
             errorMsg="Something went wrong, please try again later"
@@ -55,7 +54,6 @@ export default function BecomeMemberForm(): ReactElement {
             need some information from you.
           </FormSubtitle>
           <FormRow>
-
             <CustomInputDiv>
               <Input placeholder="Name" {...register('firstName')} />
               <ErrorMsg mt={0.4}>{errors.firstName?.message}</ErrorMsg>

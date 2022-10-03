@@ -1,10 +1,8 @@
-import { yupResolver } from '@hookform/resolvers/yup'
 import { type ReactElement } from 'react'
-import { useForm } from 'react-hook-form'
 import styled, { useTheme } from 'styled-components'
 import { type TypeOf } from 'yup'
 import { getBuyCourseUrl } from 'api/getApiServices'
-import { useFormSubmit, useNgoConfig } from 'hooks'
+import { useFormSubmit, useManageForm, useNgoConfig } from 'hooks'
 import { buyCourseTicketSchema } from 'validation/schemas'
 import {
   Button, Input, Label, Link, ErrorMsg, ResponseMsg
@@ -18,12 +16,11 @@ type TProps ={
 
 export default function BuyCourseForm({ courseId }: TProps): ReactElement {
   const { ngoId = '' } = useNgoConfig()
-
   const { secondary } = useTheme()
-
   const {
-    register, handleSubmit, formState: { errors }
-  } = useForm<TFormSubmitData>({ resolver: yupResolver(buyCourseTicketSchema), })
+    register, handleSubmit, errors, reset
+  } = useManageForm<TFormSubmitData>(buyCourseTicketSchema)
+
   const {
     submit, ...states
   } = useFormSubmit<TFormSubmitData, true>({ url: getBuyCourseUrl(courseId), redirectPath: 'shop' })
@@ -32,6 +29,7 @@ export default function BuyCourseForm({ courseId }: TProps): ReactElement {
     const formData = { ...data, course_id: courseId, ong_id: ngoId }
 
     submit(formData)
+    reset()
   }
 
   return (

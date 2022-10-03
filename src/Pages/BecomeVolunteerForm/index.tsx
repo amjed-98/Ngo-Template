@@ -1,5 +1,3 @@
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
 import { type TypeOf } from 'yup'
 import styled from 'styled-components'
 import { getAddVolunteerUrl } from 'api/postApiServices'
@@ -14,7 +12,7 @@ import {
   ResponseMsg,
   CustomInputDiv,
 } from 'components/common'
-import { useFormSubmit, useNgoConfig } from 'hooks'
+import { useFormSubmit, useManageForm, useNgoConfig } from 'hooks'
 import { volunteerSchema } from 'validation/schemas'
 
 type TFormSubmitData = TypeOf<typeof volunteerSchema>
@@ -23,14 +21,15 @@ function BecomeVolunteerForm() {
   const { ngoId } = useNgoConfig()
 
   const {
-    handleSubmit, register, formState: { errors }
-  } = useForm<TFormSubmitData>({ resolver: yupResolver(volunteerSchema) })
+    register, handleSubmit, errors, reset
+  } = useManageForm<TFormSubmitData>(volunteerSchema)
 
   const { submit, ...states } = useFormSubmit<TFormSubmitData>(getAddVolunteerUrl())
 
   const onSubmit = (data: TFormSubmitData) => {
     const formData = { ...data, ong_id: ngoId }
     submit(formData)
+    reset()
   }
   return (
     <>

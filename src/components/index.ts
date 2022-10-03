@@ -13,7 +13,7 @@ export const SubscribeDivider = lazy(() => import('Pages/Landing/SubscribeDivide
 export const Footer = lazy(() => import('./Footer/Footer' /* webpackChunkName: "Footer" */))
 export const Volunteers = lazy(() => import('Pages/Landing/Volunteers' /* webpackChunkName: "Volunteers section" */))
 export const Divider = lazy(() => import('Pages/Landing/Divider/Divider' /* webpackChunkName: "Divider" */))
-export const Courses = lazy(() => import('Pages/Landing/Courses/Courses' /* webpackChunkName: "Courses_section" */))
+export const Courses = lazy(() => import('Pages/Landing/Courses' /* webpackChunkName: "Courses_section" */))
 export const DonateForm = lazy(() => import('./Forms/DonateForm' /* webpackChunkName: "DonateForm" */))
 export const Modal = lazy(() => import('./Modal' /* webpackChunkName: "BuyModal" */))
 export const FinalizePaymentResult = lazy(() => import('./FinalizePaymentResult' /* webpackChunkName: "FinalizePaymentResult" */))

@@ -29,6 +29,14 @@ const useEventDetails = (eventId: string): ReturnType => {
     price = 0,
     stock = 0,
     title = '',
+    amount = 0,
+    donated = 0,
+    recurrent = false,
+    salesEndDate = '12-12-2012',
+    salesStartDate = '12-12-2012',
+    stripe_id: stripeId = '',
+    type = 'Online',
+    video_url: videoUrl = '',
   } = events.find((event) => event.id === eventId) || {}
 
   return {
@@ -46,6 +54,14 @@ const useEventDetails = (eventId: string): ReturnType => {
     isLoading,
     isError,
     error,
+    amount,
+    donated,
+    recurrent,
+    salesEndDate,
+    salesStartDate,
+    stripeId,
+    type,
+    videoUrl
   }
 }
 

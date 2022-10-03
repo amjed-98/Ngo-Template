@@ -1,22 +1,17 @@
 import { type ReactElement } from 'react'
 import { RenderIf } from 'components'
 import { Box, Carousel, SectionTitle } from 'components/common'
-import { useFetch, useNgoConfig } from 'hooks'
-import { getCoursesURL } from 'api/getApiServices'
+import { useCourses } from 'hooks'
 import CourseCardSkeleton from 'components/Skeleton'
 import { ICourse } from 'types/interfaces'
 import CourseCard from './CourseCard'
 
 function Courses(): ReactElement {
-  const { ngoId } = useNgoConfig()
-
   const {
-    data: events = [], isLoading
-  } = useFetch<ICourse[]>(getCoursesURL(ngoId), ['courses'], ngoId)
+    courses, isLoading, isError
+  } = useCourses()
 
-  const courses: [course: ICourse, course?: ICourse][] = events.reduce((acc, cur, i) => {
-    if (!cur.course) return acc
-
+  const formattedCourses: [course: ICourse, course?: ICourse][] = courses.reduce((acc, cur, i) => {
     if (i % 2 === 0) {
       acc.push([cur])
     } else {
@@ -25,6 +20,8 @@ function Courses(): ReactElement {
 
     return acc
   }, [] as [course: ICourse, course?: ICourse][])
+
+  if (isError) return <></>
 
   return (
     <Box id="courses" px={4.1} mt={4}>
@@ -35,7 +32,7 @@ function Courses(): ReactElement {
       </RenderIf>
 
       <Carousel Component={CourseCard} slidesPerView={1}>
-        {courses}
+        {formattedCourses}
       </Carousel>
     </Box>
   )

@@ -102,7 +102,15 @@ declare global {
     location: string;
     end_time: string;
     stock: number;
+    amount: 0;
     price: number;
+    donated: number;
+    salesStartDate: `${string}-${string}-${string}`;
+    salesEndDate: `${string}-${string}-${string}`;
+    recurrent: boolean;
+    type: 'Presencial' | 'Online';
+    stripe_id: string;
+    video_url: string;
     EventTickets: {
       amount: number;
       id: string;
@@ -110,6 +118,8 @@ declare global {
       type: string;
     }[];
   };
+
+  type TCourse = TEvent
 
   type SnakeToCamelCase<Str extends string> = Str extends `${infer T}_${infer U}`
     ? `${T}${Capitalize<SnakeToCamelCase<U>>}`

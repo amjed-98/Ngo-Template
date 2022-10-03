@@ -1,6 +1,6 @@
-import styled from 'styled-components'
-import { Carousel } from 'components/common'
-import ImageContainer from './ImageContainer'
+import styled from 'styled-components';
+import { Carousel } from 'components/common';
+import ImageContainer from './ImageContainer';
 
 interface IProps {
   images: {
@@ -12,20 +12,18 @@ interface IProps {
 function ImageCarousel({ images }: IProps) {
   return (
     <Section>
-      <Carousel Component={ImageContainer}>
-        {images}
-      </Carousel>
+      <Carousel Component={ImageContainer}>{images}</Carousel>
 
       <Triangle />
     </Section>
-  )
+  );
 }
 
-export default ImageCarousel
+export default ImageCarousel;
 
 const Section = styled.section`
   position: relative;
-`
+`;
 
 const Triangle = styled.div`
   position: absolute;
@@ -34,4 +32,4 @@ const Triangle = styled.div`
   transform: translate(-50%, 99%);
   border: 2.2rem solid transparent;
   border-top: 2.2rem solid ${({ theme }) => theme.primary};
-`
+`;

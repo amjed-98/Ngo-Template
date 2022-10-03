@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { getProp } from '../../utils'
+import styled from 'styled-components';
+import { getProp } from '../../utils';
 
 interface IProps {
   radius?: TBorderRadius;
@@ -19,5 +19,5 @@ const Image = styled.img<IProps>`
   object-position: center;
   border-radius: ${({ radius }) => radius && `${radius}px`};
   padding: ${({ p }) => p && getProp(p)};
-`
-export default Image
+`;
+export default Image;

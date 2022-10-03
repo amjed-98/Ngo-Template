@@ -1,7 +1,7 @@
-import type * as CSS from 'csstype'
+import type * as CSS from 'csstype';
 
 declare global {
-  type TFlexDirection = CSS.Properties['flexDirection']
+  type TFlexDirection = CSS.Properties['flexDirection'];
   type TJustifyContent = CSS.Properties['justifyContent'];
   type TAlignItems = CSS.Properties['alignItems'];
   type TAlignContent = CSS.Properties['alignContent'];
@@ -48,4 +48,4 @@ declare global {
   type TOnHover = Partial<Record<keyof CSS.Properties, string>>;
 }
 
-export { }
+export {};

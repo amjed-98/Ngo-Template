@@ -1,8 +1,8 @@
-import useFetch from 'hooks/useFetch'
-import { getPlatformConfigUrl } from 'api/getApiServices'
-import { type AxiosError } from 'axios'
-import queryCacheKeys from 'api/query-cache-keys'
-import useNgoConfig from '../useNgoConfig'
+import useFetch from 'hooks/useFetch';
+import { getPlatformConfigUrl } from 'api/getApiServices';
+import { type AxiosError } from 'axios';
+import queryCacheKeys from 'api/query-cache-keys';
+import useNgoConfig from '../useNgoConfig';
 
 type TAllPlatformConfigCamelCased = {
   [key in keyof TAllPlatformConfig as SnakeToCamelCase<key>]: TAllPlatformConfig[key] | undefined;
@@ -15,23 +15,18 @@ type ReturnType = TAllPlatformConfigCamelCased & {
 };
 
 const useAllPlatformConfig = (): ReturnType => {
-  const { ngoId } = useNgoConfig()
+  const { ngoId } = useNgoConfig();
 
   const {
-    data: {
-      brand,
-      team,
-      contact,
-      description,
-      features,
-      impactData,
-      platformConfig,
-      rrss,
-    } = {},
+    data: { brand, team, contact, description, features, impactData, platformConfig, rrss } = {},
     isLoading,
     isError,
     error,
-  } = useFetch<TAllPlatformConfig>(getPlatformConfigUrl(ngoId), queryCacheKeys.allPlatformConfig, !!ngoId)
+  } = useFetch<TAllPlatformConfig>(
+    getPlatformConfigUrl(ngoId),
+    queryCacheKeys.allPlatformConfig,
+    !!ngoId,
+  );
 
   return {
     brand,
@@ -45,7 +40,7 @@ const useAllPlatformConfig = (): ReturnType => {
     isLoading,
     isError,
     error,
-  }
-}
+  };
+};
 
-export default useAllPlatformConfig
+export default useAllPlatformConfig;

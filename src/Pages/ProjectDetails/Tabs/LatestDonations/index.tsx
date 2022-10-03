@@ -1,11 +1,11 @@
-import { useMemo } from 'react'
-import styled from 'styled-components'
-import { getProjectLatestDonationsURL } from 'api/getApiServices'
-import { Text } from 'components/common'
-import { useFetch } from 'hooks'
-import { type ILatestDonation } from 'types/interfaces'
-import Skeleton from 'components/Skeleton'
-import DonationCard from './DonationCard'
+import { useMemo } from 'react';
+import styled from 'styled-components';
+import { getProjectLatestDonationsURL } from 'api/getApiServices';
+import { Text } from 'components/common';
+import { useFetch } from 'hooks';
+import { type ILatestDonation } from 'types/interfaces';
+import Skeleton from 'components/Skeleton';
+import DonationCard from './DonationCard';
 
 interface IProps {
   title: 'Latest Donations' | 'Historical';
@@ -13,18 +13,20 @@ interface IProps {
 }
 
 function LatestDonations({ title, projectId }: IProps) {
-  const {
-    data: donations, isLoading
-  } = useFetch<ILatestDonation[]>(getProjectLatestDonationsURL(projectId), [`donations${projectId}`], projectId)
+  const { data: donations, isLoading } = useFetch<ILatestDonation[]>(
+    getProjectLatestDonationsURL(projectId),
+    [`donations${projectId}`],
+    projectId,
+  );
 
   const memoizedDonations = useMemo(
     () => donations?.map((donation) => <DonationCard latestDonation={donation} />),
-    [donations]
-  )
+    [donations],
+  );
 
   return (
     <Container>
-      <Text weight="bold" fontSize={2} textAlign="left">
+      <Text weight='bold' fontSize={2} textAlign='left'>
         {title}
       </Text>
 
@@ -32,7 +34,7 @@ function LatestDonations({ title, projectId }: IProps) {
 
       {memoizedDonations}
     </Container>
-  )
+  );
 }
 
 const Container = styled.div`
@@ -41,6 +43,6 @@ const Container = styled.div`
   gap: 2rem;
   overflow-y: auto;
   height: 50rem;
-`
+`;
 
-export default LatestDonations
+export default LatestDonations;

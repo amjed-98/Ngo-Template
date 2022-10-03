@@ -1,15 +1,15 @@
-import { type Params, useParams } from 'react-router-dom'
-import { getFinalizeDonationUrl } from '../../api/postApiServices'
-import FinalizePayment from '../../components/FinalizePaymentResult'
-import { useFinalizePayment, useNgoConfig } from '../../hooks'
-import { TFinalizePaymentParams } from '../../types/types'
+import { type Params, useParams } from 'react-router-dom';
+import { getFinalizeDonationUrl } from '../../api/postApiServices';
+import FinalizePayment from '../../components/FinalizePaymentResult';
+import { useFinalizePayment, useNgoConfig } from '../../hooks';
+import { TFinalizePaymentParams } from '../../types/types';
 
-type TParams = Omit<TFinalizePaymentParams, 'home_address'>
+type TParams = Omit<TFinalizePaymentParams, 'home_address'>;
 
 function FinalizeDonation() {
-  const { ngoId } = useNgoConfig()
+  const { ngoId } = useNgoConfig();
 
-  const url = getFinalizeDonationUrl(ngoId)
+  const url = getFinalizeDonationUrl(ngoId);
 
   const {
     firstName = '',
@@ -20,7 +20,7 @@ function FinalizeDonation() {
     certificate = '',
     anonymous = '',
     text = '',
-  } = useParams<Params<keyof Omit<TParams, 'ong_id'>>>()
+  } = useParams<Params<keyof Omit<TParams, 'ong_id'>>>();
 
   const params: TParams = {
     firstName,
@@ -32,19 +32,19 @@ function FinalizeDonation() {
     nif,
     text,
     ong_id: ngoId,
-  }
+  };
 
-  const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url })
+  const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url });
 
   return (
     <FinalizePayment
       transactionId={transactionId}
       isLoading={isLoading}
       isError={isError}
-      redirectPath="donate"
+      redirectPath='donate'
       sectionId={ngoId}
     />
-  )
+  );
 }
 
-export default FinalizeDonation
+export default FinalizeDonation;

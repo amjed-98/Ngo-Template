@@ -1,5 +1,5 @@
-import { type AxiosError } from 'axios'
-import useEvents from '../useEvents'
+import { type AxiosError } from 'axios';
+import useEvents from '../useEvents';
 
 type TEventCamelCased = {
   [key in keyof TEvent as SnakeToCamelCase<key>]: TEvent[key];
@@ -11,9 +11,7 @@ type ReturnType = TEventCamelCased & {
   error: AxiosError<unknown, any> | null;
 };
 const useEventDetails = (eventId: string): ReturnType => {
-  const {
-    events, isLoading, isError, error
-  } = useEvents()
+  const { events, isLoading, isError, error } = useEvents();
 
   const {
     EventTickets = [],
@@ -35,7 +33,7 @@ const useEventDetails = (eventId: string): ReturnType => {
     stripe_id: stripeId = '',
     type = 'Online',
     video_url: videoUrl = '',
-  } = events.find((event) => event.id === eventId) || {}
+  } = events.find((event) => event.id === eventId) || {};
 
   return {
     EventTickets,
@@ -59,8 +57,8 @@ const useEventDetails = (eventId: string): ReturnType => {
     salesStartDate,
     stripeId,
     type,
-    videoUrl
-  }
-}
+    videoUrl,
+  };
+};
 
-export default useEventDetails
+export default useEventDetails;

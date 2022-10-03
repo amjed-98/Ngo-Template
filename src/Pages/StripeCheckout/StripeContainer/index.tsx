@@ -1,19 +1,19 @@
-import { Elements } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
-import { type Params, useParams } from 'react-router-dom'
-import CheckoutForm from '..'
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+import { type Params, useParams } from 'react-router-dom';
+import CheckoutForm from '..';
 
-const stripePromise = loadStripe('pk_test_b8602Fd2SVOySbs7AngcMs68')
+const stripePromise = loadStripe('pk_test_b8602Fd2SVOySbs7AngcMs68');
 
 function StripeContainer() {
-  const { secret: clientSecret = '' } = useParams<Params<'secret'>>()
+  const { secret: clientSecret = '' } = useParams<Params<'secret'>>();
 
   const options = {
     clientSecret,
-  }
+  };
 
   if (!clientSecret) {
-    return null
+    return null;
   }
 
   return (
@@ -22,7 +22,7 @@ function StripeContainer() {
         <CheckoutForm clientSecret={clientSecret} />
       </Elements>
     </div>
-  )
+  );
 }
 
-export default StripeContainer
+export default StripeContainer;

@@ -1,85 +1,87 @@
-import { MenuOutlined } from '@ant-design/icons'
-import { Drawer, Grid, Menu } from 'antd'
-import {
-  type FC, useCallback, useMemo, useReducer
-} from 'react'
-import styled from 'styled-components'
-import { useTranslation } from 'react-i18next'
-import i18next from 'i18next'
-import { useAllPlatformConfig } from 'hooks'
-import { Box, Image, Link } from 'components/common'
-import navbarFeatures from './navbarFeatures'
-import navbarReducer, { initialState } from './navbarReducer'
+import { MenuOutlined } from '@ant-design/icons';
+import { Drawer, Grid, Menu } from 'antd';
+import { type FC, useCallback, useMemo, useReducer } from 'react';
+import styled from 'styled-components';
+import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
+import { useAllPlatformConfig } from 'hooks';
+import { Box, Image, Link } from 'components/common';
+import navbarFeatures from './navbarFeatures';
+import navbarReducer, { initialState } from './navbarReducer';
 
-const { useBreakpoint } = Grid
+const { useBreakpoint } = Grid;
 
 const NavbarLinks: FC = () => {
-  const [{ isDrawerVisible, langLinkText }, dispatch] = useReducer(navbarReducer, initialState)
-  const { t } = useTranslation()
-  const { md } = useBreakpoint()
+  const [{ isDrawerVisible, langLinkText }, dispatch] = useReducer(navbarReducer, initialState);
+  const { t } = useTranslation();
+  const { md } = useBreakpoint();
 
-  const { brand: { logo = '' } = {}, features = {} as TFeatures } = useAllPlatformConfig()
+  const { brand: { logo = '' } = {}, features = {} as TFeatures } = useAllPlatformConfig();
 
   const handleChangeLanguage = (): void => {
-    const chosenLanguage = langLinkText === 'es' ? 'en' : 'es'
+    const chosenLanguage = langLinkText === 'es' ? 'en' : 'es';
 
-    localStorage.setItem('lang', chosenLanguage)
-    dispatch({ type: 'SET_LINK_LANG_TEXT', payload: chosenLanguage })
-    i18next.changeLanguage(chosenLanguage)
-  }
+    localStorage.setItem('lang', chosenLanguage);
+    dispatch({ type: 'SET_LINK_LANG_TEXT', payload: chosenLanguage });
+    i18next.changeLanguage(chosenLanguage);
+  };
 
   const handleDrawerVisibility = useCallback(() => {
-    dispatch({ type: 'SET_DRAWER_VISIBILITY', payload: !isDrawerVisible })
-  }, [isDrawerVisible])
+    dispatch({ type: 'SET_DRAWER_VISIBILITY', payload: !isDrawerVisible });
+  }, [isDrawerVisible]);
 
   const featuresArray = useMemo(
-    () => Object.keys(features)
-      .filter(
-        (feature) => navbarFeatures[feature as keyof typeof navbarFeatures]
-            && features[feature as keyof TFeatures]
-      )
-      .sort(),
-    [features.causes]
-  ) as [keyof typeof navbarFeatures]
+    () =>
+      Object.keys(features)
+        .filter(
+          (feature) =>
+            navbarFeatures[feature as keyof typeof navbarFeatures] &&
+            features[feature as keyof TFeatures],
+        )
+        .sort(),
+    [features.causes],
+  ) as [keyof typeof navbarFeatures];
 
   const languageToggleLink = useMemo(
     () => (
-      <LanguageToggle onClick={handleChangeLanguage} role="alert">
+      <LanguageToggle onClick={handleChangeLanguage} role='alert'>
         {langLinkText === 'en' ? 'English' : 'Español'}
       </LanguageToggle>
     ),
-    [langLinkText, handleChangeLanguage, langLinkText]
-  )
+    [langLinkText, handleChangeLanguage, langLinkText],
+  );
 
   const NAVBAR_LINKS: JSX.Element[] = useMemo(
-    () => featuresArray.map((feature) => (
-      <li key={feature}>
-        <Link to={`${navbarFeatures[feature].link}`}>{t(navbarFeatures[feature].text)}</Link>
-      </li>
-    )),
-    [featuresArray, t]
-  )
-  const DRAWER_LINKS: { key: typeof featuresArray[number] | 'lang-toggle'; label: JSX.Element }[] = useMemo(
-    () => [
-      ...featuresArray.map((feature) => ({
-        key: feature,
-        label: (
-          <li key={feature}>
-            <Link to={`${navbarFeatures[feature].link}`}>{t(navbarFeatures[feature].text)}</Link>
-          </li>
-        ),
-      })),
-      { key: 'lang-toggle', label: languageToggleLink },
-    ],
-    [featuresArray, i18next.language]
-  )
+    () =>
+      featuresArray.map((feature) => (
+        <li key={feature}>
+          <Link to={`${navbarFeatures[feature].link}`}>{t(navbarFeatures[feature].text)}</Link>
+        </li>
+      )),
+    [featuresArray, t],
+  );
+  const DRAWER_LINKS: { key: typeof featuresArray[number] | 'lang-toggle'; label: JSX.Element }[] =
+    useMemo(
+      () => [
+        ...featuresArray.map((feature) => ({
+          key: feature,
+          label: (
+            <li key={feature}>
+              <Link to={`${navbarFeatures[feature].link}`}>{t(navbarFeatures[feature].text)}</Link>
+            </li>
+          ),
+        })),
+        { key: 'lang-toggle', label: languageToggleLink },
+      ],
+      [featuresArray, i18next.language],
+    );
 
   return (
     <>
       <Box p={0.5}>
-        <Link to="/">
+        <Link to='/'>
           <ImageContainer>
-            <Image src={logo} alt="logo" />
+            <Image src={logo} alt='logo' />
           </ImageContainer>
         </Link>
       </Box>
@@ -89,11 +91,11 @@ const NavbarLinks: FC = () => {
       {md && (
         <Links>
           <li>
-            <a href="/#about">{t('About us')}</a>
+            <a href='/#about'>{t('About us')}</a>
           </li>
           {NAVBAR_LINKS}
           <li>
-            <Link to="/contact">{t('Contact')}</Link>
+            <Link to='/contact'>{t('Contact')}</Link>
           </li>
 
           {languageToggleLink}
@@ -102,16 +104,16 @@ const NavbarLinks: FC = () => {
 
       <Drawer
         width={200}
-        placement="right"
+        placement='right'
         onClose={handleDrawerVisibility}
         visible={isDrawerVisible}
       >
-        <MenuLinks items={DRAWER_LINKS} mode="inline" />
+        <MenuLinks items={DRAWER_LINKS} mode='inline' />
       </Drawer>
     </>
-  )
-}
-export default NavbarLinks
+  );
+};
+export default NavbarLinks;
 
 const LanguageToggle = styled.li`
   cursor: pointer;
@@ -124,9 +126,9 @@ const LanguageToggle = styled.li`
     text-decoration: underline;
   }
   @media (max-width: 768px) {
-    color:black;
+    color: black;
   }
-`
+`;
 
 const ImageContainer = styled.div`
   max-width: 180px;
@@ -136,7 +138,7 @@ const ImageContainer = styled.div`
     max-height: 4.25rem;
     width: 10rem;
   }
-`
+`;
 
 const Links = styled.ul`
   display: flex;
@@ -155,7 +157,7 @@ const Links = styled.ul`
       color: ${({ theme }) => theme.primary};
     }
   }
-`
+`;
 
 const MenuLinks = styled(Menu)`
   flex: 1;
@@ -172,4 +174,4 @@ const MenuLinks = styled(Menu)`
       color: black !important;
     }
   }
-`
+`;

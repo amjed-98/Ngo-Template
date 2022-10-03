@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { getProp } from '../../utils'
+import styled from 'styled-components';
+import { getProp } from '../../utils';
 
 interface IProps {
   color?: TColor;
@@ -49,10 +49,10 @@ const Text = styled.p<IProps>`
   margin-right: ${({ mr }) => mr && getProp(mr)};
   margin-block: ${({ my }) => my && getProp(my)};
   margin-inline: ${({ mx }) => mx && getProp(mx)};
-  width:100%;
-`
-export default Text
+  width: 100%;
+`;
+export default Text;
 
 Text.defaultProps = {
   lineHeight: 2.5,
-}
+};

@@ -1,33 +1,33 @@
-import { type JSXElementConstructor } from 'react'
+import { type JSXElementConstructor } from 'react';
 
-export type TRoutes = readonly{
+export type TRoutes = readonly {
   path: `/${string}`;
   render: boolean;
-  Element: JSXElementConstructor<Record<string, never>>
-}[]
+  Element: JSXElementConstructor<Record<string, never>>;
+}[];
 
-export type TModal = boolean | undefined
+export type TModal = boolean | undefined;
 export type TImages = {
-    id: string;
-    img_url: string;
-  }[];
+  id: string;
+  img_url: string;
+}[];
 export type TProducts = {
   id: string;
   title: string;
   price: number;
   default_img: string;
   discount: number;
-}[]
+}[];
 
 export type TFinalizePaymentParams = {
-    firstName: string;
-    lastName: string;
-    user_email: string;
-    amount: number;
-    certificate: boolean;
-    text: string;
-    nif: string;
-    anonymous: boolean;
-    ong_id: string;
-    home_address: string;
-  };
+  firstName: string;
+  lastName: string;
+  user_email: string;
+  amount: number;
+  certificate: boolean;
+  text: string;
+  nif: string;
+  anonymous: boolean;
+  ong_id: string;
+  home_address: string;
+};

@@ -1,9 +1,9 @@
-import { useLayoutEffect } from 'react'
+import { useLayoutEffect } from 'react';
 
 const useSetDocumentTitle = (title: string) => {
   useLayoutEffect(() => {
-    document.title = title
-  }, [title])
-}
+    document.title = title;
+  }, [title]);
+};
 
-export default useSetDocumentTitle
+export default useSetDocumentTitle;

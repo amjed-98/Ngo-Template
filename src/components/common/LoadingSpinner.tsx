@@ -1,16 +1,16 @@
-import type { ReactElement } from 'react'
-import styled from 'styled-components'
+import type { ReactElement } from 'react';
+import styled from 'styled-components';
 
 export default function LoadingSpinner(): ReactElement {
   return (
     <Loading>
-      <div className="sk-chase">
+      <div className='sk-chase'>
         {Array.from({ length: 6 }, (_, i) => (
-          <div className="sk-chase-dot" key={i} />
+          <div className='sk-chase-dot' key={i} />
         ))}
       </div>
     </Loading>
-  )
+  );
 }
 
 const Loading = styled.div`
@@ -112,4 +112,4 @@ const Loading = styled.div`
       transform: scale(1);
     }
   }
-`
+`;

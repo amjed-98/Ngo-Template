@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { getProp } from '../../utils'
+import styled from 'styled-components';
+import { getProp } from '../../utils';
 
 interface IProps {
   maxWidth?: TMaxWidth;
@@ -60,10 +60,10 @@ const Box = styled.div<IProps>`
   flex: ${({ flex }) => flex && flex};
 
   &:hover {
-    border: 
-    ${({ onHover, theme }) => onHover?.border && `${onHover.border} solid ${theme.primary}`};
+    border: ${({ onHover, theme }) =>
+      onHover?.border && `${onHover.border} solid ${theme.primary}`};
   }
-`
+`;
 
 Box.defaultProps = {
   width: 'auto',
@@ -71,6 +71,6 @@ Box.defaultProps = {
   height: 'auto',
   maxHeight: '100%',
   position: 'relative',
-}
+};
 
-export default Box
+export default Box;

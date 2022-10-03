@@ -1,10 +1,10 @@
-import type { JSXElementConstructor, ReactElement } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation, Autoplay } from 'swiper'
-import styled from 'styled-components'
+import { JSXElementConstructor, ReactElement } from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Autoplay } from 'swiper';
+import styled from 'styled-components';
 
 type TProps<TChild extends { id: string }> = {
-  children: TChild[] | [child:TChild, child?:TChild][];
+  children: TChild[] | [child: TChild, child?: TChild][];
   spaceBetween?: number;
   slidesPerView?: number;
   loop?: boolean;
@@ -14,27 +14,25 @@ type TProps<TChild extends { id: string }> = {
 };
 
 function Carousel<TChild extends { id: string }>(props: TProps<TChild>): ReactElement {
-  const {
-    children, spaceBetween, slidesPerView, loop, autoplay, Component, bgColor
-  } = props
+  const { children, spaceBetween, slidesPerView, loop, autoplay, Component, bgColor } = props;
 
   const Slides = children.map((child, i) => {
     if (Array.isArray(child)) {
       return (
         <VerticalSlider key={child[i]?.id || i}>
           {child.map(
-            (nestedChild) => nestedChild && <Component key={nestedChild.id} {...nestedChild} />
+            (nestedChild) => nestedChild && <Component key={nestedChild.id} {...nestedChild} />,
           )}
         </VerticalSlider>
-      )
+      );
     }
 
     return (
       <SwiperSlide key={child.id}>
         <Component {...child} />
       </SwiperSlide>
-    )
-  })
+    );
+  });
 
   return (
     <Swiper
@@ -45,13 +43,13 @@ function Carousel<TChild extends { id: string }>(props: TProps<TChild>): ReactEl
       autoplay={autoplay && { delay: 5000, disableOnInteraction: false }}
       slidesPerView={slidesPerView}
       style={{ backgroundColor: bgColor }}
-      className="mySwiper"
+      className='mySwiper'
     >
       {Slides}
     </Swiper>
-  )
+  );
 }
-export default Carousel
+export default Carousel;
 
 Carousel.defaultProps = {
   spaceBetween: 30,
@@ -59,11 +57,11 @@ Carousel.defaultProps = {
   loop: false,
   autoplay: true,
   bgColor: 'initial',
-}
+};
 
 const VerticalSlider = styled(SwiperSlide)`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-`
+`;

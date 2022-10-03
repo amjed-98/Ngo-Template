@@ -1,9 +1,9 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 interface IProps {
-  w?:TWidth;
-  mt?:TMarginTop;
-  mr?:TMarginRight;
+  w?: TWidth;
+  mt?: TMarginTop;
+  mr?: TMarginRight;
 }
 
 const Input = styled.input<IProps>`
@@ -21,11 +21,11 @@ const Input = styled.input<IProps>`
     outline: none;
     box-shadow: ${({ theme }) => theme.primary} 0 0 0 2px;
   }
-`
+`;
 
 Input.defaultProps = {
   w: '100%',
   mt: 1,
-}
+};
 
-export default Input
+export default Input;

@@ -1,8 +1,8 @@
-import queryCacheKeys from 'api/query-cache-keys'
-import { getCoursesURL } from 'api/getApiServices'
-import { type AxiosError } from 'axios'
-import useNgoConfig from 'hooks/Api/useNgoConfig'
-import useFetch from 'hooks/useFetch'
+import queryCacheKeys from 'api/query-cache-keys';
+import { getCoursesURL } from 'api/getApiServices';
+import { type AxiosError } from 'axios';
+import useNgoConfig from 'hooks/Api/useNgoConfig';
+import useFetch from 'hooks/useFetch';
 
 type ReturnType = {
   courses: TEvent[];
@@ -12,21 +12,21 @@ type ReturnType = {
 };
 
 const useCourses = (): ReturnType => {
-  const { ngoId } = useNgoConfig()
+  const { ngoId } = useNgoConfig();
 
   const {
     data: courses = [],
     isLoading,
     isError,
-    error
-  } = useFetch<TCourse[]>(getCoursesURL(ngoId), queryCacheKeys.courses, ngoId)
+    error,
+  } = useFetch<TCourse[]>(getCoursesURL(ngoId), queryCacheKeys.courses, ngoId);
 
   return {
     courses,
     isLoading,
     isError,
     error,
-  }
-}
+  };
+};
 
-export default useCourses
+export default useCourses;

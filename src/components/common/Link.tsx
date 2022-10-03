@@ -1,5 +1,5 @@
-import { Link as RouterLink } from 'react-router-dom'
-import styled from 'styled-components'
+import { Link as RouterLink } from 'react-router-dom';
+import styled from 'styled-components';
 
 interface IProps {
   color?: TColor;
@@ -22,12 +22,12 @@ const Link = styled(RouterLink)<IProps>`
     text-decoration: underline;
     color: ${({ hoverColor, theme }) => hoverColor || theme.secondary};
   }
-`
+`;
 
 Link.defaultProps = {
   size: 1,
   align: 'center',
   underlined: false,
-}
+};
 
-export default Link
+export default Link;

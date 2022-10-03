@@ -1,4 +1,4 @@
-import type { FC, ReactNode } from 'react'
+import type { FC, ReactNode } from 'react';
 
 type TProps = {
   if: boolean;
@@ -6,11 +6,11 @@ type TProps = {
 };
 
 const Render: FC<TProps> = ({ if: condition, children }) => {
-  if (!condition) return null
+  if (!condition) return null;
 
-  if (typeof children === 'function') return children({})
+  if (typeof children === 'function') return children({});
 
-  return <>{children}</>
-}
+  return <>{children}</>;
+};
 
-export default Render
+export default Render;

@@ -1,22 +1,20 @@
-import {
-  memo, useEffect, useRef, type FC
-} from 'react'
-import mapboxgl from 'mapbox-gl'
-import { Box } from '../common'
+import { memo, useEffect, useRef, type FC } from 'react';
+import mapboxgl from 'mapbox-gl';
+import { Box } from '../common';
 
 interface IProps {
-    lat: number;
-    lng: number;
-    height: number;
+  lat: number;
+  lng: number;
+  height: number;
 }
 
 const Map: FC<IProps> = ({ height, lat, lng }) => {
-  const mapContainerRef = useRef<HTMLDivElement>(null)
-  const mapRef = useRef<mapboxgl.Map>()
-  mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN
+  const mapContainerRef = useRef<HTMLDivElement>(null);
+  const mapRef = useRef<mapboxgl.Map>();
+  mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_TOKEN;
 
   useEffect(() => {
-    if (mapRef.current) return
+    if (mapRef.current) return;
 
     mapRef.current = new mapboxgl.Map({
       container: mapContainerRef.current as HTMLElement,
@@ -24,9 +22,9 @@ const Map: FC<IProps> = ({ height, lat, lng }) => {
       center: [lng, lat],
       zoom: 12,
       attributionControl: false,
-    })
-  }, [lat, lng])
+    });
+  }, [lat, lng]);
 
-  return <Box ref={mapContainerRef} height={height} />
-}
-export default memo(Map)
+  return <Box ref={mapContainerRef} height={height} />;
+};
+export default memo(Map);

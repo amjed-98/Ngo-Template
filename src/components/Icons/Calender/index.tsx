@@ -1,8 +1,8 @@
-import { CalendarFilled, CalendarOutlined } from '@ant-design/icons'
-import { Typography } from 'antd'
-import React from 'react'
-import styled, { useTheme } from 'styled-components'
-import { getProp } from '../../../utils'
+import { CalendarFilled, CalendarOutlined } from '@ant-design/icons';
+import { Typography } from 'antd';
+import React from 'react';
+import styled, { useTheme } from 'styled-components';
+import { getProp } from '../../../utils';
 
 interface IProps {
   date: string | number;
@@ -11,21 +11,19 @@ interface IProps {
   size?: TFontSize;
   style?: React.CSSProperties;
   position?: TPosition;
-  top?: TTop
+  top?: TTop;
   left?: TLeft;
   right?: TRight;
   bottom?: TBottom;
 }
 
 const CalenderIcon = (props: IProps) => {
-  const { primary } = useTheme()
-  const {
-    date, type, size, position, top, left, right, bottom, style, color
-  } = props
+  const { primary } = useTheme();
+  const { date, type, size, position, top, left, right, bottom, style, color } = props;
 
-  const Icon = type === 'outlined' ? CalendarOutlined : CalendarFilled
+  const Icon = type === 'outlined' ? CalendarOutlined : CalendarFilled;
 
-  const IconStyles = { fontSize: size }
+  const IconStyles = { fontSize: size };
 
   return (
     <Calender
@@ -40,10 +38,10 @@ const CalenderIcon = (props: IProps) => {
       <Icon style={IconStyles} />
       <Date>{date}</Date>
     </Calender>
-  )
-}
+  );
+};
 
-const Calender = styled.div<Pick<IProps, 'position'| 'top'|'bottom'|'right'|'left'>>`
+const Calender = styled.div<Pick<IProps, 'position' | 'top' | 'bottom' | 'right' | 'left'>>`
   display: flex;
   align-items: flex-end;
   justify-content: center;
@@ -54,15 +52,15 @@ const Calender = styled.div<Pick<IProps, 'position'| 'top'|'bottom'|'right'|'lef
   left: ${({ left }) => getProp(left)};
   bottom: ${({ bottom }) => getProp(bottom)};
   color: ${({ color, theme }) => color || theme.primary};
-`
+`;
 
 const Date = styled(Typography.Text)`
   font-size: 1.4em;
   font-weight: bold;
   position: absolute;
   margin-bottom: 0.14em;
-`
-export default CalenderIcon
+`;
+export default CalenderIcon;
 
 CalenderIcon.defaultProps = {
   style: {},
@@ -73,5 +71,5 @@ CalenderIcon.defaultProps = {
   right: 'initial',
   bottom: 'initial',
   size: '1.4em',
-  color: ''
-}
+  color: '',
+};

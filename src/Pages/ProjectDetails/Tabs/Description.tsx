@@ -1,13 +1,9 @@
-import HtmlParser from 'html-react-parser'
+import HtmlParser from 'html-react-parser';
 
-import { Box } from 'components/common'
+import { Box } from 'components/common';
 
 function Description({ description }: { description: string }) {
-  return (
-    <Box>
-      {HtmlParser(description)}
-    </Box>
-  )
+  return <Box>{HtmlParser(description)}</Box>;
 }
 
-export default Description
+export default Description;

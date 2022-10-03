@@ -1,21 +1,21 @@
-import { type FC } from 'react'
+import { type FC } from 'react';
 
-import HtmlParser from 'html-react-parser'
+import HtmlParser from 'html-react-parser';
 
-import { Footer, Navbar } from '../../components'
-import { Box, Flex, SectionTitle } from '../../components/common'
-import { useAllPlatformConfig } from '../../hooks'
+import { Footer, Navbar } from '../../components';
+import { Box, Flex, SectionTitle } from '../../components/common';
+import { useAllPlatformConfig } from '../../hooks';
 
-const TermsAndConditions:FC = () => {
-  const { brand } = useAllPlatformConfig()
+const TermsAndConditions: FC = () => {
+  const { brand } = useAllPlatformConfig();
 
-  const termsAndConditions = brand?.terms_and_conditions || ''
+  const termsAndConditions = brand?.terms_and_conditions || '';
 
   return (
     <>
       <Navbar />
 
-      <Flex mt={4} gap={3} px={4} textAlign="left" align="flex-start" direction="column">
+      <Flex mt={4} gap={3} px={4} textAlign='left' align='flex-start' direction='column'>
         <SectionTitle fontSize={2.5} marginBottom={0} padding={0}>
           Term And Conditions
         </SectionTitle>
@@ -25,7 +25,7 @@ const TermsAndConditions:FC = () => {
 
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default TermsAndConditions
+export default TermsAndConditions;

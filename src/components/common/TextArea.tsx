@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 const TextArea = styled.textarea`
   width: 100%;
@@ -14,6 +14,5 @@ const TextArea = styled.textarea`
   &:focus {
     outline: none;
   }
-  
-`
-export default TextArea
+`;
+export default TextArea;

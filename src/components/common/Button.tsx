@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { getProp } from '../../utils'
+import styled from 'styled-components';
+import { getProp } from '../../utils';
 
 interface IProps {
   color?: TColor;
@@ -49,7 +49,7 @@ const Button = styled.button<IProps>`
     cursor: not-allowed;
     opacity: 0.5;
   }
-`
+`;
 
 Button.defaultProps = {
   color: '#fff',
@@ -57,6 +57,6 @@ Button.defaultProps = {
   radius: 25,
   px: '1.8rem',
   py: '0.8rem',
-}
+};
 
-export default Button
+export default Button;

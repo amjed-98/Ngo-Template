@@ -1,5 +1,5 @@
-import { type FC } from 'react'
-import styled from 'styled-components'
+import { type FC } from 'react';
+import styled from 'styled-components';
 
 const Loader: FC = () => (
   <Spinner>
@@ -7,7 +7,7 @@ const Loader: FC = () => (
       <div className={`sk-cube sk-cube${i + 1}`} key={i} />
     ))}
   </Spinner>
-)
+);
 
 const Spinner = styled.div`
   width: 95px;
@@ -84,6 +84,6 @@ const Spinner = styled.div`
       transform: scale3D(0, 0, 1);
     }
   }
-`
+`;
 
-export default Loader
+export default Loader;

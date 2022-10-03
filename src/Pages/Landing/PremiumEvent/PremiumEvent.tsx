@@ -1,13 +1,13 @@
-import type { ReactElement } from 'react'
-import styled from 'styled-components'
-import { Progress } from 'antd'
-import { SectionTitle, Button, Link } from 'components/common'
+import type { ReactElement } from 'react';
+import styled from 'styled-components';
+import { Progress } from 'antd';
+import { SectionTitle, Button, Link } from 'components/common';
 
 export default function PremiumEvent(): ReactElement {
   return (
     <PremiumEventSection>
       <EventDetails>
-        <EventImage src="https://picsum.photos/200" alt="event" />
+        <EventImage src='https://picsum.photos/200' alt='event' />
         <SectionTitle fontSize={2.8} padding={0} marginTop={0} marginBottom={0}>
           Sponsor an illed child
         </SectionTitle>
@@ -15,27 +15,29 @@ export default function PremiumEvent(): ReactElement {
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
           been the industrys standard dummy text ever since the 1500s and stuff
         </EventDescription>
-        <Link align="left" to="">Read more</Link>
+        <Link align='left' to=''>
+          Read more
+        </Link>
       </EventDetails>
       <EventDonationProgress>
         <ProgressContainer>
           <CustomProgress
-            type="circle"
+            type='circle'
             showInfo
             percent={80}
             strokeWidth={2}
-            strokeColor="#000"
-            trailColor="none"
+            strokeColor='#000'
+            trailColor='none'
             width={250}
           />
           <Donated>Donated</Donated>
         </ProgressContainer>
-        <Button bgColor="#424242" fontSize={1} py={0.8} px={1.8}>
+        <Button bgColor='#424242' fontSize={1} py={0.8} px={1.8}>
           Donate Now
         </Button>
       </EventDonationProgress>
     </PremiumEventSection>
-  )
+  );
 }
 
 const PremiumEventSection = styled.section`
@@ -66,10 +68,10 @@ const PremiumEventSection = styled.section`
       padding: 0;
     }
   }
-`
+`;
 const EventImage = styled.img`
   width: 50px;
-`
+`;
 
 const EventDetails = styled.div`
   display: flex;
@@ -77,7 +79,7 @@ const EventDetails = styled.div`
   justify-content: space-between;
   gap: 1.2rem;
   height: 100%;
-`
+`;
 
 const EventDescription = styled.p`
   color: #777;
@@ -89,8 +91,7 @@ const EventDescription = styled.p`
   @media (max-width: 768px) {
     padding-inline: 4.1rem;
   }
-
-`
+`;
 const EventDonationProgress = styled.div`
   display: flex;
   flex-direction: column;
@@ -98,15 +99,15 @@ const EventDonationProgress = styled.div`
   align-items: center;
   height: 100%;
   padding-left: 9.2rem;
-`
+`;
 const ProgressContainer = styled.div`
   position: relative;
-`
+`;
 const CustomProgress = styled(Progress)`
   .ant-progress-inner {
     font-weight: bold;
   }
-`
+`;
 const Donated = styled.p`
   position: absolute;
   bottom: 4.2rem;
@@ -117,4 +118,4 @@ const Donated = styled.p`
   font-weight: bold;
   text-decoration: none !important;
   transform: translateX(-50%);
-`
+`;

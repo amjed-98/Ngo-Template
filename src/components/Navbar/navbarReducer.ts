@@ -19,7 +19,7 @@ type TState = {
 export const initialState: TState = {
   isDrawerVisible: false,
   langLinkText: (localStorage.getItem('lang') as TLanguage) || 'es',
-}
+};
 
 const navbarReducer = (state: TState, action: TActions): TState => {
   switch (action.type) {
@@ -27,17 +27,17 @@ const navbarReducer = (state: TState, action: TActions): TState => {
       return {
         ...state,
         isDrawerVisible: action.payload as boolean,
-      }
+      };
 
     case ACTIONS.SET_LINK_LANG_TEXT:
       return {
         ...state,
         langLinkText: action.payload as TLanguage,
-      }
+      };
 
     default:
-      return state
+      return state;
   }
-}
+};
 
-export default navbarReducer
+export default navbarReducer;

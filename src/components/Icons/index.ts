@@ -1,2 +1,2 @@
-export { default as BookmarkIcon } from './Bookmark'
-export { default as CalendarIcon } from './Calender'
+export { default as BookmarkIcon } from './Bookmark';
+export { default as CalendarIcon } from './Calender';

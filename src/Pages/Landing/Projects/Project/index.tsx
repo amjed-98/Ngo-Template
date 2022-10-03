@@ -1,14 +1,12 @@
-import { type ReactElement } from 'react'
-import styled from 'styled-components'
-import {
-  Text, Image, Flex, Link
-} from 'components/common'
-import DonateForm from 'components/Forms/DonateForm'
-import { Modal } from 'components'
-import { useFormSubmit, useNgoConfig } from 'hooks'
-import { getStartProjectDonationUrl } from 'api/postApiServices'
-import { donationSchema } from 'validation/schemas'
-import { type TypeOf } from 'yup'
+import { type ReactElement } from 'react';
+import styled from 'styled-components';
+import { Text, Image, Flex, Link } from 'components/common';
+import DonateForm from 'components/Forms/DonateForm';
+import { Modal } from 'components';
+import { useFormSubmit, useNgoConfig } from 'hooks';
+import { getStartProjectDonationUrl } from 'api/postApiServices';
+import { donationSchema } from 'validation/schemas';
+import { type TypeOf } from 'yup';
 
 type TFormSubmitData = TypeOf<typeof donationSchema>;
 
@@ -19,21 +17,22 @@ interface ProjectProps {
 }
 
 function Project({ imageURL, title, id }: ProjectProps): ReactElement {
-  const { ngoId } = useNgoConfig()
-  const {
-    submit, ...states
-  } = useFormSubmit<TFormSubmitData, true>({ url: getStartProjectDonationUrl(ngoId), redirectPath: 'causes' })
+  const { ngoId } = useNgoConfig();
+  const { submit, ...states } = useFormSubmit<TFormSubmitData, true>({
+    url: getStartProjectDonationUrl(ngoId),
+    redirectPath: 'causes',
+  });
 
   const handleSubmit = (data: TFormSubmitData) => {
-    const donationInfo = { ...data, ong_id: ngoId }
+    const donationInfo = { ...data, ong_id: ngoId };
 
-    submit(donationInfo)
-  }
+    submit(donationInfo);
+  };
 
   return (
     <ProjectCard>
-      <Image src={imageURL} alt="" />
-      <Text fontSize={1.1} px={1} color="white">
+      <Image src={imageURL} alt='' />
+      <Text fontSize={1.1} px={1} color='white'>
         {title}
       </Text>
 
@@ -42,15 +41,15 @@ function Project({ imageURL, title, id }: ProjectProps): ReactElement {
           Read more
         </Link>
 
-        <Modal btnText="Donate" title={`Donate to ${title}`}>
+        <Modal btnText='Donate' title={`Donate to ${title}`}>
           <DonateForm projectId={id} submitHandler={handleSubmit} states={states} />
         </Modal>
       </ProjectFooter>
     </ProjectCard>
-  )
+  );
 }
 
-export default Project
+export default Project;
 
 const ProjectCard = styled(Flex)`
   flex: 1;
@@ -67,7 +66,7 @@ const ProjectCard = styled(Flex)`
     z-index: -1;
     filter: brightness(0.5);
   }
-`
+`;
 
 const ProjectFooter = styled(Flex)`
   padding: 1.2rem;
@@ -77,4 +76,4 @@ const ProjectFooter = styled(Flex)`
       padding: 0.6rem 0.7rem;
     }
   }
-`
+`;

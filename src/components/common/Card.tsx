@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import { getProp } from '../../utils'
+import styled from 'styled-components';
+import { getProp } from '../../utils';
 
 interface IProps {
   mode?: TFlexDirection;
@@ -63,12 +63,12 @@ const Card = styled.div<IProps>`
     flex-direction: ${({ smMode }) => smMode};
     max-width: 100%;
   }
-`
+`;
 
 Card.defaultProps = {
   mode: 'row',
   smMode: 'row',
   gap: 0.8,
-}
+};
 
-export default Card
+export default Card;

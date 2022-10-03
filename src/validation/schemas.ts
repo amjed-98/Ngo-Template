@@ -1,37 +1,43 @@
-import * as yup from 'yup'
+import * as yup from 'yup';
 
 const personalDetailsSchema = {
   firstName: yup.string().required('First name is required'),
   lastName: yup.string().required('Last name is required'),
   user_email: yup.string().required('Email is required'),
-}
+};
 export const memberSchema = yup.object({
   ...personalDetailsSchema,
   home_address: yup.string().required('Address is required'),
-  birthDate: yup.string().required('Birth of Date is required')
+  birthDate: yup
+    .string()
+    .required('Birth of Date is required')
     .typeError('Birth of Date is required'),
   nif: yup.string().required('ID is required').typeError('ID must be a number'),
   terms: yup.boolean().typeError('You must accept the terms and conditions'),
   membership: yup.boolean().typeError('You must accept the membership'),
-  phone: yup.string().required('Phone is required')
-})
+  phone: yup.string().required('Phone is required'),
+});
 
 export const buyCourseTicketSchema = yup.object({
   ...personalDetailsSchema,
   mobilePhone: yup.string().required('Mobile phone is required'),
   terms: yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
-})
+});
 
 export const buyTicketSchema = yup.object({
   ...personalDetailsSchema,
   mobilePhone: yup.string().required('Mobile phone is required'),
   terms_and_conditions: yup.boolean().oneOf([true], 'You must accept the privacy policy'),
-  tickets: yup.array().of(yup.object({
-    amount: yup.number().required('Amount is required'),
-    id: yup.string().required('Ticket id is required'),
-  })).required('Tickets are required'),
-
-})
+  tickets: yup
+    .array()
+    .of(
+      yup.object({
+        amount: yup.number().required('Amount is required'),
+        id: yup.string().required('Ticket id is required'),
+      }),
+    )
+    .required('Tickets are required'),
+});
 
 export const buyProductSchema = yup.object({
   ...personalDetailsSchema,
@@ -44,13 +50,13 @@ export const buyProductSchema = yup.object({
   mobile_phone: yup.string().required('Phone is required'),
   birthDate: yup.date().typeError('date of birth is required').required(),
   privacy_policy: yup.boolean().isTrue('You must accept the privacy policy').required(),
-})
+});
 
 export const contactEventSchema = yup.object({
   name: yup.string().required('Name is required'),
   email: yup.string().required('Email is required'),
   text: yup.string().required('Message is required'),
-})
+});
 
 export const contactSchema = yup.object({
   name: yup.string().required('Name is required'),
@@ -58,8 +64,8 @@ export const contactSchema = yup.object({
   email: yup.string().required('Email is required').email('Invalid email'),
   subject: yup.string().required('Subject is required'),
   message: yup.string().required('Message is required'),
-  terms: yup.boolean().oneOf([true], 'You must accept the terms and conditions')
-})
+  terms: yup.boolean().oneOf([true], 'You must accept the terms and conditions'),
+});
 
 export const donationSchema = yup.object({
   ...personalDetailsSchema,
@@ -71,9 +77,9 @@ export const donationSchema = yup.object({
   anonymous: yup.boolean().oneOf([true, false]).required(),
   certificate: yup.boolean().oneOf([true, false]).required(),
   text: yup.string(),
-})
+});
 
 export const volunteerSchema = yup.object({
   ...personalDetailsSchema,
   home_address: yup.string().required('Address is required'),
-})
+});

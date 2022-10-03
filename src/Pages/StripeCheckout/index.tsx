@@ -1,11 +1,11 @@
-import { type SyntheticEvent, useEffect, useState } from 'react'
-import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js'
-import { type Location, useLocation, useNavigate } from 'react-router-dom'
-import styled from 'styled-components'
-import { Button, Center } from 'components/common'
-import type { PaymentIntent } from '@stripe/stripe-js'
-import finalizePaymentRoutes from 'app/router/finalizePaymentRoutes'
-import { RenderIf } from 'components'
+import { type SyntheticEvent, useEffect, useState } from 'react';
+import { PaymentElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { type Location, useLocation, useNavigate } from 'react-router-dom';
+import styled from 'styled-components';
+import { Button, Center } from 'components/common';
+import type { PaymentIntent } from '@stripe/stripe-js';
+import finalizePaymentRoutes from 'app/router/finalizePaymentRoutes';
+import { RenderIf } from 'components';
 
 type TProps = {
   clientSecret: string;
@@ -19,82 +19,84 @@ type TLocationWithState = Location & {
 };
 
 export default function CheckoutForm({ clientSecret }: TProps) {
-  const stripe = useStripe()
-  const { state: { formData, redirectPath } } = useLocation() as TLocationWithState
-  const elements = useElements()
-  const navigate = useNavigate()
-  const [message, setMessage] = useState<string>()
-  const [isLoading, setIsLoading] = useState(false)
+  const stripe = useStripe();
+  const {
+    state: { formData, redirectPath },
+  } = useLocation() as TLocationWithState;
+  const elements = useElements();
+  const navigate = useNavigate();
+  const [message, setMessage] = useState<string>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const finalizePaymentRoute = finalizePaymentRoutes[redirectPath]
     .split('/:')
     .map((param) => formData[param] ?? param)
     .join('/')
-    .replaceAll(' ', '')
+    .replaceAll(' ', '');
 
   const handleSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault()
+    e.preventDefault();
 
     if (!stripe || !elements) {
-      return
+      return;
     }
 
-    setIsLoading(true)
+    setIsLoading(true);
 
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
         return_url: `${window.location.origin}${finalizePaymentRoute}`,
       },
-    })
+    });
 
     if (['card_error', 'validation_error'].includes(error.type)) {
-      setMessage(error.message)
+      setMessage(error.message);
     } else {
-      setMessage('An unexpected error occurred.')
+      setMessage('An unexpected error occurred.');
     }
 
-    setIsLoading(false)
-  }
+    setIsLoading(false);
+  };
 
   const retrievePaymentIntentStatus = async (): Promise<PaymentIntent.Status> => {
-    if (!stripe || !clientSecret) return 'canceled'
+    if (!stripe || !clientSecret) return 'canceled';
 
-    const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret)
-    return paymentIntent?.status || 'canceled'
-  }
+    const { paymentIntent } = await stripe.retrievePaymentIntent(clientSecret);
+    return paymentIntent?.status || 'canceled';
+  };
 
   const setResponseMessage = async (status: PaymentIntent.Status) => {
     switch (status) {
       case 'succeeded':
-        setMessage('Payment succeeded!')
-        navigate('/payment-success')
-        break
+        setMessage('Payment succeeded!');
+        navigate('/payment-success');
+        break;
       case 'processing':
-        setMessage('Your payment is processing.')
-        break
+        setMessage('Your payment is processing.');
+        break;
       case 'requires_payment_method':
-        setMessage('Your payment was not successful, please try again.')
-        break
+        setMessage('Your payment was not successful, please try again.');
+        break;
       default:
-        setMessage('Something went wrong.')
-        break
+        setMessage('Something went wrong.');
+        break;
     }
-  }
+  };
 
   useEffect(() => {
-    retrievePaymentIntentStatus().then(setResponseMessage)
-  }, [clientSecret])
+    retrievePaymentIntentStatus().then(setResponseMessage);
+  }, [clientSecret]);
 
   return (
     <CheckoutFormStripe>
       <Form onSubmit={handleSubmit}>
-        <PaymentElement id="payment-element" />
+        <PaymentElement id='payment-element' />
 
         <Center>
-          <Button type="submit" disabled={isLoading || !stripe || !elements}>
-            <span id="button-text">
-              {isLoading ? <div className="spinner" id="spinner" /> : 'Pay now'}
+          <Button type='submit' disabled={isLoading || !stripe || !elements}>
+            <span id='button-text'>
+              {isLoading ? <div className='spinner' id='spinner' /> : 'Pay now'}
             </span>
           </Button>
         </Center>
@@ -102,10 +104,9 @@ export default function CheckoutForm({ clientSecret }: TProps) {
         <RenderIf if={!!message}>
           <PaymentMessage>{message}</PaymentMessage>
         </RenderIf>
-
       </Form>
     </CheckoutFormStripe>
-  )
+  );
 }
 
 const CheckoutFormStripe = styled.div`
@@ -220,7 +221,7 @@ const CheckoutFormStripe = styled.div`
       min-width: initial;
     }
   }
-`
+`;
 
 const Form = styled.form`
   width: 30vw;
@@ -230,7 +231,7 @@ const Form = styled.form`
     0px 1px 1.5px 0px rgba(0, 0, 0, 0.07);
   border-radius: 7px;
   padding: 40px;
-`
+`;
 
 const PaymentMessage = styled.div`
   color: rgb(105, 115, 134);
@@ -238,4 +239,4 @@ const PaymentMessage = styled.div`
   line-height: 20px;
   padding-top: 12px;
   text-align: center;
-`
+`;

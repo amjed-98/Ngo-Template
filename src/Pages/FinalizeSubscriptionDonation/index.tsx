@@ -1,16 +1,16 @@
-import { type Params, useParams } from 'react-router-dom'
-import { getFinalizeBecomeAPartnerUrl } from 'api/postApiServices'
-import FinalizePayment from 'components/FinalizePaymentResult'
-import { useFinalizePayment, useNgoConfig } from 'hooks'
-import { TFinalizePaymentParams } from 'types/types'
+import { type Params, useParams } from 'react-router-dom';
+import { getFinalizeBecomeAPartnerUrl } from 'api/postApiServices';
+import FinalizePayment from 'components/FinalizePaymentResult';
+import { useFinalizePayment, useNgoConfig } from 'hooks';
+import { TFinalizePaymentParams } from 'types/types';
 
 type TParams = Omit<TFinalizePaymentParams, 'anonymous'> & {
   comunications: boolean;
 };
 
 function FinalizeSubscriptionDonation() {
-  const { ngoId } = useNgoConfig()
-  const url = getFinalizeBecomeAPartnerUrl()
+  const { ngoId } = useNgoConfig();
+  const url = getFinalizeBecomeAPartnerUrl();
 
   const {
     firstName = '',
@@ -22,7 +22,7 @@ function FinalizeSubscriptionDonation() {
     comunications,
     certificate,
     amount = '0',
-  } = useParams<Params<keyof Omit<TParams, 'ong_id'>>>()
+  } = useParams<Params<keyof Omit<TParams, 'ong_id'>>>();
 
   const params: TParams = {
     firstName,
@@ -35,19 +35,19 @@ function FinalizeSubscriptionDonation() {
     comunications: comunications === 'true',
     certificate: certificate === 'true',
     amount: +amount,
-  }
+  };
 
-  const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url })
+  const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url });
 
   return (
     <FinalizePayment
       transactionId={transactionId}
       isLoading={isLoading}
       isError={isError}
-      redirectPath="partners"
+      redirectPath='partners'
       sectionId={ngoId}
     />
-  )
+  );
 }
 
-export default FinalizeSubscriptionDonation
+export default FinalizeSubscriptionDonation;

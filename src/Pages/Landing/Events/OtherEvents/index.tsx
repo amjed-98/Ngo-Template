@@ -1,10 +1,10 @@
-import type { ReactElement } from 'react'
-import styled from 'styled-components'
-import moment from 'moment'
-import HtmlParser from 'html-react-parser'
-import { useNavigate } from 'react-router-dom'
-import { CalendarIcon } from 'components/Icons'
-import { Box, Flex } from 'components/common'
+import type { ReactElement } from 'react';
+import styled from 'styled-components';
+import moment from 'moment';
+import HtmlParser from 'html-react-parser';
+import { useNavigate } from 'react-router-dom';
+import { CalendarIcon } from 'components/Icons';
+import { Box, Flex } from 'components/common';
 
 interface IProps {
   id: string;
@@ -14,23 +14,17 @@ interface IProps {
 }
 
 export default function EventsRow(props: IProps): ReactElement {
-  const {
-    id, title, description, start_time: startTime
-  } = props
+  const { id, title, description, start_time: startTime } = props;
 
-  const day = moment(startTime).format('DD')
-  const navigate = useNavigate()
-  const navigateTo = (path: string) => () => navigate(path)
+  const day = moment(startTime).format('DD');
+  const navigate = useNavigate();
+  const navigateTo = (path: string) => () => navigate(path);
 
   return (
-    <CustomBox
-      cursor="pointer"
-      p={1}
-      onClick={navigateTo(`/events/${id}`)}
-    >
-      <FlexCard justify="center" align="flex-start" px={3} py={1}>
+    <CustomBox cursor='pointer' p={1} onClick={navigateTo(`/events/${id}`)}>
+      <FlexCard justify='center' align='flex-start' px={3} py={1}>
         <Box>
-          <CalendarIcon size="4em" date={day} />
+          <CalendarIcon size='4em' date={day} />
         </Box>
 
         <Box flex={1} px={2}>
@@ -41,7 +35,7 @@ export default function EventsRow(props: IProps): ReactElement {
         </Box>
       </FlexCard>
     </CustomBox>
-  )
+  );
 }
 
 const Title = styled.h2`
@@ -51,21 +45,21 @@ const Title = styled.h2`
   @media (max-width: 769px) {
     font-size: 1.8rem;
   }
-`
+`;
 const CustomBox = styled(Box)`
-border: 1px solid transparent;
-transition: all 0.2s ease-in-out;
-box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05);
-&:hover {
-  border: 1px solid ${({ theme }) => theme.primary};
-  border-radius: 10px;
-  box-shadow: none;
-}
-`
+  border: 1px solid transparent;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.05);
+  &:hover {
+    border: 1px solid ${({ theme }) => theme.primary};
+    border-radius: 10px;
+    box-shadow: none;
+  }
+`;
 const FlexCard = styled(Flex)`
   text-align: left;
   @media (max-width: 769px) {
     margin-top: 3rem;
     flex-wrap: nowrap;
   }
-`
+`;

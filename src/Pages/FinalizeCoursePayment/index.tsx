@@ -1,8 +1,8 @@
-import { type Params, useParams } from 'react-router-dom'
-import { getFinalizeCoursePaymentUrl } from '../../api/postApiServices'
-import FinalizePayment from '../../components/FinalizePaymentResult'
-import { useFinalizePayment, useNgoConfig } from '../../hooks'
-import { TFinalizePaymentParams } from '../../types/types'
+import { type Params, useParams } from 'react-router-dom';
+import { getFinalizeCoursePaymentUrl } from '../../api/postApiServices';
+import FinalizePayment from '../../components/FinalizePaymentResult';
+import { useFinalizePayment, useNgoConfig } from '../../hooks';
+import { TFinalizePaymentParams } from '../../types/types';
 
 type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'amount' | 'certificate'> & {
   course_id: string;
@@ -10,9 +10,9 @@ type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'amount' | 'certificat
 };
 
 function FinalizeCoursePayment() {
-  const { ngoId } = useNgoConfig()
+  const { ngoId } = useNgoConfig();
 
-  const url = getFinalizeCoursePaymentUrl(ngoId)
+  const url = getFinalizeCoursePaymentUrl(ngoId);
 
   const {
     firstName = '',
@@ -23,7 +23,7 @@ function FinalizeCoursePayment() {
     text = '',
     course_id = '',
     mobilePhone = '',
-  } = useParams<Params<keyof Omit<TParams, 'ong_id'>>>()
+  } = useParams<Params<keyof Omit<TParams, 'ong_id'>>>();
 
   const params: TParams = {
     firstName,
@@ -34,20 +34,20 @@ function FinalizeCoursePayment() {
     home_address,
     text,
     ong_id: ngoId,
-    mobilePhone
-  }
+    mobilePhone,
+  };
 
-  const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url })
+  const { isLoading, isError, transactionId } = useFinalizePayment<TParams>({ params, url });
 
   return (
     <FinalizePayment
       transactionId={transactionId}
       isLoading={isLoading}
       isError={isError}
-      redirectPath="#courses"
+      redirectPath='#courses'
       sectionId={course_id}
     />
-  )
+  );
 }
 
-export default FinalizeCoursePayment
+export default FinalizeCoursePayment;

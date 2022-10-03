@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
-import { useEffect, type ReactElement } from 'react'
-import { useLocation } from 'react-router-dom'
-import { useAllPlatformConfig } from 'hooks'
+import { useEffect, type ReactElement } from 'react';
+import { useLocation } from 'react-router-dom';
+import { useAllPlatformConfig } from 'hooks';
 import {
   Hero,
   Events,
@@ -15,13 +15,13 @@ import {
   Navbar,
   Footer,
   RenderIf,
-  SubscribeDivider
-} from 'components'
+  SubscribeDivider,
+} from 'components';
 
 export default function Landing(): ReactElement {
-  const sectionHashId = useLocation().hash as `#${string}`
+  const sectionHashId = useLocation().hash as `#${string}`;
 
-  const { features } = useAllPlatformConfig()
+  const { features } = useAllPlatformConfig();
   const {
     causes = false,
     courses = false,
@@ -30,20 +30,20 @@ export default function Landing(): ReactElement {
     logos = false,
     partners = false,
     volunteers = false,
-  } = features || {}
+  } = features || {};
 
   useEffect(() => {
     if (sectionHashId) {
-      const element = document.querySelector(sectionHashId)
+      const element = document.querySelector(sectionHashId);
       if (element) {
-        element.scrollIntoView()
+        element.scrollIntoView();
       }
     }
-  }, [sectionHashId])
+  }, [sectionHashId]);
 
   return (
     <>
-      <Navbar transparent position="fixed" />
+      <Navbar transparent position='fixed' />
       <Hero />
       <AboutUs />
       <RenderIf if={logos} children={<LogosCarousel />} />
@@ -56,5 +56,5 @@ export default function Landing(): ReactElement {
       <RenderIf if={volunteers} children={<Volunteers />} />
       <Footer />
     </>
-  )
+  );
 }

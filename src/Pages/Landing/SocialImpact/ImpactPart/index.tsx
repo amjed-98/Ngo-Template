@@ -1,6 +1,6 @@
-import type { ReactElement } from 'react'
-import styled from 'styled-components'
-import { Flex, Text } from 'components/common'
+import type { ReactElement } from 'react';
+import styled from 'styled-components';
+import { Flex, Text } from 'components/common';
 
 interface ImpactPartProps {
   amount: string;
@@ -10,14 +10,14 @@ interface ImpactPartProps {
 function ImpactPart({ amount, name }: ImpactPartProps): ReactElement {
   return (
     <ImpactSection>
-      <Text color="#fff" lineHeight={0} fontSize={4.8} weight="bolder">
+      <Text color='#fff' lineHeight={0} fontSize={4.8} weight='bolder'>
         +{amount.toLocaleString()}
       </Text>
-      <Text color="#fff" fontSize={2} weight="200">
+      <Text color='#fff' fontSize={2} weight='200'>
         {name}
       </Text>
     </ImpactSection>
-  )
+  );
 }
 
 const ImpactSection = styled(Flex)`
@@ -30,6 +30,6 @@ const ImpactSection = styled(Flex)`
       font-size: 1rem;
     }
   }
-`
+`;
 
-export default ImpactPart
+export default ImpactPart;

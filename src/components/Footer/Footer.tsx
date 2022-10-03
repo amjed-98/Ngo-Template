@@ -6,30 +6,26 @@ import {
   MailFilled,
   PhoneFilled,
   TwitterOutlined,
-} from '@ant-design/icons'
-import { type ReactElement } from 'react'
-import styled from 'styled-components'
-import {
-  Flex, Image, Link, SectionTitle
-} from 'components/common'
-import { useAllPlatformConfig } from 'hooks'
+} from '@ant-design/icons';
+import { type ReactElement } from 'react';
+import styled from 'styled-components';
+import { Flex, Image, Link, SectionTitle } from 'components/common';
+import { useAllPlatformConfig } from 'hooks';
 
 export default function Footer(): ReactElement {
   const {
     brand: { logo = '' } = {},
     contact: { phone = '', email = '' } = {},
-    rrss: {
-      facebook = '', instagram = '', linkedin = '', twitter = '', web = ''
-    } = {}
-  } = useAllPlatformConfig()
+    rrss: { facebook = '', instagram = '', linkedin = '', twitter = '', web = '' } = {},
+  } = useAllPlatformConfig();
 
-  const navigateTo = (path: string) => () => window.open(path, '_blank')
+  const navigateTo = (path: string) => () => window.open(path, '_blank');
 
   return (
     <>
       <MainFooter>
         <ImageContainer>
-          <Image src={logo} alt="" />
+          <Image src={logo} alt='' />
         </ImageContainer>
 
         <SectionTitle fontSize={2.4}>
@@ -40,7 +36,7 @@ export default function Footer(): ReactElement {
         <ContactInfo>
           <Contact>
             <PhoneFilled />
-            <a href="tel:+1-844-844-8444">{phone}</a>
+            <a href='tel:+1-844-844-8444'>{phone}</a>
           </Contact>
           <Contact>
             <MailFilled />
@@ -52,10 +48,12 @@ export default function Footer(): ReactElement {
       <SubFooter>
         <div>
           <p>lorem ipsum is simply a dummy test</p>
-          <Link hoverColor="white" to="/terms_and_conditions" underlined>Terms and conditions</Link>
+          <Link hoverColor='white' to='/terms_and_conditions' underlined>
+            Terms and conditions
+          </Link>
         </div>
 
-        <Icons role="link">
+        <Icons role='link'>
           <FacebookFilled onClick={navigateTo(facebook)} />
           <LinkedinFilled onClick={navigateTo(linkedin)} />
           <TwitterOutlined onClick={navigateTo(twitter)} />
@@ -64,7 +62,7 @@ export default function Footer(): ReactElement {
         </Icons>
       </SubFooter>
     </>
-  )
+  );
 }
 
 const MainFooter = styled.footer`
@@ -88,13 +86,13 @@ const MainFooter = styled.footer`
     align-items: flex-tart;
     padding: 3rem;
   }
-`
+`;
 
 const ImageContainer = styled.div`
   padding: 0.5rem;
   width: 6rem;
   cursor: pointer;
-`
+`;
 
 const ContactInfo = styled.div`
   display: flex;
@@ -108,7 +106,7 @@ const ContactInfo = styled.div`
     padding-inline: 1.5rem;
     font-size: 1rem;
   }
-`
+`;
 const Contact = styled.div`
   display: flex;
   align-items: center;
@@ -121,7 +119,7 @@ const Contact = styled.div`
   a {
     color: ${({ theme }) => theme.primary};
   }
-`
+`;
 
 const SubFooter = styled(Flex)`
   background-color: ${({ theme }) => `${theme.secondary}`};
@@ -138,7 +136,7 @@ const SubFooter = styled(Flex)`
     gap: 1rem;
     text-align: center;
   }
-`
+`;
 const Icons = styled.div`
   display: flex;
   gap: 1.2rem;
@@ -157,4 +155,4 @@ const Icons = styled.div`
     background-color: ${({ theme }) => theme.primary};
     transform: scale(1.2);
   }
-`
+`;

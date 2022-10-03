@@ -1,11 +1,11 @@
-import useFetch from 'hooks/useFetch'
-import { getNgoConfigUrl } from 'api/getApiServices'
-import { type AxiosError } from 'axios'
-import queryCacheKeys from 'api/query-cache-keys'
+import useFetch from 'hooks/useFetch';
+import { getNgoConfigUrl } from 'api/getApiServices';
+import { type AxiosError } from 'axios';
+import queryCacheKeys from 'api/query-cache-keys';
 
-  type TNgoConfigCamelCased = {
-    [key in keyof Omit<TNgoConfig, 'ong_id' | 'id'> as SnakeToCamelCase<key>]: TNgoConfig[key];
-  };
+type TNgoConfigCamelCased = {
+  [key in keyof Omit<TNgoConfig, 'ong_id' | 'id'> as SnakeToCamelCase<key>]: TNgoConfig[key];
+};
 
 type ReturnType = TNgoConfigCamelCased & {
   ngoId: string;
@@ -29,7 +29,7 @@ const useNgoConfig = (): ReturnType => {
     isLoading,
     isError,
     error,
-  } = useFetch<TNgoConfig>(getNgoConfigUrl(), queryCacheKeys.ngoConfig)
+  } = useFetch<TNgoConfig>(getNgoConfigUrl(), queryCacheKeys.ngoConfig);
 
   return {
     ngoId,
@@ -43,7 +43,7 @@ const useNgoConfig = (): ReturnType => {
     isLoading,
     isError,
     error,
-  }
-}
+  };
+};
 
-export default useNgoConfig
+export default useNgoConfig;

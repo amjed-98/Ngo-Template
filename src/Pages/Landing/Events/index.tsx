@@ -1,44 +1,46 @@
-import { useMemo, type FC } from 'react'
-import styled from 'styled-components'
-import moment from 'moment'
-import { Flex, SectionTitle } from 'components/common'
-import { useEvents } from 'hooks'
-import Skeleton from 'components/Skeleton'
-import { RenderIf } from 'components'
-import NearEvent from './NearEvent'
-import OtherEvent from './OtherEvents'
+import { useMemo, type FC } from 'react';
+import styled from 'styled-components';
+import moment from 'moment';
+import { Flex, SectionTitle } from 'components/common';
+import { useEvents } from 'hooks';
+import Skeleton from 'components/Skeleton';
+import { RenderIf } from 'components';
+import NearEvent from './NearEvent';
+import OtherEvent from './OtherEvents';
 
-const Events:FC = () => {
-  const { events, isLoading, isError } = useEvents()
+const Events: FC = () => {
+  const { events, isLoading, isError } = useEvents();
 
   // Get the nearest event
   const nearestEvent = useMemo(
-    () => events?.sort((a, b): number => {
-      if (a.course || b.course) return 0
+    () =>
+      events?.sort((a, b): number => {
+        if (a.course || b.course) return 0;
 
-      const aDate = moment(a.start_time)
-      const bDate = moment(b.start_time)
-      return aDate.diff(bDate)
-    })[0],
-    [events]
-  )
+        const aDate = moment(a.start_time);
+        const bDate = moment(b.start_time);
+        return aDate.diff(bDate);
+      })[0],
+    [events],
+  );
 
   const memoizedEvents = useMemo(
-    () => events?.map(
-      (event) => event.id !== nearestEvent.id && !event.course && <OtherEvent key={event.id} {...event} />
-    ),
-    [events]
-  )
+    () =>
+      events?.map(
+        (event) =>
+          event.id !== nearestEvent.id && !event.course && <OtherEvent key={event.id} {...event} />,
+      ),
+    [events],
+  );
 
   return (
     <>
       <SectionTitle>Events</SectionTitle>
-      <EventsSection id="events">
+      <EventsSection id='events'>
         {isLoading && <Skeleton width={40} height={42} number={1} />}
         {!isLoading && <NearEvent {...nearestEvent} />}
 
         <OtherEvents gap={1}>
-
           <RenderIf if={isLoading}>
             <Skeleton width={25} height={12} number={3} />
           </RenderIf>
@@ -49,8 +51,8 @@ const Events:FC = () => {
         </OtherEvents>
       </EventsSection>
     </>
-  )
-}
+  );
+};
 
 const EventsSection = styled(Flex)`
   padding-inline: 4.1rem;
@@ -62,7 +64,7 @@ const EventsSection = styled(Flex)`
   @media (max-width: 768px) {
     flex-direction: column;
   }
-`
+`;
 
 const OtherEvents = styled(Flex)`
   overflow-y: auto;
@@ -72,6 +74,6 @@ const OtherEvents = styled(Flex)`
   @media screen and (max-width: 576px) {
     height: 250px;
   }
-`
+`;
 
-export default Events
+export default Events;

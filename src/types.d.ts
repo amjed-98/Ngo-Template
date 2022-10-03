@@ -126,15 +126,15 @@ declare global {
     default: boolean;
   };
 
-  type TCourse = TEvent
+  type TCourse = TEvent;
 
   type SnakeToCamelCase<Str extends string> = Str extends `${infer T}_${infer U}`
     ? `${T}${Capitalize<SnakeToCamelCase<U>>}`
     : Str;
 
-    type TEventCamelCased = {
-      [key in keyof TEvent as SnakeToCamelCase<key>]: TEvent[key];
-    };
+  type TEventCamelCased = {
+    [key in keyof TEvent as SnakeToCamelCase<key>]: TEvent[key];
+  };
 }
 
-export {}
+export {};

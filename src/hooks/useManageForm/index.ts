@@ -1,6 +1,6 @@
-import type { AnyObjectSchema } from 'yup'
-import { yupResolver } from '@hookform/resolvers/yup'
-import { useForm } from 'react-hook-form'
+import type { AnyObjectSchema } from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from 'react-hook-form';
 import type {
   UseFormHandleSubmit,
   UseFormRegister,
@@ -8,7 +8,7 @@ import type {
   FieldErrorsImpl,
   UseFormReset,
   Control,
-} from 'react-hook-form'
+} from 'react-hook-form';
 
 type ReturnType<TFormSubmitData extends FieldValues> = {
   register: UseFormRegister<TFormSubmitData>;
@@ -18,14 +18,16 @@ type ReturnType<TFormSubmitData extends FieldValues> = {
   control: Control<TFormSubmitData>;
 };
 
-const useManageForm = <TFormSubmitData extends FieldValues>(schema: AnyObjectSchema): ReturnType<TFormSubmitData> => {
+const useManageForm = <TFormSubmitData extends FieldValues>(
+  schema: AnyObjectSchema,
+): ReturnType<TFormSubmitData> => {
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
     control,
-  } = useForm<TFormSubmitData>({ resolver: yupResolver(schema) })
+  } = useForm<TFormSubmitData>({ resolver: yupResolver(schema) });
 
   return {
     register,
@@ -33,7 +35,7 @@ const useManageForm = <TFormSubmitData extends FieldValues>(schema: AnyObjectSch
     errors,
     reset,
     control,
-  }
-}
+  };
+};
 
-export default useManageForm
+export default useManageForm;

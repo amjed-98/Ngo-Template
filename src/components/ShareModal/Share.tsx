@@ -1,31 +1,33 @@
-import { type FC } from 'react'
-import styled from 'styled-components'
+import { type FC } from 'react';
+import styled from 'styled-components';
 import {
   FacebookFilled,
   LinkedinFilled,
   TwitterCircleFilled,
   WhatsAppOutlined,
-} from '@ant-design/icons'
+} from '@ant-design/icons';
 
 interface IProps {
   section: string;
   sectionId: string;
 }
-const Share:FC<IProps> = ({ section, sectionId }) => {
-  const url = `${window.location.origin}/${section}/${sectionId}`
-  const navigateTo = (path:string) => () => window.open(path, '_blank')
+const Share: FC<IProps> = ({ section, sectionId }) => {
+  const url = `${window.location.origin}/${section}/${sectionId}`;
+  const navigateTo = (path: string) => () => window.open(path, '_blank');
 
   return (
     <Icons>
       <FacebookFilled onClick={navigateTo(`https://www.facebook.com/sharer/sharer.php?u=${url}`)} />
       <TwitterCircleFilled onClick={navigateTo(`https://twitter.com/intent/tweet?text=${url}`)} />
-      <LinkedinFilled onClick={navigateTo(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`)} />
+      <LinkedinFilled
+        onClick={navigateTo(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`)}
+      />
       <WhatsAppOutlined onClick={navigateTo(`whatsapp://send?text=${url}`)} />
     </Icons>
-  )
-}
+  );
+};
 
-export default Share
+export default Share;
 
 const Icons = styled.div`
   display: flex;
@@ -43,4 +45,4 @@ const Icons = styled.div`
       transform: translateY(-0.2rem);
     }
   }
-`
+`;

@@ -99,7 +99,7 @@ const NavbarLinks: FC = () => {
         </Links>
       )}
 
-      <Drawer width={200} placement='right' onClose={handleDrawerVisibility} visible={isDrawerVisible}>
+      <Drawer width={200} placement='right' onClose={handleDrawerVisibility} open={isDrawerVisible}>
         <MenuLinks items={DRAWER_LINKS} mode='inline' />
       </Drawer>
     </>

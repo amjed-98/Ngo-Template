@@ -1,15 +1,19 @@
 import { type FC } from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 
-const Loader: FC = () => (
-  <Spinner>
-    {Array.from({ length: 7 }, (_, i) => (
-      <div className={`sk-cube sk-cube${i + 1}`} key={i} />
-    ))}
-  </Spinner>
-);
+const Loader: FC = () => {
+  const { primary } = useTheme() || {};
 
-const Spinner = styled.div`
+  return (
+    <Spinner color={primary}>
+      {Array.from({ length: 7 }, (_, i) => (
+        <div className={`sk-cube sk-cube${i + 1}`} key={i} />
+      ))}
+    </Spinner>
+  );
+};
+
+const Spinner = styled.div<{ color: TColor }>`
   width: 95px;
   height: 95px;
   margin: 40vh auto;
@@ -17,7 +21,7 @@ const Spinner = styled.div`
   .sk-cube {
     width: 33%;
     height: 33%;
-    background-color: ${(props) => props.theme.primary};
+    background-color: ${({ color }) => color};
     float: left;
     -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
     animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;

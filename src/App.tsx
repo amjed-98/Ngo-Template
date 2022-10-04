@@ -28,13 +28,8 @@ function App() {
 
   if (isError) return <CrashPage />;
 
-  if (isLoading) {
-    return (
-      <ThemeProvider theme={theme}>
-        <Loader />
-      </ThemeProvider>
-    );
-  }
+  if (isLoading) return <Loader />;
+
   return (
     <ThemeProvider theme={theme}>
       <AllRoute />

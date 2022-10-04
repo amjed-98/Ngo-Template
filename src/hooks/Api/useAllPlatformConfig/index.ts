@@ -15,7 +15,7 @@ type ReturnType = TAllPlatformConfigCamelCased & {
 };
 
 const useAllPlatformConfig = (): ReturnType => {
-  const { ngoId } = useNgoConfig();
+  const { ngoId, isLoading: isNgoConfigLoading } = useNgoConfig();
 
   const {
     data: { brand, team, contact, description, features, impactData, platformConfig, rrss } = {},
@@ -33,7 +33,7 @@ const useAllPlatformConfig = (): ReturnType => {
     impactData,
     platformConfig,
     rrss,
-    isLoading,
+    isLoading: isLoading || isNgoConfigLoading,
     isError,
     error,
   };

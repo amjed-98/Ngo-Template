@@ -60,8 +60,7 @@ const Box = styled.div<IProps>`
   flex: ${({ flex }) => flex && flex};
 
   &:hover {
-    border: ${({ onHover, theme }) =>
-      onHover?.border && `${onHover.border} solid ${theme.primary}`};
+    border: ${({ onHover, theme }) => onHover?.border && `${onHover.border} solid ${theme.primary}`};
   }
 `;
 

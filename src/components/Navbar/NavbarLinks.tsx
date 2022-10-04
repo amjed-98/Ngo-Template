@@ -34,9 +34,7 @@ const NavbarLinks: FC = () => {
     () =>
       Object.keys(features)
         .filter(
-          (feature) =>
-            navbarFeatures[feature as keyof typeof navbarFeatures] &&
-            features[feature as keyof TFeatures],
+          (feature) => navbarFeatures[feature as keyof typeof navbarFeatures] && features[feature as keyof TFeatures],
         )
         .sort(),
     [features.causes],
@@ -60,21 +58,20 @@ const NavbarLinks: FC = () => {
       )),
     [featuresArray, t],
   );
-  const DRAWER_LINKS: { key: typeof featuresArray[number] | 'lang-toggle'; label: JSX.Element }[] =
-    useMemo(
-      () => [
-        ...featuresArray.map((feature) => ({
-          key: feature,
-          label: (
-            <li key={feature}>
-              <Link to={`${navbarFeatures[feature].link}`}>{t(navbarFeatures[feature].text)}</Link>
-            </li>
-          ),
-        })),
-        { key: 'lang-toggle', label: languageToggleLink },
-      ],
-      [featuresArray, i18next.language],
-    );
+  const DRAWER_LINKS: { key: typeof featuresArray[number] | 'lang-toggle'; label: JSX.Element }[] = useMemo(
+    () => [
+      ...featuresArray.map((feature) => ({
+        key: feature,
+        label: (
+          <li key={feature}>
+            <Link to={`${navbarFeatures[feature].link}`}>{t(navbarFeatures[feature].text)}</Link>
+          </li>
+        ),
+      })),
+      { key: 'lang-toggle', label: languageToggleLink },
+    ],
+    [featuresArray, i18next.language],
+  );
 
   return (
     <>
@@ -102,12 +99,7 @@ const NavbarLinks: FC = () => {
         </Links>
       )}
 
-      <Drawer
-        width={200}
-        placement='right'
-        onClose={handleDrawerVisibility}
-        visible={isDrawerVisible}
-      >
+      <Drawer width={200} placement='right' onClose={handleDrawerVisibility} visible={isDrawerVisible}>
         <MenuLinks items={DRAWER_LINKS} mode='inline' />
       </Drawer>
     </>

@@ -22,11 +22,7 @@ const useAllPlatformConfig = (): ReturnType => {
     isLoading,
     isError,
     error,
-  } = useFetch<TAllPlatformConfig>(
-    getPlatformConfigUrl(ngoId),
-    queryCacheKeys.allPlatformConfig,
-    !!ngoId,
-  );
+  } = useFetch<TAllPlatformConfig>(getPlatformConfigUrl(ngoId), queryCacheKeys.allPlatformConfig, !!ngoId);
 
   return {
     brand,

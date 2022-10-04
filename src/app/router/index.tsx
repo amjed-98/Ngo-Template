@@ -12,11 +12,7 @@ export default function AllRoute() {
   const ROUTES = useMemo(() => getRoutes({ features, isStripe }), [features, isStripe]);
 
   const MEMOIZED_ROUTES = useMemo(
-    () =>
-      ROUTES.map(
-        ({ path, render, Element }) =>
-          render && <Route key={path} path={path} element={<Element />} />,
-      ),
+    () => ROUTES.map(({ path, render, Element }) => render && <Route key={path} path={path} element={<Element />} />),
     [ROUTES],
   );
 

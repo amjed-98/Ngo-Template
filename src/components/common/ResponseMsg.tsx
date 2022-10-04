@@ -12,15 +12,7 @@ interface IProps {
   successId: string;
   errorId: string;
 }
-function ResponseMsg({
-  isLoading,
-  isSuccess,
-  isError,
-  successMsg,
-  errorMsg,
-  successId,
-  errorId,
-}: IProps) {
+function ResponseMsg({ isLoading, isSuccess, isError, successMsg, errorMsg, successId, errorId }: IProps) {
   if (isLoading) {
     return <LoadingSpinner />;
   }

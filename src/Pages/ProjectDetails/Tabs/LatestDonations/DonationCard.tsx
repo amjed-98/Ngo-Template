@@ -13,9 +13,7 @@ const DonationCard: FC<IProps> = ({ latestDonation }) => (
   <Section key={latestDonation.id}>
     <Flex>
       <Text fontSize={1.2}>
-        {latestDonation.anonymous
-          ? 'anonymous'
-          : `${latestDonation.User.firstName} ${latestDonation.User.lastName}`}
+        {latestDonation.anonymous ? 'anonymous' : `${latestDonation.User.firstName} ${latestDonation.User.lastName}`}
       </Text>
       <Text textAlign='right'>${latestDonation.amount}</Text>
     </Flex>

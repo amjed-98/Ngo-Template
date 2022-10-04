@@ -6,16 +6,7 @@ import { getSendContactUrl } from 'api/postApiServices';
 import { useGeocoding, useFormSubmit, useAllPlatformConfig, useManageForm } from 'hooks';
 import { contactSchema } from 'validation/schemas';
 import { RenderIf, Footer, Map, Navbar } from 'components';
-import {
-  Button,
-  Center,
-  Flex,
-  Input,
-  Label,
-  TextArea,
-  ErrorMsg,
-  ResponseMsg,
-} from 'components/common';
+import { Button, Center, Flex, Input, Label, TextArea, ErrorMsg, ResponseMsg } from 'components/common';
 
 type TFormSubmitData = TypeOf<typeof contactSchema>;
 
@@ -26,7 +17,7 @@ function ContactUsForm(): ReactElement {
 
   const { register, handleSubmit, errors, reset } = useManageForm<TFormSubmitData>(contactSchema);
 
-  const { submit, ...states } = useFormSubmit<TFormSubmitData>(getSendContactUrl());
+  const { submit, ...states } = useFormSubmit<TFormSubmitData>({ url: getSendContactUrl() });
 
   const onSubmit = (data: TFormSubmitData) => {
     const formData = { ...data, ongEmail: email };

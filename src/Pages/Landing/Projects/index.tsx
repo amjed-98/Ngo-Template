@@ -10,11 +10,7 @@ import Project from './Project';
 export default function Projects(): ReactElement {
   const { ngoId } = useNgoConfig();
 
-  const { data: projects = [], isLoading } = useFetch<IProject[]>(
-    getProjectsURL(ngoId),
-    ['projects'],
-    ngoId,
-  );
+  const { data: projects = [], isLoading } = useFetch<IProject[]>(getProjectsURL(ngoId), ['projects'], ngoId);
 
   if (isLoading) return <ProjectCardSkeleton number={3} width={25} height={37} />;
 

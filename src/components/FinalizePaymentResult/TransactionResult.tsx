@@ -17,9 +17,7 @@ const TransactionId: FC<IProps> = (props) => {
   const navigate = useNavigate();
   const navigateTo = (path: string) => () => navigate(path);
   const { secondary, primary } = useTheme();
-  const sectionTitle = redirectPath.startsWith('#')
-    ? redirectPath.slice(redirectPath.indexOf('#') + 1)
-    : redirectPath;
+  const sectionTitle = redirectPath.startsWith('#') ? redirectPath.slice(redirectPath.indexOf('#') + 1) : redirectPath;
 
   return (
     <Flex mt={1} direction='column' gap={3} textAlign='left'>

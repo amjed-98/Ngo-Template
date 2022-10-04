@@ -1,13 +1,13 @@
 import type { AnyObjectSchema } from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useForm } from 'react-hook-form';
-import type {
-  UseFormHandleSubmit,
-  UseFormRegister,
-  FieldValues,
-  FieldErrorsImpl,
-  UseFormReset,
-  Control,
+import {
+  useForm,
+  type UseFormHandleSubmit,
+  type UseFormRegister,
+  type FieldValues,
+  type FieldErrorsImpl,
+  type UseFormReset,
+  type Control,
 } from 'react-hook-form';
 
 type ReturnType<TFormSubmitData extends FieldValues> = {
@@ -18,9 +18,7 @@ type ReturnType<TFormSubmitData extends FieldValues> = {
   control: Control<TFormSubmitData>;
 };
 
-const useManageForm = <TFormSubmitData extends FieldValues>(
-  schema: AnyObjectSchema,
-): ReturnType<TFormSubmitData> => {
+const useManageForm = <TFormSubmitData extends FieldValues>(schema: AnyObjectSchema): ReturnType<TFormSubmitData> => {
   const {
     register,
     handleSubmit,

@@ -17,14 +17,7 @@ export default function NearEvent(props: IProps): ReactElement {
   const navigateTo = (path: `/events/${string}`) => () => navigate(path);
 
   return (
-    <Card
-      flex={1}
-      mode='column'
-      smMode='column'
-      maxWidth='40%'
-      p={1}
-      onClick={navigateTo(`/events/${id}`)}
-    >
+    <Card flex={1} mode='column' smMode='column' maxWidth='40%' p={1} onClick={navigateTo(`/events/${id}`)}>
       <Box>
         <BookmarkIcon position='absolute' right={2.3} top={-1} />
         <Image src={imageURL} alt='Near Event' p={1} />

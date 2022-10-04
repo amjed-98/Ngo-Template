@@ -1,11 +1,6 @@
 import { type FC } from 'react';
 import styled from 'styled-components';
-import {
-  FacebookFilled,
-  LinkedinFilled,
-  TwitterCircleFilled,
-  WhatsAppOutlined,
-} from '@ant-design/icons';
+import { FacebookFilled, LinkedinFilled, TwitterCircleFilled, WhatsAppOutlined } from '@ant-design/icons';
 
 interface IProps {
   section: string;
@@ -19,9 +14,7 @@ const Share: FC<IProps> = ({ section, sectionId }) => {
     <Icons>
       <FacebookFilled onClick={navigateTo(`https://www.facebook.com/sharer/sharer.php?u=${url}`)} />
       <TwitterCircleFilled onClick={navigateTo(`https://twitter.com/intent/tweet?text=${url}`)} />
-      <LinkedinFilled
-        onClick={navigateTo(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`)}
-      />
+      <LinkedinFilled onClick={navigateTo(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`)} />
       <WhatsAppOutlined onClick={navigateTo(`whatsapp://send?text=${url}`)} />
     </Icons>
   );

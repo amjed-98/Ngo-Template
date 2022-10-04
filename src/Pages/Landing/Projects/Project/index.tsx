@@ -2,7 +2,7 @@ import { type ReactElement } from 'react';
 import styled from 'styled-components';
 import { Text, Image, Flex, Link } from 'components/common';
 import DonateForm from 'components/Forms/DonateForm';
-import { Modal } from 'components';
+import Modal from 'components/Modal';
 import { useFormSubmit, useNgoConfig } from 'hooks';
 import { getStartProjectDonationUrl } from 'api/postApiServices';
 import { donationSchema } from 'validation/schemas';

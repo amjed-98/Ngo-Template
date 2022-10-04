@@ -20,9 +20,7 @@ function Carousel<TChild extends { id: string }>(props: TProps<TChild>): ReactEl
     if (Array.isArray(child)) {
       return (
         <VerticalSlider key={child[i]?.id || i}>
-          {child.map(
-            (nestedChild) => nestedChild && <Component key={nestedChild.id} {...nestedChild} />,
-          )}
+          {child.map((nestedChild) => nestedChild && <Component key={nestedChild.id} {...nestedChild} />)}
         </VerticalSlider>
       );
     }

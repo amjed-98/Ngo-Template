@@ -38,11 +38,7 @@ function DonateForm({ projectId, submitHandler, states }: TProps) {
         <Label htmlFor='amount'>You donation</Label>
       </FormControl>
       <FormControl>
-        <Input
-          type='number'
-          placeholder='Please enter the amount of your donation'
-          {...register('amount')}
-        />
+        <Input type='number' placeholder='Please enter the amount of your donation' {...register('amount')} />
         <ErrorMsg>{errors.amount?.message}</ErrorMsg>
       </FormControl>
 

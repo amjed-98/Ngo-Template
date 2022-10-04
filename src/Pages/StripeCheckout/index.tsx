@@ -95,9 +95,7 @@ export default function CheckoutForm({ clientSecret }: TProps) {
 
         <Center>
           <Button type='submit' disabled={isLoading || !stripe || !elements}>
-            <span id='button-text'>
-              {isLoading ? <div className='spinner' id='spinner' /> : 'Pay now'}
-            </span>
+            <span id='button-text'>{isLoading ? <div className='spinner' id='spinner' /> : 'Pay now'}</span>
           </Button>
         </Center>
 

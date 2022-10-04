@@ -8,12 +8,7 @@ import { useSetFavIcon, useSetDocumentTitle, useAllPlatformConfig } from 'hooks'
 
 function App() {
   const {
-    brand: {
-      logo = '',
-      name,
-      primary_color_hex: primary = '',
-      secondary_color_hex: secondary = '',
-    } = {},
+    brand: { logo = '', name, primary_color_hex: primary = '', secondary_color_hex: secondary = '' } = {},
     platformConfig: { language: ngoLanguage = 'es' } = {},
     isLoading,
     isError,

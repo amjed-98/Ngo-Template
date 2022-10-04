@@ -8,11 +8,7 @@ import { ProductCard } from './ProductCard';
 
 function Shop() {
   const { ngoId } = useNgoConfig();
-  const { data: products, isLoading } = useFetch<TProducts>(
-    getProductsURL(ngoId),
-    ['products'],
-    ngoId,
-  );
+  const { data: products, isLoading } = useFetch<TProducts>(getProductsURL(ngoId), ['products'], ngoId);
 
   const memoizedProducts = useMemo(
     () => products?.map((product) => <ProductCard key={product.id} {...product} />),

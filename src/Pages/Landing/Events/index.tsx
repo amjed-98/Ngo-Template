@@ -4,7 +4,7 @@ import moment from 'moment';
 import { Flex, SectionTitle } from 'components/common';
 import { useEvents } from 'hooks';
 import Skeleton from 'components/Skeleton';
-import { RenderIf } from 'components';
+import RenderIf from 'components/RenderIf';
 import NearEvent from './NearEvent';
 import OtherEvent from './OtherEvents';
 
@@ -26,10 +26,7 @@ const Events: FC = () => {
 
   const memoizedEvents = useMemo(
     () =>
-      events?.map(
-        (event) =>
-          event.id !== nearestEvent.id && !event.course && <OtherEvent key={event.id} {...event} />,
-      ),
+      events?.map((event) => event.id !== nearestEvent.id && !event.course && <OtherEvent key={event.id} {...event} />),
     [events],
   );
 

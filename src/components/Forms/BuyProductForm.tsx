@@ -4,16 +4,7 @@ import { type TypeOf } from 'yup';
 import { getStartProductPaymentUrl } from 'api/postApiServices';
 import { useFormSubmit, useManageForm, useNgoConfig } from 'hooks';
 import { buyProductSchema } from 'validation/schemas';
-import {
-  Button,
-  Center,
-  Input,
-  Label,
-  SectionTitle,
-  TextArea,
-  ErrorMsg,
-  ResponseMsg,
-} from 'components/common';
+import { Button, Center, Input, Label, SectionTitle, TextArea, ErrorMsg, ResponseMsg } from 'components/common';
 
 interface IProps {
   modal?: boolean;
@@ -29,8 +20,7 @@ export function BuyProductForm(props: IProps): ReactElement {
 
   const { ngoId = '' } = useNgoConfig();
 
-  const { register, handleSubmit, errors, reset } =
-    useManageForm<TFormSubmitData>(buyProductSchema);
+  const { register, handleSubmit, errors, reset } = useManageForm<TFormSubmitData>(buyProductSchema);
 
   const { submit, ...states } = useFormSubmit<TFormSubmitData, true>({
     url: getStartProductPaymentUrl(),
@@ -127,8 +117,7 @@ export function BuyProductForm(props: IProps): ReactElement {
       <TextArea placeholder='Additional message' rows={4} />
 
       <Label>
-        <Input w='20px' mt={1.8} type='checkbox' {...register('privacy_policy')} />I accept the
-        privacy policy
+        <Input w='20px' mt={1.8} type='checkbox' {...register('privacy_policy')} />I accept the privacy policy
         <ErrorMsg>{errors.privacy_policy?.message}</ErrorMsg>
       </Label>
       <br />

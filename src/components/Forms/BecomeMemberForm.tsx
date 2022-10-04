@@ -16,8 +16,7 @@ type TFormSubmitData = TypeOf<typeof memberSchema>;
 export default function BecomeMemberForm(): ReactElement {
   const { ngoId = '' } = useNgoConfig();
 
-  const { register, handleSubmit, errors, reset, control } =
-    useManageForm<TFormSubmitData>(memberSchema);
+  const { register, handleSubmit, errors, reset, control } = useManageForm<TFormSubmitData>(memberSchema);
 
   const { submit, ...states } = useFormSubmit<TFormSubmitData, true>({
     url: getBecomePartnerUrl(),
@@ -48,8 +47,8 @@ export default function BecomeMemberForm(): ReactElement {
           />
           <FormTitle>Membership registration</FormTitle>
           <FormSubtitle>
-            We are delighted to have you as a member, but in order to complete your membership, we
-            need some information from you.
+            We are delighted to have you as a member, but in order to complete your membership, we need some information
+            from you.
           </FormSubtitle>
           <FormRow>
             <CustomInputDiv>
@@ -94,10 +93,7 @@ export default function BecomeMemberForm(): ReactElement {
               <ErrorMsg mt={0.4}>{errors.birthDate?.message}</ErrorMsg>
             </CustomInputDiv>
           </FormRow>
-          <Input
-            placeholder='Address (street, city and postal code)'
-            {...register('home_address')}
-          />
+          <Input placeholder='Address (street, city and postal code)' {...register('home_address')} />
           <ErrorMsg mt={0.4}>{errors.home_address?.message}</ErrorMsg>
 
           <RadioQuestion>I have read and accepted the NGOs privacy policy.</RadioQuestion>
@@ -111,9 +107,7 @@ export default function BecomeMemberForm(): ReactElement {
           </Radio.Group>
           <ErrorMsg mt={0.4}>{errors.terms?.message}</ErrorMsg>
 
-          <RadioQuestion>
-            Would you like us to process your registration as a member of the NGO?
-          </RadioQuestion>
+          <RadioQuestion>Would you like us to process your registration as a member of the NGO?</RadioQuestion>
           <Radio.Group {...register('membership')}>
             <CustomRadio value>Yes</CustomRadio>
             <CustomRadio value={false}>No</CustomRadio>

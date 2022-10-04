@@ -15,8 +15,7 @@ type TProps = {
 export default function BuyCourseForm({ courseId }: TProps): ReactElement {
   const { ngoId = '' } = useNgoConfig();
   const { secondary } = useTheme();
-  const { register, handleSubmit, errors, reset } =
-    useManageForm<TFormSubmitData>(buyCourseTicketSchema);
+  const { register, handleSubmit, errors, reset } = useManageForm<TFormSubmitData>(buyCourseTicketSchema);
 
   const { submit, ...states } = useFormSubmit<TFormSubmitData, true>({
     url: getBuyCourseUrl(courseId),

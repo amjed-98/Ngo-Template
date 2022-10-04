@@ -18,13 +18,7 @@ const FinalizePaymentResult: FC<IProps> = ({ isError, isLoading, ...restProps })
     <Result
       style={{ flex: 1 }}
       status={isLoading ? 'info' : isError ? 'error' : 'success'}
-      title={
-        isLoading
-          ? 'loading...'
-          : isError
-          ? 'Something went wrong!'
-          : '"Purchase made successfully!"'
-      }
+      title={isLoading ? 'loading...' : isError ? 'Something went wrong!' : '"Purchase made successfully!"'}
       extra={<TransactionResult isError={isError} {...restProps} />}
     />
     <Footer />

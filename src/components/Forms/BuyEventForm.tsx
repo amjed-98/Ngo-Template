@@ -44,11 +44,7 @@ function BuyEventForm({ modal, event: { id, EventTickets, price } }: Props): Rea
             {currency})
           </CustomLabel>
           <Input type='hidden' {...register(`tickets.${i}.id`)} value={ticket.id} />
-          <Input
-            type='number'
-            placeholder='Please enter the number of tickets'
-            {...register(`tickets.${i}.amount`)}
-          />
+          <Input type='number' placeholder='Please enter the number of tickets' {...register(`tickets.${i}.amount`)} />
         </Fragment>
       )),
     [EventTickets, register, currency],
@@ -65,9 +61,7 @@ function BuyEventForm({ modal, event: { id, EventTickets, price } }: Props): Rea
       {EventTickets && (
         <div>
           <FormTitle>Number of entries {price}</FormTitle>
-          <p>
-            Only one ticket per person. You can buy more tickets by repeating the purchase process.
-          </p>
+          <p>Only one ticket per person. You can buy more tickets by repeating the purchase process.</p>
 
           {ticketsInputs}
         </div>

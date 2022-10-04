@@ -13,11 +13,7 @@ interface ILogo {
 
 export default function LogosCarousel(): ReactElement {
   const { ngoId } = useNgoConfig();
-  const {
-    data: logos = [],
-    isLoading,
-    isError,
-  } = useFetch<ILogo[]>(getOngLogos(ngoId), ['logos'], ngoId);
+  const { data: logos = [], isLoading, isError } = useFetch<ILogo[]>(getOngLogos(ngoId), ['logos'], ngoId);
 
   const { primary } = useTheme();
 

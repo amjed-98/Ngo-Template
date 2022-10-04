@@ -12,8 +12,8 @@ export default function PremiumEvent(): ReactElement {
           Sponsor an illed child
         </SectionTitle>
         <EventDescription>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-          been the industrys standard dummy text ever since the 1500s and stuff
+          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys
+          standard dummy text ever since the 1500s and stuff
         </EventDescription>
         <Link align='left' to=''>
           Read more

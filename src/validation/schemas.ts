@@ -8,10 +8,7 @@ const personalDetailsSchema = {
 export const memberSchema = yup.object({
   ...personalDetailsSchema,
   home_address: yup.string().required('Address is required'),
-  birthDate: yup
-    .string()
-    .required('Birth of Date is required')
-    .typeError('Birth of Date is required'),
+  birthDate: yup.string().required('Birth of Date is required').typeError('Birth of Date is required'),
   nif: yup.string().required('ID is required').typeError('ID must be a number'),
   terms: yup.boolean().typeError('You must accept the terms and conditions'),
   membership: yup.boolean().typeError('You must accept the membership'),

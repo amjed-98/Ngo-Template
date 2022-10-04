@@ -15,10 +15,9 @@ type TFormSubmitData = TypeOf<typeof contactEventSchema>;
 export function ContactEventForm({ id }: IProps): ReactElement {
   const { ngoId = '' } = useNgoConfig();
 
-  const { register, handleSubmit, errors, reset } =
-    useManageForm<TFormSubmitData>(contactEventSchema);
+  const { register, handleSubmit, errors, reset } = useManageForm<TFormSubmitData>(contactEventSchema);
 
-  const { submit, ...states } = useFormSubmit<TFormSubmitData>(getSendContactEventUrl(ngoId, id));
+  const { submit, ...states } = useFormSubmit<TFormSubmitData>({ url: getSendContactEventUrl(ngoId, id) });
 
   const onSubmit = (data: TFormSubmitData) => {
     submit(data);

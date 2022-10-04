@@ -11,8 +11,7 @@ interface IProps {
 function Hero() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { brand: { default_img: heroImage = '' } = {}, description: { subtitle, title } = {} } =
-    useAllPlatformConfig();
+  const { brand: { default_img: heroImage = '' } = {}, description: { subtitle, title } = {} } = useAllPlatformConfig();
   const { primary, secondary } = useTheme();
 
   return (

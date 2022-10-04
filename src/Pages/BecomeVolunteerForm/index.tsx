@@ -2,16 +2,7 @@ import { type TypeOf } from 'yup';
 import styled from 'styled-components';
 import { getAddVolunteerUrl } from 'api/postApiServices';
 import { Footer, Navbar } from 'components';
-import {
-  Button,
-  Center,
-  Flex,
-  SectionTitle,
-  ErrorMsg,
-  Input,
-  ResponseMsg,
-  CustomInputDiv,
-} from 'components/common';
+import { Button, Center, Flex, SectionTitle, ErrorMsg, Input, ResponseMsg, CustomInputDiv } from 'components/common';
 import { useFormSubmit, useManageForm, useNgoConfig } from 'hooks';
 import { volunteerSchema } from 'validation/schemas';
 
@@ -22,7 +13,7 @@ function BecomeVolunteerForm() {
 
   const { register, handleSubmit, errors, reset } = useManageForm<TFormSubmitData>(volunteerSchema);
 
-  const { submit, ...states } = useFormSubmit<TFormSubmitData>(getAddVolunteerUrl());
+  const { submit, ...states } = useFormSubmit<TFormSubmitData>({ url: getAddVolunteerUrl() });
 
   const onSubmit = (data: TFormSubmitData) => {
     const formData = { ...data, ong_id: ngoId };

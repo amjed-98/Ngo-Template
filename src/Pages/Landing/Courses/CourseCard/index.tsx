@@ -15,22 +15,13 @@ interface IProps {
   };
 }
 
-function CourseCard({
-  course: { title, description = '', imageURL, start_time: startTime, id },
-}: IProps) {
+function CourseCard({ course: { title, description = '', imageURL, start_time: startTime, id } }: IProps) {
   const date = Number(moment(startTime).format('D'));
 
   return (
     <Card mode='row' smMode='column' my={0.5} p={1} maxWidth='45rem'>
       <Box height={14.5}>
-        <CalendarIcon
-          date={date}
-          type='filled'
-          size='4em'
-          position='absolute'
-          top={-1.23}
-          right={1.5}
-        />
+        <CalendarIcon date={date} type='filled' size='4em' position='absolute' top={-1.23} right={1.5} />
         <Image src={imageURL} alt={title} width='800px' />
       </Box>
       <Flex direction='column' justify='space-between' p={1} textAlign='left'>

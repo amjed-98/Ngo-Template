@@ -2,12 +2,11 @@ import HtmlParser from 'html-react-parser';
 import { useTranslation } from 'react-i18next';
 import { Box, Flex, Image, Link, SectionTitle } from 'components/common';
 import { useAllPlatformConfig } from 'hooks';
-import { RenderIf } from 'components';
+import RenderIf from 'components/RenderIf';
 
 export default function AboutUs(): React.ReactElement {
-  const {
-    description: { description = '', img_url: imgUrl, title_description: titleDescription } = {},
-  } = useAllPlatformConfig();
+  const { description: { description = '', img_url: imgUrl, title_description: titleDescription } = {} } =
+    useAllPlatformConfig();
   const { t } = useTranslation();
   return (
     <Flex id='about' align='stretch' mt={4.2} pl={4.1}>

@@ -1,5 +1,5 @@
 import { type ReactElement } from 'react';
-import { RenderIf } from 'components';
+import RenderIf from 'components/RenderIf';
 import { Box, Carousel, SectionTitle } from 'components/common';
 import { useCourses } from 'hooks';
 import CourseCardSkeleton from 'components/Skeleton';

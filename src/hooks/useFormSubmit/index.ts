@@ -1,7 +1,7 @@
-import { useNgoConfig } from 'hooks';
 import { useNavigate } from 'react-router-dom';
 import finalizePaymentRoutes from 'app/router/finalizePaymentRoutes';
-import useMutate from '../useMutate';
+import useNgoConfig from 'hooks/Api/useNgoConfig';
+import useMutate from 'hooks/useMutate';
 
 type TClientSecret = { clientSecret: string };
 type TPayPalLink = { data: string };
@@ -9,16 +9,13 @@ type TData = TClientSecret | TPayPalLink;
 
 type TParameter<IsPayment> = IsPayment extends true
   ? { url: string; redirectPath: keyof typeof finalizePaymentRoutes }
-  : string;
+  : { url: string };
 
-const useFormSubmit = <TMutate = never, IsPayment extends boolean = false>(
-  parameters: TParameter<IsPayment>,
-) => {
+const useFormSubmit = <TMutate = never, IsPayment extends boolean = false>(parameters: TParameter<IsPayment>) => {
   const navigate = useNavigate();
   const { paymentMethod } = useNgoConfig();
 
-  const url = typeof parameters === 'string' ? parameters : parameters.url;
-  const redirectPath = typeof parameters === 'object' && parameters.redirectPath;
+  const { url, redirectPath } = parameters as TParameter<true>;
 
   const { isLoading, isSuccess, isError, mutateAsync } = useMutate<TData, TMutate>(url);
 

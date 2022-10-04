@@ -7,20 +7,13 @@ import { useNgoConfig } from 'hooks';
 import { IProductCard } from 'types/interfaces';
 import { RenderIf } from 'components';
 
-export function ProductCard({
-  id,
-  title,
-  price,
-  default_img: img,
-  discount,
-}: IProductCard): ReactElement {
+export function ProductCard({ id, title, price, default_img: img, discount }: IProductCard): ReactElement {
   const { currency } = useNgoConfig();
   const navigate = useNavigate();
   const navigateTo = (path: `/products/${string}`) => () => navigate(path);
 
   const handleBrokenImage = (e: SyntheticEvent<HTMLImageElement>) => {
-    const fallBackImage =
-      'https://i.pinimg.com/originals/9b/96/92/9b9692c9f0db9f6276e6bd29a98c25e0.png';
+    const fallBackImage = 'https://i.pinimg.com/originals/9b/96/92/9b9692c9f0db9f6276e6bd29a98c25e0.png';
     (e.target as HTMLImageElement).src = fallBackImage;
   };
   return (

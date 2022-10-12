@@ -1,24 +1,18 @@
-import type { ReactElement } from 'react';
+import type { FC } from 'react';
 import styled from 'styled-components';
 import { Flex, Text } from 'components/common';
+import Incrementor from 'components/Incrementor';
 
-interface ImpactPartProps {
-  amount: string;
-  name: string;
-}
-
-function ImpactPart({ amount, name }: ImpactPartProps): ReactElement {
-  return (
-    <ImpactSection>
-      <Text color='#fff' lineHeight={0} fontSize={4.8} weight='bolder'>
-        +{amount.toLocaleString()}
-      </Text>
-      <Text color='#fff' fontSize={2} weight='200'>
-        {name}
-      </Text>
-    </ImpactSection>
-  );
-}
+const ImpactPart: FC<TImpactData> = ({ amount, name }) => (
+  <ImpactSection>
+    <Text color='#fff' lineHeight={0} fontSize={4.8} weight='bolder'>
+      <Incrementor end={+amount} speed={-1} Wrapper='div' />
+    </Text>
+    <Text color='#fff' fontSize={2} weight='200'>
+      {name}
+    </Text>
+  </ImpactSection>
+);
 
 const ImpactSection = styled(Flex)`
   @media (max-width: 768px) {

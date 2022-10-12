@@ -66,6 +66,8 @@
     "no-nested-ternary": "off",
     "react/react-in-jsx-scope": "off",
     "no-unused-vars": "warn",
-    "no-duplicate-imports": "error"
+    "no-duplicate-imports": "error",
+    "react/no-unused-prop-types": "off",
+    "react/require-default-props": "off"
   }
 }

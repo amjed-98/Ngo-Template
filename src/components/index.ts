@@ -28,4 +28,6 @@ export const FinalizePaymentResult = lazy(
 export const Map = lazy(() => import('./Map' /* webpackChunkName: "Map" */));
 export const RenderIf = lazy(() => import('./RenderIf' /* webpackChunkName: "RenderIf" */));
 export const Skeleton = lazy(() => import('./Skeleton' /* webpackChunkName: "Skeleton" */));
+export const Incrementor = lazy(() => import('./Incrementor' /* webpackChunkName: "Incrementor" */));
+
 export { default as Loader } from './Loader/Loader';

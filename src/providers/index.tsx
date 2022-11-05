@@ -10,7 +10,7 @@ const Providers = ({ children }: TProps) => (
   <BrowserRouter>
     <ReactQueryProvider>
       {children}
-      <ReactQueryDevtools />
+      {import.meta.env.MODE === 'development' && <ReactQueryDevtools />}
     </ReactQueryProvider>
   </BrowserRouter>
 );

@@ -31,7 +31,7 @@ export default Project;
 
 const ProjectCard = styled(Flex)`
   flex: 1;
-  height: 50rem;
+  height: 35rem;
   border: 1px solid #ccc;
   overflow: hidden;
   flex-direction: column;

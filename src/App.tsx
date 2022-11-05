@@ -24,7 +24,7 @@ function App() {
     }
   }, [ngoLanguage]);
 
-  const theme: DefaultTheme = { primary, secondary };
+  const theme: DefaultTheme = { primary: 'red', secondary: 'blue' };
 
   if (isError) return <CrashPage />;
 

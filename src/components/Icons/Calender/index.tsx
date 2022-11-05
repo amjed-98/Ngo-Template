@@ -60,7 +60,7 @@ const Date = styled(Typography.Text)`
   position: absolute;
   margin-bottom: 0.14em;
   color: ${({ theme }) => theme.secondary};
-  top: 50%;
+  top: 42%;
 `;
 export default CalenderIcon;
 

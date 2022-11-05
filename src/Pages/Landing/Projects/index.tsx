@@ -1,7 +1,7 @@
 import { type ReactElement } from 'react';
 import styled from 'styled-components';
 import { useProjects } from 'hooks';
-import { Carousel } from 'components/common';
+import { Carousel, SectionTitle } from 'components/common';
 import ProjectCardSkeleton from 'components/Skeleton';
 import Project from './Project';
 
@@ -12,6 +12,7 @@ export default function Projects(): ReactElement {
 
   return (
     <Section id='causes'>
+      <SectionTitle padding={0}>Projects</SectionTitle>
       <Carousel Component={Project}>{projects}</Carousel>
     </Section>
   );

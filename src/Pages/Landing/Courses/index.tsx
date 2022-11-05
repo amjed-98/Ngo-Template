@@ -3,13 +3,12 @@ import RenderIf from 'components/RenderIf';
 import { Box, Carousel, SectionTitle } from 'components/common';
 import { useCourses } from 'hooks';
 import CourseCardSkeleton from 'components/Skeleton';
-import { ICourse } from 'types/interfaces';
 import CourseCard from './CourseCard';
 
 function Courses(): ReactElement {
   const { courses, isLoading, isError } = useCourses();
 
-  const formattedCourses: [course: ICourse, course?: ICourse][] = courses.reduce((acc, cur, i) => {
+  const formattedCourses: [course: TCourse, course?: TCourse][] = courses.reduce((acc, cur, i) => {
     if (i % 2 === 0) {
       acc.push([cur]);
     } else {
@@ -17,7 +16,7 @@ function Courses(): ReactElement {
     }
 
     return acc;
-  }, [] as [course: ICourse, course?: ICourse][]);
+  }, [] as [course: TCourse, course?: TCourse][]);
 
   if (isError) return <></>;
 

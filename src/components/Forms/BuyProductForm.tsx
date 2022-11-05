@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { type TypeOf } from 'yup';
 import { getStartProductPaymentUrl } from 'api/postApiServices';
 import { useFormSubmit, useManageForm, useNgoConfig } from 'hooks';
-import { buyProductSchema } from 'validation/schemas';
+import { buyProductSchema } from 'schemas';
 import { Button, Center, Input, Label, SectionTitle, TextArea, ErrorMsg, ResponseMsg } from 'components/common';
 
 interface IProps {

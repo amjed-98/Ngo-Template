@@ -2,9 +2,8 @@ import { type Params, useParams } from 'react-router-dom';
 import { getFinalizeDonationUrl } from '../../api/postApiServices';
 import FinalizePayment from '../../components/FinalizePaymentResult';
 import { useFinalizePayment, useNgoConfig } from '../../hooks';
-import { TFinalizePaymentParams } from '../../types/types';
 
-type TParams = Omit<TFinalizePaymentParams, 'home_address'>;
+type TParams = Omit<FinalizePaymentParams, 'home_address'>;
 
 function FinalizeDonation() {
   const { ngoId } = useNgoConfig();

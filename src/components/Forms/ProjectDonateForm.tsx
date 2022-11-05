@@ -1,32 +1,35 @@
+import type { FC } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { type TypeOf } from 'yup';
-import { type SubmitHandler } from 'react-hook-form';
 import { donationSchema } from 'schemas';
 import { Button, Center, Input, TextArea, ErrorMsg, ResponseMsg, Label } from 'components/common';
-import { useManageForm } from 'hooks';
+import { useFormSubmit, useManageForm, useNgoConfig } from 'hooks';
+import { getStartProjectDonationUrl } from 'api/postApiServices';
 
-type TFormSubmitData = TypeOf<typeof donationSchema>;
-type TProps = {
-  submitHandler: SubmitHandler<TFormSubmitData>;
-  projectId?: string;
-  states: {
-    isLoading: boolean;
-    isError: boolean;
-    isSuccess: boolean;
-  };
+type FormSubmitData = TypeOf<typeof donationSchema>;
+type Props = {
+  projectId: string;
 };
 
-function DonateForm({ projectId, submitHandler, states }: TProps) {
-  const { register, handleSubmit, errors, reset } = useManageForm<TFormSubmitData>(donationSchema);
+const ProjectDonateForm: FC<Props> = ({ projectId }) => {
+  const { register, handleSubmit, errors, reset } = useManageForm<FormSubmitData>(donationSchema);
+  const { ngoId } = useNgoConfig();
 
-  const submit = (data: TFormSubmitData) => {
-    submitHandler(data);
+  const { submit, ...states } = useFormSubmit<FormSubmitData, true>({
+    url: getStartProjectDonationUrl(ngoId),
+    redirectPath: 'causes',
+  });
+
+  const onSubmit = (formData: FormSubmitData) => {
+    const donationInfo = { ...formData, project_id: projectId, ong_id: ngoId };
+
+    submit(donationInfo);
     reset();
   };
 
   return (
-    <CustomForm onSubmit={handleSubmit(submit)}>
+    <CustomForm onSubmit={handleSubmit(onSubmit)}>
       <ResponseMsg
         {...states}
         successMsg='Your request has been sent successfully'
@@ -127,8 +130,8 @@ function DonateForm({ projectId, submitHandler, states }: TProps) {
       </Center>
     </CustomForm>
   );
-}
-export default DonateForm;
+};
+export default ProjectDonateForm;
 
 interface IFormControlProps {
   mode?: TFlexDirection;
@@ -157,7 +160,3 @@ const RadioBtn = styled.input`
   cursor: pointer;
   margin-left: 1.5rem;
 `;
-
-DonateForm.defaultProps = {
-  projectId: '',
-};

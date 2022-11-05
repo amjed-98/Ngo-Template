@@ -2,7 +2,6 @@ import moment from 'moment';
 import { type FC } from 'react';
 import styled from 'styled-components';
 import { Text } from 'components/common';
-import { type ILatestDonation } from 'types/interfaces';
 
 interface IProps {
   latestDonation: ILatestDonation;

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { getProjectLatestDonationsURL } from 'api/getApiServices';
 import { Text } from 'components/common';
 import { useFetch } from 'hooks';
-import { type ILatestDonation } from 'types/interfaces';
 import Skeleton from 'components/Skeleton';
 import DonationCard from './DonationCard';
 

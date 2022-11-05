@@ -1,4 +1,5 @@
-import type { TRoutes } from 'types/types';
+import { type JSXElementConstructor } from 'react';
+
 import {
   Aboutus,
   BecomeVolunteerForm,
@@ -27,7 +28,13 @@ type TParameters = {
   isStripe: boolean;
 };
 
-const getRoutes = ({ features, isStripe }: TParameters): TRoutes => {
+type Routes = readonly {
+  path: `/${string}`;
+  render: boolean;
+  Element: JSXElementConstructor<Record<string, never>>;
+}[];
+
+const getRoutes = ({ features, isStripe }: TParameters): Routes => {
   const { causes, courses, events, partners, donations, volunteers, market } = features;
 
   return [

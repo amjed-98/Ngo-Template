@@ -1,13 +1,13 @@
 /* eslint-disable react/no-children-prop */
 import { useEffect, type ReactElement } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useAllPlatformConfig } from 'hooks';
+import { useAllPlatformConfig, usePremiumSection } from 'hooks';
 import {
   Hero,
   Events,
   AboutUs,
   LogosCarousel,
-  PremiumEvent,
+  PremiumSection,
   Projects,
   SocialImpact,
   Volunteers,
@@ -20,7 +20,7 @@ import {
 
 export default function Landing(): ReactElement {
   const sectionHashId = useLocation().hash as `#${string}`;
-
+  const { isPremiumSection } = usePremiumSection();
   const { features } = useAllPlatformConfig();
   const {
     causes = false,
@@ -48,7 +48,7 @@ export default function Landing(): ReactElement {
       <AboutUs />
       <RenderIf if={logos} children={<LogosCarousel />} />
       <RenderIf if={causes} children={<Projects />} />
-      <RenderIf if={events} children={<PremiumEvent />} />
+      <RenderIf if={isPremiumSection} children={<PremiumSection />} />
       <RenderIf if={impact} children={<SocialImpact />} />
       <RenderIf if={events} children={<Events />} />
       <RenderIf if={partners} children={<SubscribeDivider />} />

@@ -4,7 +4,7 @@ import { type TypeOf } from 'yup';
 import { Button, Center, Input, TextArea, ErrorMsg, ResponseMsg } from 'components/common';
 import { useFormSubmit, useManageForm, useNgoConfig } from 'hooks';
 import { getSendContactEventUrl } from 'api/postApiServices';
-import { contactEventSchema } from 'validation/schemas';
+import { contactEventSchema } from 'schemas';
 
 interface IProps {
   id: string;

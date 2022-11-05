@@ -2,9 +2,8 @@ import { type Params, useParams } from 'react-router-dom';
 import { getFinalizeProductPaymentUrl } from '../../api/postApiServices';
 import FinalizePayment from '../../components/FinalizePaymentResult';
 import { useFinalizePayment, useNgoConfig } from '../../hooks';
-import { TFinalizePaymentParams } from '../../types/types';
 
-type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'certificate' | 'text'> & {
+type TParams = Omit<FinalizePaymentParams, 'anonymous' | 'certificate' | 'text'> & {
   product_id: string;
   mobilePhone: string;
   productAmount: number;

@@ -92,6 +92,40 @@ declare global {
     team: Readonly<TTeam[]>;
   }>;
 
+  type TOng = {
+    id: string;
+    name: string;
+    email: string;
+    password: string;
+    description: string;
+    img_url: string;
+    home_url: string;
+    ambit: string;
+    type: string;
+    address: string;
+    stripe_id: string;
+    nif: string;
+    ioCashUserId: string;
+    walletId: string;
+    walletStatus: string;
+    walletCertificateFile: string;
+    bankAccount: string;
+    dltAddress: string;
+    pk: string;
+    mobilePhone: string;
+    url: string;
+    port: number;
+    active: boolean;
+    zohoId: string;
+    hasPaypal: boolean;
+    paypal_client_id: string;
+    paypal_client_secret: string;
+    recoverHash: string;
+    recoverDate: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+
   type TEvent = {
     course: boolean;
     id: string;
@@ -111,6 +145,7 @@ declare global {
     type: 'Presencial' | 'Online';
     stripe_id: string;
     video_url: string;
+    isPremium: boolean;
     EventTickets: {
       amount: number;
       id: string;
@@ -119,21 +154,99 @@ declare global {
     }[];
   };
 
-  type TEventImage = {
+  type Image = {
     id: string;
-    event_id: string;
     img_url: string;
     default: boolean;
   };
 
+  type TEventImage = Image & {
+    event_id: string;
+  };
+
   type TCourse = TEvent;
 
-  type SnakeToCamelCase<Str extends string> = Str extends `${infer T}_${infer U}`
+  type SnakeToCamelCase<Type extends string | object> = Type extends `${infer T}_${infer U}`
     ? `${T}${Capitalize<SnakeToCamelCase<U>>}`
-    : Str;
+    : Type extends object
+    ? { [key in keyof Type as SnakeToCamelCase<key>]: Type[key] }
+    : Type;
 
-  type TEventCamelCased = {
-    [key in keyof TEvent as SnakeToCamelCase<key>]: TEvent[key];
+  type TProject = {
+    id: string;
+    ong_id: string;
+    title: string;
+    description: string;
+    amount: number;
+    price: number;
+    donated: number;
+    imageURL: string;
+    isPremium: boolean;
+    discount: number;
+    delivery_time: string;
+    active: boolean;
+    createdAt: string;
+    updatedAt: string;
+    Ong: TOng;
+  };
+
+  type TProjectImage = Image & {
+    project_id: string;
+  };
+
+  type TLogo = {
+    id: string;
+    ong_id: string;
+    logo: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+
+  type Product = {
+    id: string;
+    ong_id: string;
+    title: string;
+    description: string;
+    amount: number;
+    price: number;
+    default_img: string;
+    discount: number;
+    delivery_time: string;
+    active: boolean;
+    createdAt: string;
+    updatedAt: string;
+    Ong: Ong;
+  };
+
+  type ProductImage = Image & {
+    item_id: string;
+    createdAt: string;
+    updatedAt: string;
+  };
+
+  type FinalizePaymentParams = {
+    firstName: string;
+    lastName: string;
+    user_email: string;
+    amount: number;
+    certificate: boolean;
+    text: string;
+    nif: string;
+    anonymous: boolean;
+    ong_id: string;
+    home_address: string;
+  };
+
+  type ILatestDonation = {
+    id: string;
+    text: string;
+    anonymous: boolean;
+    amount: number;
+    createdAt: string;
+    User: {
+      firstName: string;
+      lastName: string;
+    };
   };
 }
 

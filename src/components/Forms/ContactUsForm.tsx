@@ -4,7 +4,7 @@ import { type TypeOf } from 'yup';
 import styled from 'styled-components';
 import { getSendContactUrl } from 'api/postApiServices';
 import { useGeocoding, useFormSubmit, useAllPlatformConfig, useManageForm } from 'hooks';
-import { contactSchema } from 'validation/schemas';
+import { contactSchema } from 'schemas';
 import { RenderIf, Footer, Map, Navbar } from 'components';
 import { Button, Center, Flex, Input, Label, TextArea, ErrorMsg, ResponseMsg } from 'components/common';
 

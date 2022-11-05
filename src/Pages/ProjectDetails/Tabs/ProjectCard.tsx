@@ -1,39 +1,15 @@
 import { Progress } from 'antd';
-import { type TypeOf } from 'yup';
 import styled, { useTheme } from 'styled-components';
-import { Modal, DonateForm } from 'components';
-import { getStartProjectDonationUrl } from 'api/postApiServices';
+import { Modal, ProjectDonateForm } from 'components';
 import { Button, Card, Flex, Text } from 'components/common';
-import { useNgoConfig, useFormSubmit } from 'hooks';
 
-import { donationSchema } from 'validation/schemas';
+type Props = {
+  project: SnakeToCamelCase<TProject>;
+};
 
-type TFormSubmitData = TypeOf<typeof donationSchema>;
-
-interface IProps {
-  project: {
-    id: string;
-    title: string;
-    donated: number;
-    amount: number;
-  };
-}
-
-export function ProjectCard({ project }: IProps) {
+export function ProjectCard({ project }: Props) {
   const { id, title, donated = 0, amount = 1 } = project;
-  const { ngoId } = useNgoConfig();
   const { primary } = useTheme();
-
-  const { submit, ...states } = useFormSubmit<TFormSubmitData, true>({
-    url: getStartProjectDonationUrl(ngoId),
-    redirectPath: 'causes',
-  });
-
-  const handleSubmit = (values: TFormSubmitData) => {
-    const donationInfo = { ...values, project_id: id, ong_id: ngoId };
-
-    submit(donationInfo);
-  };
 
   const donationProgress = +((donated / amount) * 100).toFixed();
   const donateBtnText = donationProgress >= 100 ? 'Filled!' : 'Donate';
@@ -53,7 +29,7 @@ export function ProjectCard({ project }: IProps) {
           Share
         </Button>
         <Modal btnText={donateBtnText}>
-          <DonateForm submitHandler={handleSubmit} projectId={id} states={states} />
+          <ProjectDonateForm projectId={id} />
         </Modal>
       </Flex>
     </Card>

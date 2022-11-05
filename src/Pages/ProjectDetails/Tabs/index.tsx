@@ -1,36 +1,17 @@
 import { Tabs as AntdTabs } from 'antd';
-import { getStartProjectDonationUrl } from 'api/postApiServices';
-import { DonateForm } from 'components';
-import { useNgoConfig, useFormSubmit } from 'hooks';
-import { donationSchema } from 'validation/schemas';
-import { type TypeOf } from 'yup';
+import ProjectDonateForm from 'components/Forms/ProjectDonateForm';
 import Description from './Description';
 import LatestDonations from './LatestDonations';
 
 const { TabPane } = AntdTabs;
 
-type TFormSubmitData = TypeOf<typeof donationSchema>;
+type Props = {
+  projectDetails: SnakeToCamelCase<TProject>;
+};
 
-interface IProps {
-  projectDetails: {
-    id: string;
-    description: string;
-  };
-}
-
-function Tabs({ projectDetails }: IProps) {
+function Tabs({ projectDetails }: Props) {
   const { id = '', description = '' } = projectDetails;
-  const { ngoId } = useNgoConfig();
 
-  const { submit, ...states } = useFormSubmit<TFormSubmitData, true>({
-    url: getStartProjectDonationUrl(ngoId),
-    redirectPath: 'donate',
-  });
-
-  const handleSubmit = (values: TFormSubmitData) => {
-    const donationInfo = { ...values, project_id: id, ong_id: ngoId };
-    submit(donationInfo);
-  };
   return (
     <AntdTabs defaultActiveKey='1'>
       <TabPane tab='Details' key='1'>
@@ -38,7 +19,7 @@ function Tabs({ projectDetails }: IProps) {
       </TabPane>
 
       <TabPane tab='Donate' key='2'>
-        <DonateForm submitHandler={handleSubmit} projectId={id} states={states} />
+        <ProjectDonateForm projectId={id} />
       </TabPane>
 
       <TabPane tab='Historical' key='3'>

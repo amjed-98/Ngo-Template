@@ -1,15 +1,14 @@
 import { Fragment, type ReactElement, useMemo } from 'react';
 import styled from 'styled-components';
 import { type TypeOf } from 'yup';
-import { TModal } from 'types/types';
-import { buyTicketSchema } from 'validation/schemas';
+import { buyTicketSchema } from 'schemas';
 import { useFormSubmit, useManageForm, useNgoConfig } from 'hooks';
 import { getBuyEventTicketUrl } from 'api/postApiServices';
 import { Button, Center, ErrorMsg, Input, ResponseMsg, CustomInputDiv } from 'components/common';
 
 interface Props {
-  modal?: TModal;
-  event: TEventCamelCased;
+  modal?: boolean;
+  event: { id: string; EventTickets: TEvent['EventTickets']; price: number };
 }
 
 type TFormSubmitData = TypeOf<typeof buyTicketSchema>;
@@ -108,7 +107,7 @@ function BuyEventForm({ modal, event: { id, EventTickets, price } }: Props): Rea
 
 export default BuyEventForm;
 
-const BuyFrom = styled.form<{ modal: TModal }>`
+const BuyFrom = styled.form<{ modal?: boolean }>`
   width: ${({ modal }) => (modal ? '60%' : '100%')};
   margin: auto;
 `;
@@ -118,7 +117,7 @@ const FormTitle = styled.h2`
   margin-top: 3.2rem;
 `;
 
-const FormRow = styled.div<{ modal: TModal }>`
+const FormRow = styled.div<{ modal?: boolean }>`
   display: flex;
   flex-direction: ${({ modal }) => (modal ? 'column' : 'row')};
   gap: 0.8rem;

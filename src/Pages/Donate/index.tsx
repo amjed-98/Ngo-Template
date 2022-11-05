@@ -1,5 +1,5 @@
 import { type TypeOf } from 'yup';
-import { donationSchema } from 'validation/schemas';
+import { donationSchema } from 'schemas';
 import { getStartDonationUrl } from 'api/postApiServices';
 import { Footer, DonateForm, Navbar } from 'components';
 import { Flex, SectionTitle } from 'components/common';

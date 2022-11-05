@@ -3,7 +3,7 @@ import styled, { useTheme } from 'styled-components';
 import { type TypeOf } from 'yup';
 import { getBuyCourseUrl } from 'api/getApiServices';
 import { useFormSubmit, useManageForm, useNgoConfig } from 'hooks';
-import { buyCourseTicketSchema } from 'validation/schemas';
+import { buyCourseTicketSchema } from 'schemas';
 import { Button, Input, Label, Link, ErrorMsg, ResponseMsg } from 'components/common';
 
 type TFormSubmitData = TypeOf<typeof buyCourseTicketSchema>;
@@ -19,7 +19,7 @@ export default function BuyCourseForm({ courseId }: TProps): ReactElement {
 
   const { submit, ...states } = useFormSubmit<TFormSubmitData, true>({
     url: getBuyCourseUrl(courseId),
-    redirectPath: 'shop',
+    redirectPath: 'courses',
   });
 
   const onSubmit = (data: TFormSubmitData) => {

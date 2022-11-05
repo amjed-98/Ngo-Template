@@ -9,7 +9,7 @@ import { Footer, Navbar } from 'components';
 import { Button, Center, Input, ErrorMsg, ResponseMsg, CustomInputDiv } from 'components/common';
 import { useFormSubmit, useManageForm, useNgoConfig } from 'hooks';
 import { getBecomePartnerUrl } from 'api/postApiServices';
-import { memberSchema } from 'validation/schemas';
+import { memberSchema } from 'schemas';
 
 type TFormSubmitData = TypeOf<typeof memberSchema>;
 

@@ -33,6 +33,7 @@ const useEventDetails = (eventId: string): ReturnType => {
     stripe_id: stripeId = '',
     type = 'Online',
     video_url: videoUrl = '',
+    isPremium = false,
   } = events.find((event) => event.id === eventId) || {};
 
   return {
@@ -58,6 +59,7 @@ const useEventDetails = (eventId: string): ReturnType => {
     stripeId,
     type,
     videoUrl,
+    isPremium,
   };
 };
 

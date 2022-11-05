@@ -1,14 +1,11 @@
 import { useMemo } from 'react';
-import { getProductsURL } from 'api/getApiServices';
 import { Footer, Navbar, Skeleton, RenderIf } from 'components';
 import { Flex, SectionTitle, Text } from 'components/common';
-import { useNgoConfig, useFetch } from 'hooks';
-import { TProducts } from 'types/types';
+import { useProducts } from 'hooks';
 import { ProductCard } from './ProductCard';
 
 function Shop() {
-  const { ngoId } = useNgoConfig();
-  const { data: products, isLoading } = useFetch<TProducts>(getProductsURL(ngoId), ['products'], ngoId);
+  const { products, isLoading } = useProducts();
 
   const memoizedProducts = useMemo(
     () => products?.map((product) => <ProductCard key={product.id} {...product} />),

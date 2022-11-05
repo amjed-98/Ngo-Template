@@ -4,7 +4,7 @@ import { getAddVolunteerUrl } from 'api/postApiServices';
 import { Footer, Navbar } from 'components';
 import { Button, Center, Flex, SectionTitle, ErrorMsg, Input, ResponseMsg, CustomInputDiv } from 'components/common';
 import { useFormSubmit, useManageForm, useNgoConfig } from 'hooks';
-import { volunteerSchema } from 'validation/schemas';
+import { volunteerSchema } from 'schemas';
 
 type TFormSubmitData = TypeOf<typeof volunteerSchema>;
 

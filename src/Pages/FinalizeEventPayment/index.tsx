@@ -2,9 +2,8 @@ import { type Params, useParams, useSearchParams } from 'react-router-dom';
 import { getFinalizeEventPaymentUrl } from '../../api/postApiServices';
 import FinalizePayment from '../../components/FinalizePaymentResult';
 import { useFinalizePayment, useNgoConfig } from '../../hooks';
-import { TFinalizePaymentParams } from '../../types/types';
 
-type TParams = Omit<TFinalizePaymentParams, 'anonymous' | 'amount' | 'certificate'> & {
+type TParams = Omit<FinalizePaymentParams, 'anonymous' | 'amount' | 'certificate'> & {
   event_id: string;
   mobilePhone: string;
   terms_and_conditions: boolean;

@@ -2,9 +2,8 @@ import { type Params, useParams, useSearchParams } from 'react-router-dom';
 import { getFinalizeProjectDonationUrl } from '../../api/postApiServices';
 import { FinalizePaymentResult } from '../../components';
 import { useFinalizePayment, useNgoConfig } from '../../hooks';
-import { TFinalizePaymentParams } from '../../types/types';
 
-type TParams = TFinalizePaymentParams & {
+type TParams = FinalizePaymentParams & {
   project_id: string;
 };
 

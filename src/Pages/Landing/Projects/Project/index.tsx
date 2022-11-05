@@ -1,34 +1,12 @@
 import { type ReactElement } from 'react';
 import styled from 'styled-components';
 import { Text, Image, Flex, Link } from 'components/common';
-import DonateForm from 'components/Forms/DonateForm';
 import Modal from 'components/Modal';
-import { useFormSubmit, useNgoConfig } from 'hooks';
-import { getStartProjectDonationUrl } from 'api/postApiServices';
-import { donationSchema } from 'validation/schemas';
-import { type TypeOf } from 'yup';
+import ProjectDonateForm from 'components/Forms/ProjectDonateForm';
 
-type TFormSubmitData = TypeOf<typeof donationSchema>;
+type Props = TProject;
 
-interface ProjectProps {
-  imageURL: string;
-  title: string;
-  id: string;
-}
-
-function Project({ imageURL, title, id }: ProjectProps): ReactElement {
-  const { ngoId } = useNgoConfig();
-  const { submit, ...states } = useFormSubmit<TFormSubmitData, true>({
-    url: getStartProjectDonationUrl(ngoId),
-    redirectPath: 'causes',
-  });
-
-  const handleSubmit = (data: TFormSubmitData) => {
-    const donationInfo = { ...data, ong_id: ngoId };
-
-    submit(donationInfo);
-  };
-
+function Project({ imageURL, title, id }: Props): ReactElement {
   return (
     <ProjectCard>
       <Image src={imageURL} alt='' />
@@ -42,7 +20,7 @@ function Project({ imageURL, title, id }: ProjectProps): ReactElement {
         </Link>
 
         <Modal btnText='Donate' title={`Donate to ${title}`}>
-          <DonateForm projectId={id} submitHandler={handleSubmit} states={states} />
+          <ProjectDonateForm projectId={id} />
         </Modal>
       </ProjectFooter>
     </ProjectCard>

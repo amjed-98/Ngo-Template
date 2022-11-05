@@ -3,4 +3,7 @@ export default {
   ngoConfig: ['ngoConfig'],
   events: ['events'],
   courses: ['courses'],
+  projects: ['projects'],
+  logos: ['logos'],
+  products: ['products'],
 } as const;

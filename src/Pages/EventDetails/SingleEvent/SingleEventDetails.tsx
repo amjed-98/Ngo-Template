@@ -9,7 +9,7 @@ import { RenderIf, Map } from 'components';
 import ImageCarousel from './ImageCarousel';
 
 type TProps = {
-  event: TEventCamelCased;
+  event: SnakeToCamelCase<TEvent>;
 };
 const SingleEventDetails: FC<TProps> = ({ event }) => {
   const { contact: { address = '' } = {} } = useAllPlatformConfig();

@@ -59,6 +59,8 @@ const Date = styled(Typography.Text)`
   font-weight: bold;
   position: absolute;
   margin-bottom: 0.14em;
+  color: ${({ theme }) => theme.secondary};
+  top: 50%;
 `;
 export default CalenderIcon;
 

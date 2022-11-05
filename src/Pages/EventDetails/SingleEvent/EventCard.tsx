@@ -10,7 +10,9 @@ import BuyCourseForm from 'components/Forms/BuyCourseForm';
 import { ShareModal } from 'components/ShareModal/ShareModal';
 import ImageCarousel from './ImageCarousel';
 
-export function EventCard(props: TEventCamelCased): ReactElement {
+type Props = SnakeToCamelCase<TEvent>;
+
+export function EventCard(props: Props): ReactElement {
   const { id, title, startTime, endTime, location, stock, course } = props;
 
   const { pathname } = useLocation();

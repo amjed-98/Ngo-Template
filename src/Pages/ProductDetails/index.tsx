@@ -7,18 +7,12 @@ import { Button, Card, Center, Flex } from 'components/common';
 import { Footer, Navbar, Modal } from 'components';
 import { BuyProductForm } from 'components/Forms/BuyProductForm';
 import { ContactEventForm } from 'components/Forms/ContactEventForm';
-import { useFetch } from 'hooks';
-import { IProduct } from 'types/interfaces';
-import { TImages } from 'types/types';
-import { getProductDetails, getProductImages } from 'api/getApiServices';
+import { useProductDetails, useProductImages } from 'hooks';
 
 function SingleProduct(): ReactElement {
-  const { id = '' } = useParams<Params<'id'>>();
-  const { data: product } = useFetch<IProduct>(getProductDetails(id), [`products${id}`], id);
-
-  const { data: images } = useFetch<TImages>(getProductImages(id), [`images${id}`], id);
-
-  const { title = '', price = 0, description = '', amount } = product || {};
+  const { id: productId = '' } = useParams<Params<'id'>>();
+  const { title, price, description, amount } = useProductDetails(productId);
+  const { images } = useProductImages(productId);
 
   const memoizedImages = useMemo(
     () =>
@@ -35,21 +29,21 @@ function SingleProduct(): ReactElement {
       <Center mt={4.2}>
         <Breadcrumb separator='>'>
           <Breadcrumb.Item>Shop</Breadcrumb.Item>
-          <Breadcrumb.Item>{product?.title}</Breadcrumb.Item>
+          <Breadcrumb.Item>{title}</Breadcrumb.Item>
         </Breadcrumb>
       </Center>
       <Container>
         <Flex gap={2.4}>{memoizedImages}</Flex>
         <ProductSidebar>
           <Card mode='column' smMode='column' maxWidth='400px' py={2.4} px={1.8}>
-            <ProductName>{product?.title}</ProductName>
+            <ProductName>{title}</ProductName>
             <ProductsAvailable>Stock: {amount}</ProductsAvailable>
             <Flex justify='space-around' mt={1}>
               <Button px='2.8rem' py='0.8rem' color='#777777' bgColor='F#1F1F1'>
                 Share
               </Button>
               <Modal btnText='Buy'>
-                <BuyProductForm modal id={id} price={price} title={title} />
+                <BuyProductForm modal id={productId} price={price} title={title} />
               </Modal>
             </Flex>
           </Card>
@@ -59,11 +53,11 @@ function SingleProduct(): ReactElement {
               <ProductDetails>{HtmlParser(description)}</ProductDetails>
             </Tabs.TabPane>
             <Tabs.TabPane tab='Buy' key='2'>
-              <BuyProductForm id={id} price={price} title={title} />
+              <BuyProductForm id={productId} price={price} title={title} />
             </Tabs.TabPane>
 
             <Tabs.TabPane tab='Contact' key='3'>
-              <ContactEventForm id={id} />
+              <ContactEventForm id={productId} />
             </Tabs.TabPane>
           </CustomTabs>
         </ProductSidebar>

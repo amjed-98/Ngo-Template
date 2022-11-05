@@ -6,8 +6,8 @@ export const AboutUs = lazy(() => import('Pages/Landing/Aboutus/Aboutus' /* webp
 export const Events = lazy(() => import('Pages/Landing/Events' /* webpackChunkName: "Events_section" */));
 export const Hero = lazy(() => import('Pages/Landing/Hero' /* webpackChunkName: "Hero" */));
 export const LogosCarousel = lazy(() => import('Pages/Landing/LogosCarousel' /* webpackChunkName: "LogosCarousel" */));
-export const PremiumEvent = lazy(
-  () => import('Pages/Landing/PremiumEvent/PremiumEvent' /* webpackChunkName: "PremiumEventSection" */),
+export const PremiumSection = lazy(
+  () => import('Pages/Landing/PremiumSection' /* webpackChunkName: "PremiumSection" */),
 );
 export const Projects = lazy(() => import('Pages/Landing/Projects' /* webpackChunkName: "Projects_section" */));
 export const SocialImpact = lazy(
@@ -21,6 +21,7 @@ export const Volunteers = lazy(() => import('Pages/Landing/Volunteers' /* webpac
 export const Divider = lazy(() => import('Pages/Landing/Divider/Divider' /* webpackChunkName: "Divider" */));
 export const Courses = lazy(() => import('Pages/Landing/Courses' /* webpackChunkName: "Courses_section" */));
 export const DonateForm = lazy(() => import('./Forms/DonateForm' /* webpackChunkName: "DonateForm" */));
+export const ProjectDonateForm = lazy(() => import('./Forms/ProjectDonateForm' /* webpackChunkName: "DonateForm" */));
 export const Modal = lazy(() => import('./Modal' /* webpackChunkName: "BuyModal" */));
 export const FinalizePaymentResult = lazy(
   () => import('./FinalizePaymentResult' /* webpackChunkName: "FinalizePaymentResult" */),

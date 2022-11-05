@@ -24,6 +24,7 @@ const useFormSubmit = <TMutate = never, IsPayment extends boolean = false>(param
       await mutateAsync(formData);
       return;
     }
+    // TODO  TYPE
 
     if (paymentMethod === 'stripe') {
       const {

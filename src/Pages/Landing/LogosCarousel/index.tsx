@@ -1,20 +1,12 @@
 import { type ReactElement } from 'react';
 import { useTheme } from 'styled-components';
 import { Box, Carousel, ErrorMsg } from 'components/common';
-import { useFetch, useNgoConfig } from 'hooks';
-import { getOngLogos } from 'api/getApiServices';
+import { useLogos } from 'hooks';
 import Skeleton from 'components/Skeleton';
 import LogoContainer from './LogoContainer';
 
-interface ILogo {
-  id: string;
-  logo: string;
-}
-
 export default function LogosCarousel(): ReactElement {
-  const { ngoId } = useNgoConfig();
-  const { data: logos = [], isLoading, isError } = useFetch<ILogo[]>(getOngLogos(ngoId), ['logos'], ngoId);
-
+  const { logos, isError, isLoading } = useLogos();
   const { primary } = useTheme();
 
   if (isError) return <ErrorMsg>something went wrong!</ErrorMsg>;

@@ -1,8 +1,8 @@
 import BASE_URL from './baseUrl';
 
 const ngoUrl = ['development', 'staging'].includes(import.meta.env.MODE)
-  ? 'prehelloo.web.lazzaro.io'
-  : window.location.hostname;
+  ? 'hello.web.lazzaro.io'
+  : window.location.host;
 
 export const getProjectsURL = (ongId: string) => `${BASE_URL}/api/private/projects/ong/${ongId}`;
 export const getProjectDetailsURL = (id: string) => `${BASE_URL}/api/private/projects/${id}`;

@@ -1,4 +1,4 @@
-import { JSXElementConstructor, ReactElement } from 'react';
+import type { JSXElementConstructor, ReactElement } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Autoplay } from 'swiper';
 import styled from 'styled-components';
@@ -20,7 +20,7 @@ function Carousel<TChild extends { id: string }>(props: TProps<TChild>): ReactEl
     if (Array.isArray(child)) {
       return (
         <VerticalSlider key={child[i]?.id || i}>
-          {child.map((nestedChild) => nestedChild && <Component key={nestedChild.id} {...nestedChild} />)}
+          {child.map((nestedChild) => !!nestedChild && <Component key={nestedChild.id} {...nestedChild} />)}
         </VerticalSlider>
       );
     }

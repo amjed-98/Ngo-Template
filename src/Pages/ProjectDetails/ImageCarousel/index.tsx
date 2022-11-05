@@ -12,7 +12,9 @@ interface IProps {
 function ImageCarousel({ images }: IProps) {
   return (
     <Section>
-      <Carousel Component={ImageContainer}>{images}</Carousel>
+      <Carousel slidesPerView={1} Component={ImageContainer}>
+        {images}
+      </Carousel>
 
       <Triangle />
     </Section>

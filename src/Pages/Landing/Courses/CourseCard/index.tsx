@@ -3,20 +3,8 @@ import HtmlParser from 'html-react-parser';
 import { CalendarIcon } from 'components/Icons';
 import { Box, Card, Flex, Image, Link } from 'components/common';
 
-interface IProps {
-  course: {
-    title: string;
-    description: string;
-    location: string;
-    imageURL: string;
-    start_time: string;
-    end_time: string;
-    id: string;
-  };
-}
-
-function CourseCard({ course: { title, description = '', imageURL, start_time: startTime, id } }: IProps) {
-  const date = Number(moment(startTime).format('D'));
+function CourseCard({ imageURL, title, description, id, start_time }: TCourse) {
+  const date = Number(moment(start_time).format('D'));
 
   return (
     <Card mode='row' smMode='column' my={0.5} p={1} maxWidth='45rem'>

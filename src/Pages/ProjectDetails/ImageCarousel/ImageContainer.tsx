@@ -1,14 +1,10 @@
 import { type FC } from 'react';
 import styled from 'styled-components';
-import { Image } from '../../../components/common';
+import { Image } from 'components/common';
 
-type TProps = {
-  imgUrl: string;
-};
-
-const ImageContainer: FC<TProps> = ({ imgUrl }) => (
+const ImageContainer: FC<TProjectImage> = ({ img_url }) => (
   <ImageWrapper>
-    <Image src={imgUrl} alt='project' />
+    <Image src={img_url} alt='project' />
   </ImageWrapper>
 );
 

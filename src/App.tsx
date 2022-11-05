@@ -8,12 +8,12 @@ import { useSetFavIcon, useSetDocumentTitle, useAllPlatformConfig } from 'hooks'
 
 function App() {
   const {
-    brand: { logo = '', name, primary_color_hex: primary = '', secondary_color_hex: secondary = '' } = {},
+    brand: { name, favicon = '' } = {},
     platformConfig: { language: ngoLanguage = 'es' } = {},
     isLoading,
     isError,
   } = useAllPlatformConfig();
-  useSetFavIcon(logo);
+  useSetFavIcon(favicon);
   useSetDocumentTitle(name || 'Loading...');
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function App() {
     }
   }, [ngoLanguage]);
 
-  const theme: DefaultTheme = { primary: 'red', secondary: 'blue' };
+  const theme: DefaultTheme = { primary: 'red', secondary: 'black' };
 
   if (isError) return <CrashPage />;
 

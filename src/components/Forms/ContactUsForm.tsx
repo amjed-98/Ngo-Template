@@ -84,7 +84,7 @@ function ContactUsForm(): ReactElement {
             <MailOutlined />
             <InfoText>
               <TextTitle>Our office</TextTitle>
-              <TextHolder>{address}</TextHolder>
+              <TextHolder>{address.slice(0, 15)}</TextHolder>
             </InfoText>
           </InfoBox>
 

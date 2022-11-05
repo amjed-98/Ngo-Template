@@ -9,7 +9,7 @@ export default function AboutUs(): React.ReactElement {
     useAllPlatformConfig();
   const { t } = useTranslation();
   return (
-    <Flex id='about' align='stretch' mt={4.2} pl={4.1}>
+    <Flex id='about' align='stretch' my={4.2} pl={4.1}>
       <Flex direction='column' align='stretch' justify='stretch' textAlign='left' flex={1}>
         <SectionTitle marginTop={0} padding={0} fontSize={2.4}>
           {titleDescription}

@@ -20,7 +20,7 @@ export default function NearEvent(props: IProps): ReactElement {
     <Card flex={1} mode='column' smMode='column' maxWidth='40%' p={1} onClick={navigateTo(`/events/${id}`)}>
       <Box>
         <BookmarkIcon position='absolute' right={2.3} top={-1} />
-        <Image src={imageURL} alt='Near Event' p={1} />
+        <Image src={imageURL} alt='Near Event' p={1} style={{ maxHeight: '25rem' }} />
       </Box>
 
       <TextContainer>
@@ -38,7 +38,6 @@ const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  padding: 1rem;
   width: 100%;
 
   h2 {

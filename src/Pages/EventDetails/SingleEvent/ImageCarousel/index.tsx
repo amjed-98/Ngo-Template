@@ -13,7 +13,11 @@ const ImageCarousel: FC<TProps> = ({ eventId }) => {
 
   if (isLoading) return <Skeleton width={25} height={27} number={1} />;
 
-  return <Carousel Component={ImageContainer}>{images}</Carousel>;
+  return (
+    <Carousel slidesPerView={1} Component={ImageContainer}>
+      {images}
+    </Carousel>
+  );
 };
 
 export default ImageCarousel;

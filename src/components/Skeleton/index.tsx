@@ -9,13 +9,14 @@ interface IProps {
   mt?: TMarginTop;
   px?: TPaddingInline;
   justify?: TJustifyContent;
+  direction?: TFlexDirection;
 }
 
 const Skeleton: FC<IProps> = (props) => {
-  const { width, height, number, mt, justify, px } = props;
+  const { width, height, number, mt, justify, px, direction } = props;
 
   return (
-    <Flex justify={justify} gap={2} px={px} mt={mt}>
+    <Flex justify={justify} gap={2} px={px} mt={mt} direction={direction}>
       {Array.from({ length: number }).map(() => (
         <LoadingSkeleton key={useId()} width={`${width}rem`} height={`${height}rem`} />
       ))}
@@ -27,6 +28,7 @@ Skeleton.defaultProps = {
   mt: 4.1,
   justify: 'space-between',
   px: 4.1,
+  direction: 'initial',
 };
 
 export default Skeleton;

@@ -1,7 +1,7 @@
-import { useEffect } from 'react';
+import { useLayoutEffect } from 'react';
 
 const useSetFavIcon = (url: string): void => {
-  useEffect(() => {
+  useLayoutEffect(() => {
     const favIcon: HTMLLinkElement = document.querySelector("link[rel*='icon']") || document.createElement('link');
 
     favIcon.type = 'image/x-icon';

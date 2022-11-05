@@ -17,7 +17,7 @@ export default function AboutUs(): React.ReactElement {
 
         <Box fontSize={1.1} pr={2.8} color='#777' lineHeight={1.8}>
           <RenderIf if={description.length > 1180}>
-            <Box>{HtmlParser(description).toString().slice(0, 1180)}...</Box>
+            <Box>{HtmlParser(description)}...</Box>
             <Link to='/about' align='flex-end' mt={1.8} underlined>
               {t('Read More')}
             </Link>
